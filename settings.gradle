@@ -1,0 +1,2 @@
+rootProject.name = "FirstNationConnect"
+include ':app'
