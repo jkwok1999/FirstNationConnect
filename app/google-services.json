@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "180360425939",
+    "project_id": "first-nation-connect",
+    "storage_bucket": "first-nation-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180360425939:android:e56c2a015071f23115bf26",
+        "android_client_info": {
+          "package_name": "com.example.firstnationconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180360425939-4mas8um3ktp4frd18r4d6119c71hjlhf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACcnT2R4-vXwkbe5PRZ0KjNrG8U3yUsiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180360425939-4mas8um3ktp4frd18r4d6119c71hjlhf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
