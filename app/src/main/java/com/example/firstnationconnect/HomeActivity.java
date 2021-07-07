@@ -40,10 +40,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        mAuth.signOut();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        //using switch to better organise onClick buttons
+        switch (v.getId()) {
+            case R.id.signOut:
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                //finish() function will ensure user is fully logged out and will not encounter
+                //bugs that make them remain logged in
+                finish();
+                break;
+        }
     }
 
     public void getCurrentUser () {
