@@ -92,73 +92,50 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String password = newPassword.getText().toString().trim();
             String firstName = registerFirstName.getText().toString().trim();
             String lastName = registerLastName.getText().toString().trim();
-            int age = Integer.parseInt(registerAge.getEditableText().toString());
-
             boolean loginValid = true;
-
-
             if (firstName.isEmpty()) {
                 registerFirstName.setError("First name is required!");
-                registerFirstName.requestFocus();
                 loginValid = false;
-                return;
             }
             if (lastName.isEmpty()) {
                 registerLastName.setError("Last name is required!");
-                registerLastName.requestFocus();
                 loginValid = false;
-                return;
             }
             if (registerAge.getText().toString().trim().isEmpty()){
                 registerAge.setError("Age is required!");
-                registerAge.requestFocus();
                 loginValid = false;
-                return;
-            }
-            if (age < 16){
-                registerAge.setError("User must be 16 years or older!");
-                registerAge.requestFocus();
-                loginValid = false;
-                return;
-            }
-            if (age > 110){
-                registerAge.setError("Please enter valid age!");
-                registerAge.requestFocus();
-                loginValid = false;
-                return;
             }
             if (email.isEmpty()) {
                 newEmail.setError("Email is required!");
-                newEmail.requestFocus();
                 loginValid = false;
-                return;
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 newEmail.setError("Please provide a valid email address!");
-                newEmail.requestFocus();
                 loginValid = false;
-                return;
             }
             if (password.isEmpty()) {
                 newPassword.setError("Password is required!");
-                newPassword.requestFocus();
                 loginValid = false;
-                return;
             }
             if (password.length() < 6) {
                 newPassword.setError("Password must be at least 6 characters!");
-                newPassword.requestFocus();
                 loginValid = false;
-                return;
+            }
+            int age = Integer.parseInt(registerAge.getEditableText().toString());
+            if (age < 16){
+                registerAge.setError("User must be 16 years or older!");
+                loginValid = false;
+            }
+            if (age > 110){
+                registerAge.setError("Please enter valid age!");
+                loginValid = false;
             }
             if (!registerCheckBox.isChecked()) {
                 registerCheckBox.setError("Please agree to Terms and Conditions");
-                registerCheckBox.requestFocus();
                 loginValid = false;
-                return;
+            } else {
+                registerCheckBox.setError(null);
             }
-
-
             if (loginValid == true) {
 
                 registerProgressBar.setVisibility(View.VISIBLE);

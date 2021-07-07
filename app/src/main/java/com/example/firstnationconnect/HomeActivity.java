@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button signOut;
+    Button signOut, btDiscussionForum;
     TextView loggedInAs, loggedInEmail;
 
     private static final String TAG = "HomeActivity";
@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         signOut = findViewById(R.id.signOut);
         signOut.setOnClickListener(this);
+        btDiscussionForum = findViewById(R.id.btDiscussionForum);
+        btDiscussionForum.setOnClickListener(this);
         loggedInAs = findViewById(R.id.loggedInAs);
         loggedInEmail = findViewById(R.id.loggedInEmail);
 
