@@ -93,16 +93,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String firstName = registerFirstName.getText().toString().trim();
             String lastName = registerLastName.getText().toString().trim();
             boolean loginValid = true;
+            if (registerAge.getText().toString().trim().isEmpty()){
+                registerAge.setError("Age is required!");
+                loginValid = false;
+            }
             if (firstName.isEmpty()) {
                 registerFirstName.setError("First name is required!");
                 loginValid = false;
             }
             if (lastName.isEmpty()) {
                 registerLastName.setError("Last name is required!");
-                loginValid = false;
-            }
-            if (registerAge.getText().toString().trim().isEmpty()){
-                registerAge.setError("Age is required!");
                 loginValid = false;
             }
             if (email.isEmpty()) {
@@ -120,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (password.length() < 6) {
                 newPassword.setError("Password must be at least 6 characters!");
                 loginValid = false;
+                return;
             }
             int age = Integer.parseInt(registerAge.getEditableText().toString());
             if (age < 16){
