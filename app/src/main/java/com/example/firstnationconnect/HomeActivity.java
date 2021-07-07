@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button signOut;
+    Button signOut, btDiscussionForum;
     TextView loggedInAs, loggedInEmail;
 
     private static final String TAG = "HomeActivity";
@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         signOut = findViewById(R.id.signOut);
         signOut.setOnClickListener(this);
+        btDiscussionForum = findViewById(R.id.btDiscussionForum);
+        btDiscussionForum.setOnClickListener(this);
         loggedInAs = findViewById(R.id.loggedInAs);
         loggedInEmail = findViewById(R.id.loggedInEmail);
 
@@ -40,10 +42,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        mAuth.signOut();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        //using switch to better organise onClick buttons
+        switch (v.getId()) {
+            case R.id.signOut:
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                //finish() function will ensure user is fully logged out and will not encounter
+                //bugs that make them remain logged in
+                finish();
+                break;
+        }
     }
 
     public void getCurrentUser () {
