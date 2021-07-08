@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button signOut, btDiscussionForum;
-    TextView loggedInAs, loggedInEmail;
+    TextView loggedInAs, loggedInEmail, loggedInUsername;
 
     private static final String TAG = "HomeActivity";
     private FirebaseAuth mAuth;
@@ -32,12 +32,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         btDiscussionForum.setOnClickListener(this);
         loggedInAs = findViewById(R.id.loggedInAs);
         loggedInEmail = findViewById(R.id.loggedInEmail);
+        loggedInUsername = findViewById(R.id.loggedInUsername);
+
 
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = mAuth.getCurrentUser();
 
         loggedInEmail.setText(user.getEmail());
+        loggedInUsername.setText(user.getDisplayName());
+
     }
 
     @Override

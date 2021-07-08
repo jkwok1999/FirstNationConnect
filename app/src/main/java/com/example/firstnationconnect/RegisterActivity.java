@@ -20,11 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText newEmail, newPassword, registerFirstName, registerLastName, registerAge;
+    private EditText newEmail, newPassword, registerFirstName, registerLastName, registerUsername, registerAge;
     private Button createAccount;
     private CheckBox registerCheckBox;
     private ProgressBar registerProgressBar;
@@ -42,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         newPassword = findViewById(R.id.newPassword);
         registerFirstName = findViewById(R.id.registerFirstName);
         registerLastName = findViewById(R.id.registerLastName);
+        registerUsername = findViewById(R.id.registerUsername);
         registerAge = findViewById(R.id.registerAge);
         createAccount = findViewById(R.id.createAccount);
         createAccount.setOnClickListener(this);
@@ -88,13 +90,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     public void createAccount() {
         try {
+            FirebaseUser user = mAuth.getCurrentUser();
             String email = newEmail.getText().toString().trim();
             String password = newPassword.getText().toString().trim();
             String firstName = registerFirstName.getText().toString().trim();
             String lastName = registerLastName.getText().toString().trim();
+            String username = registerUsername.getText().toString().trim();
             boolean loginValid = true;
             if (registerAge.getText().toString().trim().isEmpty()){
                 registerAge.setError("Age is required!");
+                loginValid = false;
+            }
+            if (registerUsername.getText().toString().trim().isEmpty()){
+                registerUsername.setError("Username is required!");
                 loginValid = false;
             }
             if (firstName.isEmpty()) {
@@ -122,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 loginValid = false;
                 return;
             }
+
             int age = Integer.parseInt(registerAge.getEditableText().toString());
             if (age < 16){
                 registerAge.setError("User must be 16 years or older!");
@@ -146,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    User user = new User(firstName, lastName, email, age);
+                                    User user = new User(firstName, lastName, email, username, age);
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
 
@@ -156,6 +165,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                        .setDisplayName(username).build();
+                                                user.updateProfile(profileUpdates);
                                                 Toast.makeText(RegisterActivity.this, "Account Created Successfully",
                                                         Toast.LENGTH_LONG).show();
                                                 registerProgressBar.setVisibility(View.GONE);
