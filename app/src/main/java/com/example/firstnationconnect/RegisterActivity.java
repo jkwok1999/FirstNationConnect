@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestoreDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerProgressBar = findViewById(R.id.registerProgressBar);
 
         mAuth = FirebaseAuth.getInstance();
+        firestoreDB = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -59,34 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         createAccount();
 
-        //createAccount(newEmail.getText().toString(),newPassword.getText().toString());
     }
-
-//    public void createAccount(String email, String password) {
-//
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            Toast.makeText(RegisterActivity.this, "Account Created Successfully",
-//                                    Toast.LENGTH_SHORT).show();
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(RegisterActivity.this, "Account Creation Failed. Please Try Again",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // ...
-//                    }
-//                });
-//    }
 
     public void createAccount() {
         try {
@@ -159,31 +135,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
 
-                                    FirebaseDatabase.getInstance().getReference("Users")
+
+
+                                    /*FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                        .setDisplayName(username).build();
-                                                user.updateProfile(profileUpdates);
-                                                Toast.makeText(RegisterActivity.this, "Account Created Successfully",
-                                                        Toast.LENGTH_LONG).show();
-                                                registerProgressBar.setVisibility(View.GONE);
-                                                finish();
-                                                mAuth.signOut();
-                                            } else {
-                                                // If sign in fails, display a message to the user.
-                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                Toast.makeText(RegisterActivity.this, "Account Creation Failed. Please Try Again",
-                                                        Toast.LENGTH_LONG).show();
-                                                registerProgressBar.setVisibility(View.GONE);
-                                                updateUI(null);
-                                            }
-                                        }
-                                    });
+                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {*/
+                                    firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        FirebaseUser user = mAuth.getCurrentUser();
+                                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                                .setDisplayName(username).build();
+                                                        user.updateProfile(profileUpdates);
+                                                        Toast.makeText(RegisterActivity.this, "Account Created Successfully",
+                                                                Toast.LENGTH_LONG).show();
+                                                        registerProgressBar.setVisibility(View.GONE);
+                                                        finish();
+                                                        mAuth.signOut();
+                                                    } else {
+                                                        // If sign in fails, display a message to the user.
+                                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                        Toast.makeText(RegisterActivity.this, "Account Creation Failed. Please Try Again",
+                                                                Toast.LENGTH_LONG).show();
+                                                        registerProgressBar.setVisibility(View.GONE);
+                                                        updateUI(null);
+                                                    }
+                                                }
+                                            });
 
                                 } else {
                                     Toast.makeText(RegisterActivity.this, "Account Creation Failed. Please Try Again",

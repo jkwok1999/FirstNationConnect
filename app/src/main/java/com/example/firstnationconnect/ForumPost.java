@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class ForumPost {
 
+    private String postID;
     private String postName;
     private String postContent;
     private String postUser;
     private Date postDate;
 
-    public ForumPost(String postName, String postContent, String postUser, Date postDate) {
+    public ForumPost(String postID, String postName, String postContent, String postUser, Date postDate) {
+        this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
         this.postUser = postUser;
@@ -18,6 +20,14 @@ public class ForumPost {
 
     public ForumPost() {
 
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 
     public String getPostName() {
