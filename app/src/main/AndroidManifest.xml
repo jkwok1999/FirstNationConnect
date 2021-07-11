@@ -10,8 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".PostActivity" />
+        <activity android:name=".SubforumActivity" />
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

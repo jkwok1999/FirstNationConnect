@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void signIn (String email, String password) {
+/*    public void signIn (String email, String password) {
 
         loginProgressBar.setVisibility(View.VISIBLE);
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-    }
+    }*/
 
     public void signIn () {
 
