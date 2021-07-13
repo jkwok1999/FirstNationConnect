@@ -1,28 +1,22 @@
 package com.example.firstnationconnect;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -32,6 +26,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private Button submitPost;
     private FirebaseAuth mAuth;
 
+    private String topic;
+
     private FirebaseFirestore firestoreDB;
 
     @Override
@@ -39,8 +35,13 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        inputText = findViewById(R.id.inputText);
-        postName = findViewById(R.id.postName);
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            topic = intent.getStringExtra("TopicName");
+        }
+
+        inputText = findViewById(R.id.newPostContent);
+        postName = findViewById(R.id.newPostName);
         submitPost = findViewById(R.id.submitPost);
         submitPost.setOnClickListener(this);
 
@@ -105,17 +106,20 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
-        if (inputText.getText().toString().trim().isEmpty()) {
+        if (inputText.getText().toString().trim().isEmpty() || postName.getText().toString().trim().isEmpty()) {
             Toast.makeText(NewPostActivity.this, "Please ensure post is not empty",
                     Toast.LENGTH_SHORT).show();
         } else {
             String name = postName.getText().toString();
             String content = inputText.getText().toString();
-            Date postDate = null;
+
+            long milliseconds = System.currentTimeMillis();
+            Date postDate = new java.util.Date(milliseconds);
 
             UUID newID = UUID.randomUUID();
             String stringID = newID.toString();
 
+            //Potentially put this in a new method, have a List variable outside which stores the user?
             DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
@@ -124,13 +128,14 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                     User user = documentSnapshot.toObject(User.class);
                     String username = user.getUsername();
 
-                    ForumPost newPost = new ForumPost(stringID, name, content, username, postDate);
+                    ForumPost newPost = new ForumPost(stringID, name, content, username); //, postDate);
 
-                    firestoreDB.collection("Forum").document(stringID).set(newPost);
+                    firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
                     Toast.makeText(NewPostActivity.this, "Post was successfully added",
                             Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NewPostActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(NewPostActivity.this, SubforumActivity.class);
+                    intent.putExtra("TopicName", topic);
                     startActivity(intent);
                     finish();
                 }

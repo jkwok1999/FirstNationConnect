@@ -9,13 +9,14 @@ public class ForumPost {
     private String postContent;
     private String postUser;
     private Date postDate;
+    //private String image;
 
-    public ForumPost(String postID, String postName, String postContent, String postUser, Date postDate) {
+    public ForumPost(String postID, String postName, String postContent, String postUser) { //, Date postDate) {
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
         this.postUser = postUser;
-        this.postDate = postDate;
+        //this.postDate = postDate;
     }
 
     public ForumPost() {

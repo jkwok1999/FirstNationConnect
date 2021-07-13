@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.btDiscussionForum:
-                startActivity(new Intent(HomeActivity.this, NewPostActivity.class));
+                startActivity(new Intent(HomeActivity.this, ForumActivity.class));
                 break;
         }
     }

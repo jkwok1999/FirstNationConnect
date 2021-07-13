@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/postName"
+        android:id="@+id/newPostName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -38,10 +38,10 @@
         app:layout_constraintBottom_toTopOf="@+id/submitPost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postName">
+        app:layout_constraintTop_toBottomOf="@+id/newPostName">
 
         <EditText
-            android:id="@+id/inputText"
+            android:id="@+id/newPostContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
