@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/topicName"
+                android:id="@+id/postContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -28,26 +28,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/postUser"
+                android:id="@+id/subtopicUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="By Username"
+                android:text="By USERNAME at TIME"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/topicName"
-                app:layout_constraintTop_toBottomOf="@+id/topicName" />
+                app:layout_constraintStart_toStartOf="@+id/postContent"
+                app:layout_constraintTop_toBottomOf="@+id/postContent" />
 
-            <TextView
-                android:id="@+id/postTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:text="at TIME"
-                app:layout_constraintBottom_toBottomOf="@+id/postUser"
-                app:layout_constraintStart_toEndOf="@+id/postUser"
-                app:layout_constraintTop_toTopOf="@+id/postUser" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

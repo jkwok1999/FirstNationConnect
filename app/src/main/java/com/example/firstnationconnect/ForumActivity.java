@@ -30,9 +30,9 @@ public class ForumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subforum);
+        setContentView(R.layout.activity_forum);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.forumRecyclerView);
 
         recyclerView.setHasFixedSize(true);
 

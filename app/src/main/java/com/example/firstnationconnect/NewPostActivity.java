@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
@@ -116,6 +117,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             long milliseconds = System.currentTimeMillis();
             Date postDate = new java.util.Date(milliseconds);
 
+            //Timestamp
+
             UUID newID = UUID.randomUUID();
             String stringID = newID.toString();
 
@@ -128,9 +131,10 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                     User user = documentSnapshot.toObject(User.class);
                     String username = user.getUsername();
 
-                    ForumPost newPost = new ForumPost(stringID, name, content, username); //, postDate);
+                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username); //, postDate);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+
 
                     Toast.makeText(NewPostActivity.this, "Post was successfully added",
                             Toast.LENGTH_SHORT).show();

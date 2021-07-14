@@ -2,7 +2,7 @@ package com.example.firstnationconnect;
 
 import java.util.Date;
 
-public class ForumPost {
+public class ForumPost extends Topic {
 
     private String postID;
     private String postName;
@@ -11,7 +11,8 @@ public class ForumPost {
     private Date postDate;
     //private String image;
 
-    public ForumPost(String postID, String postName, String postContent, String postUser) { //, Date postDate) {
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser) { //, Date postDate) {
+        super(topicName);
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;

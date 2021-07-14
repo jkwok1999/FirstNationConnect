@@ -1,7 +1,5 @@
 package com.example.firstnationconnect;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> implements View.OnClickListener {
-
-    private SubforumActivity mParentActivity;
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> { //implements View.OnClickListener {
+    private PostActivity mParentActivity;
     private List<ForumPost> mPosts;
 
-    public PostAdapter(SubforumActivity parent, List<ForumPost> posts) {
+    public PostAdapter(PostActivity parent, List<ForumPost> posts) {
         mParentActivity = parent;
         mPosts = posts;
     }
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         ForumPost post = (ForumPost) v.getTag();
 
@@ -32,33 +29,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         intent.putExtra("PostName", postName);
         context.startActivity(intent);
-    }
+    }*/
 
     public class PostViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView postName, postUser, postTime;
+        public TextView postContent, postUser;
 
         public PostViewHolder(View v) {
             super(v);
-            postName = v.findViewById(R.id.topicName);
+            postContent = v.findViewById(R.id.postContent);
             postUser = v.findViewById(R.id.postUser);
-            postTime = v.findViewById(R.id.postTime);
         }
     }
 
     public PostAdapter.PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.subforum_row, parent, false);
-        return new PostViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_row, parent, false);
+        return new PostAdapter.PostViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(PostAdapter.PostViewHolder holder, int position) {
         ForumPost post = mPosts.get(position);
-        holder.postName.setText(post.getPostName());
-        holder.postUser.setText(post.getPostUser());
+        holder.postContent.setText(post.getPostContent());
+        holder.postUser.setText("By " + post.getPostUser() + " at TIME");
         //holder.postTime.setText(post.getPostDate());
         holder.itemView.setTag(post);
-        holder.itemView.setOnClickListener(this);
+        //holder.itemView.setOnClickListener(this);
     }
 
     @Override

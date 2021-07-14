@@ -49,8 +49,8 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
             topic = intent.getStringExtra("TopicName");
         }
 
-        recyclerView = findViewById(R.id.recyclerView);
-        newPostButton = findViewById(R.id.newPostButton);
+        recyclerView = findViewById(R.id.forumRecyclerView);
+        newPostButton = findViewById(R.id.newPostFAB);
         newPostButton.setOnClickListener(this);
 
         recyclerView.setHasFixedSize(true);
@@ -75,7 +75,7 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
 
-                        mAdapter = new PostAdapter(SubforumActivity.this, postList);
+                        mAdapter = new SubtopicAdapter(SubforumActivity.this, postList);
                         recyclerView.setAdapter(mAdapter);
                     }
                 });

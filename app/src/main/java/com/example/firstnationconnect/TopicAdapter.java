@@ -39,7 +39,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         public TopicViewHolder(View v) {
             super(v);
-            topicName = v.findViewById(R.id.topicName);
+            topicName = v.findViewById(R.id.postContent);
         }
     }
 
