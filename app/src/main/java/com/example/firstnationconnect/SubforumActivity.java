@@ -49,7 +49,7 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
             topic = intent.getStringExtra("TopicName");
         }
 
-        recyclerView = findViewById(R.id.forumRecyclerView);
+        recyclerView = findViewById(R.id.subforumRecyclerView);
         newPostButton = findViewById(R.id.newPostFAB);
         newPostButton.setOnClickListener(this);
 
@@ -96,5 +96,13 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
+    }*/
+
+    /*@Override
+    public void onBackPressed(){
+        //NavUtils.navigateUpFromSameTask(this);
+        Intent intent = new Intent(SubforumActivity.this, ForumActivity.class);
+        intent.putExtra("TopicName", topic);
+        startActivity(intent);
     }*/
 }

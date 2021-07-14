@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> { //implements View.OnClickListener {
@@ -51,8 +53,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public void onBindViewHolder(PostAdapter.PostViewHolder holder, int position) {
         ForumPost post = mPosts.get(position);
         holder.postContent.setText(post.getPostContent());
-        holder.postUser.setText("By " + post.getPostUser() + " at TIME");
-        //holder.postTime.setText(post.getPostDate());
+
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
+        String postDate = dateFormat.format(post.getPostDate());
+
+        holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
         holder.itemView.setTag(post);
         //holder.itemView.setOnClickListener(this);
     }

@@ -11,9 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
         <activity android:name=".NewPostActivity"></activity>
-        <activity android:name=".PostActivity" />
-        <activity android:name=".SubforumActivity" />
-        <activity android:name=".ForumActivity" />
+        <activity
+            android:name=".PostActivity"
+            android:parentActivityName=".SubforumActivity"/>
+        <activity
+            android:name=".SubforumActivity"
+            android:parentActivityName=".ForumActivity"/>
+        <activity
+            android:name=".ForumActivity"
+            android:parentActivityName=".HomeActivity"/>
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".RegisterActivity"

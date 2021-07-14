@@ -32,7 +32,7 @@ public class ForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
-        recyclerView = findViewById(R.id.forumRecyclerView);
+        recyclerView = findViewById(R.id.subforumRecyclerView);
 
         recyclerView.setHasFixedSize(true);
 
@@ -84,3 +84,5 @@ public class ForumActivity extends AppCompatActivity {
                 });
     }*/
 }
+
+//https://alexzh.com/multiple-row-layouts-using-recyclerview/

@@ -131,10 +131,9 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                     User user = documentSnapshot.toObject(User.class);
                     String username = user.getUsername();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username); //, postDate);
+                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
-
 
                     Toast.makeText(NewPostActivity.this, "Post was successfully added",
                             Toast.LENGTH_SHORT).show();

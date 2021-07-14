@@ -2,12 +2,14 @@ package com.example.firstnationconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,7 +74,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     User user = documentSnapshot.toObject(User.class);
                     String username = user.getUsername();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username); //, postDate);
+                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -196,5 +198,30 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                         recyclerView.setAdapter(mAdapter);
                     }
                 });
+    }
+
+    /*@Override
+    public void onBackPressed(){
+        //NavUtils.navigateUpFromSameTask(this);
+        Intent intent = new Intent(PostActivity.this, SubforumActivity.class);
+        intent.putExtra("TopicName", topic);
+        startActivity(intent);
+    }*/
+
+    //Makes up button pass an intent
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+                //System.out.println("Button clicked");
+                Intent intent = new Intent(PostActivity.this, SubforumActivity.class);
+                intent.putExtra("TopicName", topic);
+                startActivity(intent);
+                break;
+        }
+        return true;
+
     }
 }

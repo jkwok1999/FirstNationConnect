@@ -14,6 +14,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Post Title"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
