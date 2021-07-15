@@ -117,38 +117,40 @@ public class SetupActivity extends AppCompatActivity {
                     registerProgressBar2.setVisibility(View.VISIBLE);
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
-                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
-                    image_path.putFile(mainImageURI)
-                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        User user = new User(firstName, lastName, email, username, age);
-                                        // Sign in success, update UI with the signed-in user's information
+//                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
+//                    image_path.putFile(mainImageURI)
+//                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+//                                    if (task.isSuccessful()) {
+                    User user = new User(firstName, lastName, email, username, age);
+                    // Sign in success, update UI with the signed-in user's information
 
-                                        firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                                                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                                    .setDisplayName(username).build();
-                                                            user.updateProfile(profileUpdates);
-                                                            Toast.makeText(SetupActivity.this, "Account Created Successfully",
-                                                                    Toast.LENGTH_LONG).show();
-                                                            registerProgressBar2.setVisibility(View.GONE);
-                                                            finish();
-                                                            firebaseAuth.signOut();
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Toast.makeText(SetupActivity.this, "Account Creation Failed. Please Try Again",
-                                                                    Toast.LENGTH_LONG).show();
-                                                            registerProgressBar2.setVisibility(View.GONE);
-                                                        }
-                                                    }
-                                                });
+                    firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(username)
+//                                               .setPhotoUri(mainImageURI)
+                                                .build();
+                                        user.updateProfile(profileUpdates);
+                                        Toast.makeText(SetupActivity.this, "Account Created Successfully",
+                                                Toast.LENGTH_LONG).show();
+                                        registerProgressBar2.setVisibility(View.GONE);
+                                        finish();
+                                        firebaseAuth.signOut();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(SetupActivity.this, "Account Creation Failed. Please Try Again",
+                                                Toast.LENGTH_LONG).show();
+                                        registerProgressBar2.setVisibility(View.GONE);
                                     }
+                                }
+                            });
+//                                    }
 //                            if (task.isSuccessful()) {
 //                                Uri download_uri = task.getResult().getStorage().getDownloadUrl().getResult();
 //                                Map<String, String> userMap = new HashMap<>();
@@ -180,8 +182,8 @@ public class SetupActivity extends AppCompatActivity {
 //                                registerProgressBar2.setVisibility(View.INVISIBLE);
 //                            }
 
-                                }
-                            });
+//                                }
+//                            });
                 }
             }
         });
@@ -190,11 +192,10 @@ public class SetupActivity extends AppCompatActivity {
         setupImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                     if (ContextCompat.checkSelfPermission
-                            (SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            (SetupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(SetupActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(SetupActivity.this, new String[]{
                                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -215,7 +216,6 @@ public class SetupActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -223,9 +223,22 @@ public class SetupActivity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-
                 mainImageURI = result.getUri();
                 setupImage.setImageURI(mainImageURI);
+                String user_id = firebaseAuth.getCurrentUser().getUid();
+
+                StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
+                image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
+                                .setPhotoUri(mainImageURI)
+                                .build();
+                        user.updateProfile(profileImageUpdates);
+                        Toast.makeText(SetupActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
+                    }
+                });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
