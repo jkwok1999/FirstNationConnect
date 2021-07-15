@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ import java.util.List;
 public class SubforumActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView recyclerView;
+    private TextView topicTitle;
     private FloatingActionButton newPostButton;
     private RecyclerView.Adapter mAdapter;
     private FirebaseFirestore firestoreDB;
@@ -50,8 +52,11 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
         }
 
         recyclerView = findViewById(R.id.subforumRecyclerView);
+        topicTitle = findViewById(R.id.topicTitle);
         newPostButton = findViewById(R.id.newPostFAB);
         newPostButton.setOnClickListener(this);
+
+        topicTitle.setText(topic);
 
         recyclerView.setHasFixedSize(true);
 
