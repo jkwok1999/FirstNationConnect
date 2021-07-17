@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -66,7 +68,8 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
 
         postList = new ArrayList<>();
 
-        firestoreDB.collection("Forum/" + topic + "/Subtopic")
+        CollectionReference subtopicsRef = firestoreDB.collection("Forum/" + topic + "/Subtopic");
+        subtopicsRef.orderBy("postDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

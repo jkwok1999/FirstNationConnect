@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,11 +24,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -111,6 +117,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        registerForContextMenu(recyclerView);
+
         firestoreDB = FirebaseFirestore.getInstance();
 
         postList = new ArrayList<>();
@@ -180,7 +188,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void getReplies() {
-        firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies")
+        CollectionReference postsRef = firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies");
+        postsRef.orderBy("postDate", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -193,9 +202,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-
                         mAdapter = new PostAdapter(PostActivity.this, postList);
                         recyclerView.setAdapter(mAdapter);
+
                     }
                 });
     }
@@ -213,7 +222,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-
             case android.R.id.home:
                 //System.out.println("Button clicked");
                 Intent intent = new Intent(PostActivity.this, SubforumActivity.class);
@@ -223,5 +231,22 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case 1:
+                Toast.makeText(PostActivity.this, "Feature not implemented yet",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            case 2:
+                Toast.makeText(PostActivity.this, "Feature not implemented yet",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }

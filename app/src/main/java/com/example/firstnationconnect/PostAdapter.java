@@ -1,11 +1,18 @@
 package com.example.firstnationconnect;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +40,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         context.startActivity(intent);
     }*/
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
+    public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public TextView postContent, postUser;
 
@@ -41,7 +48,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             super(v);
             postContent = v.findViewById(R.id.postContent);
             postUser = v.findViewById(R.id.postUser);
+
+            v.setOnCreateContextMenuListener(this);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v,
+                                        ContextMenu.ContextMenuInfo menuInfo) {
+            //mParentActivity.super.onCreateContextMenu(menu, v, menuInfo);
+            //MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.post_menu, menu);
+
+            menu.add(this.getAdapterPosition(),1,1,"Edit Post");
+            menu.add(this.getAdapterPosition(),2,2,"Delete Post");
+        }
+
     }
 
     public PostAdapter.PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,5 +88,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return mPosts.size();
     }
 
+    public void removePost(int position) {
+
+    }
 
 }
