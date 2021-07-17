@@ -14,17 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
-        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".ProfileActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity android:name=".NewPostActivity" />
         <activity
             android:name=".PostActivity"
-            android:parentActivityName=".SubforumActivity"/>
+            android:parentActivityName=".SubforumActivity" />
         <activity
             android:name=".SubforumActivity"
-            android:parentActivityName=".ForumActivity"/>
+            android:parentActivityName=".ForumActivity" />
         <activity
             android:name=".ForumActivity"
-            android:parentActivityName=".HomeActivity"/>
-        <activity android:name=".ResourcesActivity"></activity>
+            android:parentActivityName=".HomeActivity" />
+        <activity android:name=".ResourcesActivity"
+            android:parentActivityName=".HomeActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".HomeActivity" />
         <activity

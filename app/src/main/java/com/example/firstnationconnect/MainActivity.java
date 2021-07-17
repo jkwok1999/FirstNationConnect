@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(currentUser != null){
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
