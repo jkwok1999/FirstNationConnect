@@ -117,13 +117,14 @@ public class SetupActivity extends AppCompatActivity {
                     registerProgressBar2.setVisibility(View.VISIBLE);
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
+                    String profilePic = mainImageURI.toString();
 //                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
 //                    image_path.putFile(mainImageURI)
 //                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
 //                                @Override
 //                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 //                                    if (task.isSuccessful()) {
-                    User user = new User(firstName, lastName, email, username, age);
+                    User user = new User(firstName, lastName, email, username, profilePic, age);
                     // Sign in success, update UI with the signed-in user's information
 
                     firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)

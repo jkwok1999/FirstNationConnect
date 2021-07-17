@@ -1,6 +1,7 @@
 package com.example.firstnationconnect;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,8 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button signOut, btDiscussionForum;
-    TextView loggedInAs, loggedInEmail, loggedInUsername;
+    CardView cvSignOut, cvDiscussionForum;
+    TextView welcomeName;
 
     private static final String TAG = "HomeActivity";
     private FirebaseAuth mAuth;
@@ -26,21 +27,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        signOut = findViewById(R.id.signOut);
-        signOut.setOnClickListener(this);
-        btDiscussionForum = findViewById(R.id.btDiscussionForum);
-        btDiscussionForum.setOnClickListener(this);
-        loggedInAs = findViewById(R.id.loggedInAs);
-        loggedInEmail = findViewById(R.id.loggedInEmail);
-        loggedInUsername = findViewById(R.id.loggedInUsername);
+        cvSignOut = findViewById(R.id.cvSignOut);
+        cvSignOut.setOnClickListener(this);
+        cvDiscussionForum = findViewById(R.id.cvDiscussionForum);
+        cvDiscussionForum.setOnClickListener(this);
+        welcomeName = findViewById(R.id.welcomeName);
 
 
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        loggedInEmail.setText(user.getEmail());
-        loggedInUsername.setText(user.getDisplayName());
+        welcomeName.setText("Welcome Back, " + user.getDisplayName() + "!");
+//        loggedInEmail.setText(user.getEmail());
+//        loggedInUsername.setText(user.getDisplayName());
 
     }
 
@@ -48,14 +48,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         //using switch to better organise onClick buttons
         switch (v.getId()) {
-            case R.id.signOut:
+            case R.id.cvSignOut:
                 mAuth.signOut();
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
                 //finish() function will ensure user is fully logged out and will not encounter
                 //bugs that make them remain logged in
                 finish();
                 break;
-            case R.id.btDiscussionForum:
+            case R.id.cvDiscussionForum:
                 startActivity(new Intent(HomeActivity.this, ForumActivity.class));
                 break;
         }

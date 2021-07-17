@@ -22,19 +22,19 @@
 
 
                 <TextView
-                    android:id="@+id/welcomeName"
+                    android:id="@+id/txDashboard"
                     android:layout_width="233dp"
                     android:layout_height="wrap_content"
-                    android:text="Welcome!"
+                    android:text="My Dashboard"
                     android:textColor="#000000"
                     android:textSize="32sp" />
 
                 <TextView
-                    android:id="@+id/txtDashboard"
+                    android:id="@+id/welcomeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/welcomeName"
-                    android:text="My Dashboard"
+                    android:layout_below="@id/txDashboard"
+                    android:text="Welcome!"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -151,14 +151,14 @@
                             android:layout_height="80dp"
                             android:src="@drawable/discussion"/>
 
-                        <Button
-                            android:id="@+id/btDiscussionForum"
+                        <TextView
+                            android:id="@+id/textView4"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="Discussion Forum"
-                            app:layout_constraintBottom_toTopOf="@+id/textView"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -270,7 +270,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cvLogout"
+                    android:id="@+id/cvSignOut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
@@ -292,15 +292,14 @@
                             android:layout_height="80dp"
                             android:src="@drawable/exit"/>
 
-                        <Button
-                            android:id="@+id/signOut"
+                        <TextView
+                            android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="12dp"
                             android:text="Sign Out"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView" />
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -339,35 +338,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/loggedInAs"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="Logged in as"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/signOut" />
-
-                        <TextView
-                            android:id="@+id/loggedInEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginLeft="32dp"
-                            app:layout_constraintStart_toEndOf="@+id/loggedInAs"
-                            app:layout_constraintTop_toTopOf="@+id/loggedInAs" />
-
-                        <TextView
-                            android:id="@+id/loggedInUsername"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginLeft="32dp"
-                            app:layout_constraintStart_toEndOf="@+id/loggedInAs"
-                            app:layout_constraintTop_toBottomOf="@+id/loggedInEmail" />
 
                     </LinearLayout>
 
