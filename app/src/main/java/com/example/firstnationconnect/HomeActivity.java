@@ -55,6 +55,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //bugs that make them remain logged in
                 finish();
                 break;
+            case R.id.btDiscussionForum:
+                startActivity(new Intent(HomeActivity.this, ForumActivity.class));
+                break;
         }
     }
 
