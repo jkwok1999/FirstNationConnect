@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
-        <activity android:name=".ProfileActivity"
+        <activity android:name=".ProfileEditActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".NewPostActivity" />
         <activity
@@ -26,7 +28,8 @@
         <activity
             android:name=".ForumActivity"
             android:parentActivityName=".HomeActivity" />
-        <activity android:name=".ResourcesActivity"
+        <activity
+            android:name=".ResourcesActivity"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".HomeActivity" />

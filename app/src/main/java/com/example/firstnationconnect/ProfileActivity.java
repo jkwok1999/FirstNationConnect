@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private CircleImageView profileImage;
     private TextView profileFirstName, profileLastName, profileEmail, profileAge, profileUsername;
+    private Button btEditProfile;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
@@ -58,6 +60,15 @@ public class ProfileActivity extends AppCompatActivity {
         profileAge = findViewById(R.id.profileAge);
         profileUsername = findViewById(R.id.profileUsername);
         profileImage = findViewById(R.id.profileImage);
+
+        btEditProfile = findViewById(R.id.btEditProfile);
+        btEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editProfileIntent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+                startActivity(editProfileIntent);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         firestoreDB = FirebaseFirestore.getInstance();

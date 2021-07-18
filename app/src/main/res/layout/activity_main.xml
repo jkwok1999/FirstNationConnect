@@ -149,4 +149,14 @@
         app:layout_constraintStart_toStartOf="@+id/loginSignin"
         app:layout_constraintTop_toBottomOf="@+id/loginSignin" />
 
+    <ImageView
+        android:id="@+id/fncLogo"
+        android:layout_width="171dp"
+        android:layout_height="161dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topView"
+        app:srcCompat="@drawable/fnclogo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
