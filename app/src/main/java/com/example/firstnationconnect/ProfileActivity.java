@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private CircleImageView profileImage;
     private TextView profileFirstName, profileLastName, profileEmail, profileAge, profileUsername;
+    private TextView tvFirstNameEdit, tvLastNameEdit, tvAgeEdit, tvEmailEdit;
     private Button btEditProfile;
+    private ProgressBar progressBarEdit;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
@@ -60,6 +63,12 @@ public class ProfileActivity extends AppCompatActivity {
         profileAge = findViewById(R.id.profileAge);
         profileUsername = findViewById(R.id.profileUsername);
         profileImage = findViewById(R.id.profileImage);
+        progressBarEdit = findViewById(R.id.progressBarEdit);
+
+        tvFirstNameEdit = findViewById(R.id.tvFirstNameEdit);
+        tvLastNameEdit = findViewById(R.id.tvLastNameEdit);
+        tvAgeEdit = findViewById(R.id.tvAgeEdit);
+        tvEmailEdit = findViewById(R.id.tvEmailEdit);
 
         btEditProfile = findViewById(R.id.btEditProfile);
         btEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +79,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
+        progressBarEdit.setVisibility(View.VISIBLE);
+        profileImage.setVisibility(View.GONE);
+        profileFirstName.setVisibility(View.GONE);
+        profileLastName.setVisibility(View.GONE);
+        profileEmail.setVisibility(View.GONE);
+        profileAge.setVisibility(View.GONE);
+        tvFirstNameEdit.setVisibility(View.GONE);
+        tvLastNameEdit.setVisibility(View.GONE);
+        tvAgeEdit.setVisibility(View.GONE);
+        tvEmailEdit.setVisibility(View.GONE);
+        btEditProfile.setVisibility(View.GONE);
+
+                mAuth = FirebaseAuth.getInstance();
         firestoreDB = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -81,71 +102,25 @@ public class ProfileActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
 
+                progressBarEdit.setVisibility(View.GONE);
+                profileImage.setVisibility(View.VISIBLE);
+                profileFirstName.setVisibility(View.VISIBLE);
+                profileLastName.setVisibility(View.VISIBLE);
+                profileEmail.setVisibility(View.VISIBLE);
+                profileAge.setVisibility(View.VISIBLE);
+                tvFirstNameEdit.setVisibility(View.VISIBLE);
+                tvLastNameEdit.setVisibility(View.VISIBLE);
+                tvAgeEdit.setVisibility(View.VISIBLE);
+                tvEmailEdit.setVisibility(View.VISIBLE);
+                btEditProfile.setVisibility(View.VISIBLE);
+
                 profileLastName.setText(user.getLastName());
                 profileFirstName.setText(user.getFirstName());
                 profileEmail.setText(user.getEmail());
                 profileAge.setText(String.valueOf(user.getAge()));
-            }
-        });
-
-        profileImage.setImageURI(currentUser.getPhotoUrl());
-        profileUsername.setText(currentUser.getDisplayName());
-
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission
-                            (ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(ProfileActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
-                        ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{
-                                Manifest.permission.READ_EXTERNAL_STORAGE
-                        }, 1);
-                    } else {
-                        CropImage.activity()
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1, 1)
-                                .start(ProfileActivity.this);
-                    }
-                } else {
-                    CropImage.activity()
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
-                            .start(ProfileActivity.this);
-                }
+                profileImage.setImageURI(currentUser.getPhotoUrl());
+                profileUsername.setText(user.getUsername());
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri mainImageURI;
-                mainImageURI = result.getUri();
-                profileImage.setImageURI(mainImageURI);
-                String user_id = mAuth.getCurrentUser().getUid();
-
-                String imageFileName = user_id + ".jpg";
-                StorageReference image_path = storageReference.child("profile_images").child(imageFileName);
-                image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
-                                .setPhotoUri(mainImageURI)
-                                .build();
-                        user.updateProfile(profileImageUpdates);
-                        Toast.makeText(ProfileActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
-                    }
-                });
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
-    }
-    }
+}

@@ -47,7 +47,6 @@ public class SetupActivity extends AppCompatActivity {
     private CircleImageView setupImage;
     private ImageView plusImage;
     private Uri mainImageURI = null;
-    //TODO: is null currently ^ - but we need to set up a "default" image for users without pfp's
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestoreDB;
@@ -143,14 +142,14 @@ public class SetupActivity extends AppCompatActivity {
                                         user.updateProfile(profileUpdates);
                                         Toast.makeText(SetupActivity.this, "Account Created Successfully",
                                                 Toast.LENGTH_LONG).show();
-                                        registerProgressBar2.setVisibility(View.GONE);
+                                        registerProgressBar2.setVisibility(View.INVISIBLE);
                                         finish();
                                         firebaseAuth.signOut();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(SetupActivity.this, "Account Creation Failed. Please Try Again",
                                                 Toast.LENGTH_LONG).show();
-                                        registerProgressBar2.setVisibility(View.GONE);
+                                        registerProgressBar2.setVisibility(View.INVISIBLE);
                                     }
                                 }
                             });
