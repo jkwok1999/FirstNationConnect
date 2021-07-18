@@ -85,16 +85,18 @@ public class SetupActivity extends AppCompatActivity {
                     registerAge.setError("Age is required!");
                     loginValid = false;
                 }
-                if (registerUsername.getText().toString().trim().isEmpty()) {
-                    registerUsername.setError("Username is required!");
-                    loginValid = false;
-                }
                 if (firstName.isEmpty()) {
-                    registerFirstName.setError("First name is required!");
-                    loginValid = false;
+//                    registerFirstName.setError("First name is required!");
+//                    loginValid = false;
+                    firstName = null;
                 }
                 if (lastName.isEmpty()) {
-                    registerLastName.setError("Last name is required!");
+//                    registerLastName.setError("Last name is required!");
+//                    loginValid = false;
+                    lastName = null;
+                }
+                if (registerUsername.getText().toString().trim().isEmpty()) {
+                    registerUsername.setError("Username is required!");
                     loginValid = false;
                     return;
                 }
@@ -117,14 +119,15 @@ public class SetupActivity extends AppCompatActivity {
                     registerProgressBar2.setVisibility(View.VISIBLE);
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
-                    String profilePic = mainImageURI.toString();
+
 //                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
 //                    image_path.putFile(mainImageURI)
 //                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
 //                                @Override
 //                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 //                                    if (task.isSuccessful()) {
-                    User user = new User(firstName, lastName, email, username, profilePic, age);
+
+                    User user = new User(firstName, lastName, email, username, age);
                     // Sign in success, update UI with the signed-in user's information
 
                     firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
@@ -135,7 +138,7 @@ public class SetupActivity extends AppCompatActivity {
                                         FirebaseUser user = firebaseAuth.getCurrentUser();
                                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(username)
-//                                               .setPhotoUri(mainImageURI)
+//                                                .setPhotoUri(mainImageURI)
                                                 .build();
                                         user.updateProfile(profileUpdates);
                                         Toast.makeText(SetupActivity.this, "Account Created Successfully",
@@ -228,7 +231,8 @@ public class SetupActivity extends AppCompatActivity {
                 setupImage.setImageURI(mainImageURI);
                 String user_id = firebaseAuth.getCurrentUser().getUid();
 
-                StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
+                String imageFileName = user_id + ".jpg";
+                StorageReference image_path = storageReference.child("profile_images").child(imageFileName);
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
