@@ -42,28 +42,56 @@
                 android:id="@+id/postContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
                 android:text="Post Name"
-                android:textSize="20sp"
                 android:textColor="#000000"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivPic"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.51" />
-            
+                app:layout_constraintVertical_bias="0.519" />
+
             <TextView
                 android:id="@+id/tvLastPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Last post by ...... on TIMESTAMP"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="@+id/postContent"
-                app:layout_constraintTop_toBottomOf="@+id/postContent"/>
+                app:layout_constraintTop_toBottomOf="@+id/postContent" />
+
+            <TextView
+                android:id="@+id/tvNumPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:text="5"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postsinForum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="total posts"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNumPost" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
