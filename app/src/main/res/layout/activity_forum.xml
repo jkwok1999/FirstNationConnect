@@ -31,10 +31,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="10dp"
+        android:paddingBottom="3dp"
         android:text="Select a forum to view more details"
         android:textAlignment="gravity"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textSize="13sp"
+        android:textStyle="italic" />
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/subforumRecyclerView"
