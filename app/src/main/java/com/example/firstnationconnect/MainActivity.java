@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             Toast.makeText(MainActivity.this, "Login Failed. Please Try Again",
                     Toast.LENGTH_SHORT).show();
+            loginProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 

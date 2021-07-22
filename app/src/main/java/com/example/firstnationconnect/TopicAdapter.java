@@ -2,16 +2,30 @@ package com.example.firstnationconnect;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> implements View.OnClickListener{
+public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> implements View.OnClickListener {
     private ForumActivity mParentActivity;
     private List<Topic> mTopics;
 
@@ -35,11 +49,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     public class TopicViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView topicName;
+        public TextView topicName, tvNumPost;
+        public ImageView topicImage;
 
         public TopicViewHolder(View v) {
             super(v);
             topicName = v.findViewById(R.id.postContent);
+            tvNumPost = v.findViewById(R.id.tvNumPost);
+            topicImage = v.findViewById(R.id.ivForumPic);
         }
     }
 
@@ -49,9 +66,36 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     @Override
-    public void onBindViewHolder(TopicAdapter.TopicViewHolder holder, int position) {
+    public void onBindViewHolder(TopicViewHolder holder, int position) {
         Topic topic = mTopics.get(position);
         holder.topicName.setText(topic.getTopicName());
+
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+        firestoreDB.collection("Forum/" + topic.getTopicName() + "/Subtopic")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int postCount = task.getResult().size();
+                            holder.tvNumPost.setText(String.valueOf(postCount));
+                        }
+                    }
+                });
+
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                .child("forum_pics")
+                .child(topic.getTopicName() + ".png");
+        imageRef.getDownloadUrl().
+
+                addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(holder.topicImage);
+                    }
+                });
+
+
         holder.itemView.setTag(topic);
         holder.itemView.setOnClickListener(this);
     }
