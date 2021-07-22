@@ -25,14 +25,13 @@
             android:background="#FFFFFF">
 
             <ImageView
-                android:id="@+id/ivPic"
+                android:id="@+id/ivForumPic"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -51,7 +50,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivPic"
+                app:layout_constraintStart_toEndOf="@+id/ivForumPic"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.519" />
 
@@ -88,6 +87,7 @@
                 android:layout_marginRight="8dp"
                 android:text="total posts"
                 android:textSize="10sp"
+                android:textColor="#000000"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNumPost" />
