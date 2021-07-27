@@ -14,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
-        <activity android:name=".ProfileEditActivity"
+        <activity android:name=".TosActivity"
+            android:theme="@style/Theme.AppCompat.PopupTheme"
+            ></activity>
+
+        <activity android:name=".CreditsActivity" />
+        <activity android:name=".ResourceTopicActivity" />
+        <activity
+            android:name=".ProfileEditActivity"
             android:parentActivityName=".ProfileActivity" />
         <activity
             android:name=".ProfileActivity"

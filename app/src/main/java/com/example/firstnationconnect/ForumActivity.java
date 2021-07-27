@@ -26,7 +26,6 @@ public class ForumActivity extends AppCompatActivity {
 
     private String TAG = "ForumActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -27,28 +27,26 @@
                 android:id="@+id/tvResourceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Post Content"
-                android:textSize="18sp"
+                android:text="Resource Name"
                 android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/postUser"
+                android:id="@+id/tvResourceLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="By USERNAME at TIME"
-                android:textSize="13sp"
+                android:text="Link: [LINK]"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvResourceName"
                 app:layout_constraintTop_toBottomOf="@+id/tvResourceName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

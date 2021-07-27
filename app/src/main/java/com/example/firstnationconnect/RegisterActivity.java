@@ -31,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ProgressBar registerProgressBar;
     private CheckBox registerCheckbox;
 
-
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;

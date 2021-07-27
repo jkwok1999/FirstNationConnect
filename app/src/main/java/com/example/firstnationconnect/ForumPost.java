@@ -11,6 +11,7 @@ public class ForumPost extends Topic {
     private Date postDate;
     //private String image;
 
+
     public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate) {
         super(topicName);
         this.postID = postID;

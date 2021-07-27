@@ -2,17 +2,11 @@ package com.example.firstnationconnect;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,26 +21,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         mPosts = posts;
     }
 
-    /*@Override
-    public void onClick(View v) {
-        ForumPost post = (ForumPost) v.getTag();
-
-        String postName = post.getPostName();
-
-        Context context = v.getContext();
-        Intent intent = new Intent(context, PostActivity.class);
-
-        intent.putExtra("PostName", postName);
-        context.startActivity(intent);
-    }*/
-
     public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public TextView postContent, postUser;
 
         public PostViewHolder(View v) {
             super(v);
-            postContent = v.findViewById(R.id.postContent);
+            postContent = v.findViewById(R.id.tvResourceName);
             postUser = v.findViewById(R.id.postUser);
 
             v.setOnCreateContextMenuListener(this);
@@ -62,7 +43,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             menu.add(this.getAdapterPosition(),1,1,"Edit Post");
             menu.add(this.getAdapterPosition(),2,2,"Delete Post");
         }
-
     }
 
     public PostAdapter.PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -80,7 +60,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
         holder.itemView.setTag(post);
-        //holder.itemView.setOnClickListener(this);
     }
 
     @Override
@@ -92,4 +71,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     }
 
+    public void editPost(int position) {
+
+    }
 }

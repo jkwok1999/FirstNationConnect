@@ -48,8 +48,8 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
 
         public SubtopicViewHolder(View v) {
             super(v);
-            postName = v.findViewById(R.id.postContent);
-            postUser = v.findViewById(R.id.subtopicUser);
+            postName = v.findViewById(R.id.tvResourceName);
+            postUser = v.findViewById(R.id.tvResourceLink);
         }
     }
 

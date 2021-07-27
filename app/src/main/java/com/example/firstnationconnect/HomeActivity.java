@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cvSignOut, cvDiscussionForum, cvResources, cvProfile;
+    CardView cvSignOut, cvDiscussionForum, cvResources, cvProfile, cvCredits;
     TextView welcomeName;
 
     private static final String TAG = "HomeActivity";
@@ -35,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cvResources.setOnClickListener(this);
         cvProfile = findViewById(R.id.cvProfile);
         cvProfile.setOnClickListener(this);
+        cvCredits = findViewById(R.id.cvCredits);
+        cvCredits.setOnClickListener(this);
 
         welcomeName = findViewById(R.id.welcomeName);
 
@@ -68,6 +70,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.cvProfile:
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                break;
+            case R.id.cvCredits:
+                startActivity(new Intent(HomeActivity.this, CreditsActivity.class));
                 break;
         }
     }
