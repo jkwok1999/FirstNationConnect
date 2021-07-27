@@ -36,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
-    private EditText editUsername, editFirstName, editLastName, editAge;
+    private EditText editFirstName, editLastName, editAge;
     private Button btEditChanges;
     private CircleImageView profileImageEdit;
     private ProgressBar editProgressBar;
@@ -52,7 +52,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
 
-        editUsername = findViewById(R.id.editUsername);
         editFirstName = findViewById(R.id.editFirstName);
         editLastName = findViewById(R.id.editLastName);
         editAge = findViewById(R.id.editAge);
@@ -72,7 +71,6 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
 
-                editUsername.setText(user.getUsername());
                 editFirstName.setText(user.getFirstName());
                 editLastName.setText(user.getLastName());
                 editAge.setText(String.valueOf(user.getAge()));
@@ -84,7 +82,6 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String firstName = editFirstName.getText().toString().trim();
                 String lastName = editLastName.getText().toString().trim();
-                String username = editUsername.getText().toString().trim();
 
                 if (firstName.isEmpty()) {
                     firstName = null;
@@ -96,10 +93,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 if (editAge.getText().toString().trim().isEmpty()) {
                     editAge.setError("Age is required!");
                 }
-                if (username.isEmpty()) {
-                    editUsername.setError("Username is required!");
-                    return;
-                }
 
                 int age = Integer.parseInt(editAge.getEditableText().toString());
                 if (age < 16) {
@@ -110,6 +103,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 }
                 editProgressBar.setVisibility(View.VISIBLE);
                 String email = mAuth.getCurrentUser().getEmail();
+                String username = mAuth.getCurrentUser().getDisplayName();
                 User editUser = new User(firstName, lastName, email, username, age);
                 DocumentReference docRef = firestoreDB.collection("Users")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
