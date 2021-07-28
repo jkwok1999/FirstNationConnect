@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,12 +50,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         public TextView topicName, tvNumPost;
         public ImageView topicImage;
+        public ProgressBar pbTopic;
 
         public TopicViewHolder(View v) {
             super(v);
             topicName = v.findViewById(R.id.tvResourceName);
             tvNumPost = v.findViewById(R.id.tvNumPost);
             topicImage = v.findViewById(R.id.ivForumPic);
+            pbTopic = v.findViewById(R.id.pbTopic);
         }
     }
 
@@ -85,11 +88,11 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                 .child("forum_pics")
                 .child(topic.getTopicName() + ".png");
         imageRef.getDownloadUrl().
-
                 addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(holder.topicImage);
+                        holder.pbTopic.setVisibility(View.INVISIBLE);
                     }
                 });
 

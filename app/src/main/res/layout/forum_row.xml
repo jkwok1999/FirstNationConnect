@@ -92,6 +92,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNumPost" />
 
+            <ProgressBar
+                android:id="@+id/pbTopic"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/ivForumPic"
+                app:layout_constraintEnd_toEndOf="@+id/ivForumPic"
+                app:layout_constraintStart_toStartOf="@+id/ivForumPic"
+                app:layout_constraintTop_toTopOf="@+id/ivForumPic" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

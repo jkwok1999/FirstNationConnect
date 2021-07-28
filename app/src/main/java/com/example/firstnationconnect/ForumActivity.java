@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +24,7 @@ public class ForumActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private FirebaseFirestore firestoreDB;
+    private ProgressBar pbForum;
     private List<Topic> topicList;
 
     private String TAG = "ForumActivity";
@@ -31,7 +34,8 @@ public class ForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
-        recyclerView = findViewById(R.id.subforumRecyclerView);
+        pbForum = findViewById(R.id.pbForum);
+        recyclerView = findViewById(R.id.forumRecyclerView);
 
         recyclerView.setHasFixedSize(true);
 
@@ -58,6 +62,8 @@ public class ForumActivity extends AppCompatActivity {
 
                         mAdapter = new TopicAdapter(ForumActivity.this, topicList);
                         recyclerView.setAdapter(mAdapter);
+
+                        pbForum.setVisibility(View.INVISIBLE);
                     }
                 });
 

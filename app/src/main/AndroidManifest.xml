@@ -18,8 +18,12 @@
             android:theme="@style/Theme.AppCompat.PopupTheme"
             ></activity>
 
-        <activity android:name=".CreditsActivity" />
-        <activity android:name=".ResourceTopicActivity" />
+        <activity
+            android:name=".CreditsActivity"
+            android:parentActivityName=".HomeActivity"/>
+        <activity
+            android:name=".ResourceTopicActivity"
+            android:parentActivityName=".ResourcesActivity"/>
         <activity
             android:name=".ProfileEditActivity"
             android:parentActivityName=".ProfileActivity" />

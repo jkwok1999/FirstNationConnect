@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,7 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
     private FloatingActionButton newPostButton;
     private RecyclerView.Adapter mAdapter;
     private FirebaseFirestore firestoreDB;
+    private ProgressBar pbSubforum;
 
     private List<ForumPost> postList;
 
@@ -53,8 +55,9 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
             topic = intent.getStringExtra("TopicName");
         }
 
-        recyclerView = findViewById(R.id.subforumRecyclerView);
+        recyclerView = findViewById(R.id.forumRecyclerView);
         topicTitle = findViewById(R.id.topicTitle);
+        pbSubforum = findViewById(R.id.pbSubforum);
         newPostButton = findViewById(R.id.newPostFAB);
         newPostButton.setOnClickListener(this);
 
@@ -85,26 +88,11 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
 
                         mAdapter = new SubtopicAdapter(SubforumActivity.this, postList);
                         recyclerView.setAdapter(mAdapter);
+
+                        pbSubforum.setVisibility(View.INVISIBLE);
                     }
                 });
     }
-
-    /*public void getPostList() {
-        firestoreDB.collection("Posts")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }*/
 
     /*@Override
     public void onBackPressed(){

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private Button replyButton;
     private TextView postTitle;
     private EditText replyText;
+    private ProgressBar pbPost;
 
     private RecyclerView.Adapter mAdapter;
     //private FirebaseAuth mAuth;
@@ -63,6 +65,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(PostActivity.this, "Please ensure reply is not empty",
                     Toast.LENGTH_SHORT).show();
         } else {
+
+            pbPost.setVisibility(View.VISIBLE);
+
             String replyContent = replyText.getText().toString();
 
             long milliseconds = System.currentTimeMillis();
@@ -110,6 +115,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = findViewById(R.id.postRecyclerView);
         postTitle = findViewById(R.id.postTitle);
         replyText = findViewById(R.id.replyEditText);
+        pbPost = findViewById(R.id.pbPost);
         replyButton = findViewById(R.id.postReplyButton);
         replyButton.setOnClickListener(this);
 
@@ -122,25 +128,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         firestoreDB = FirebaseFirestore.getInstance();
 
         postList = new ArrayList<>();
-
-        /*firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                postList.add(document.toObject(ForumPost.class));
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-
-                        mAdapter = new PostAdapter(PostActivity.this, postList);
-                        recyclerView.setAdapter(mAdapter);
-                    }
-                });*/
 
         updateUi();
 
@@ -161,30 +148,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 postTitle.setText("'" + mainPost.getPostName() + "'");
 
                 getReplies();
-
-                //mAdapter = new PostAdapter(PostActivity.this, postList);
-                //recyclerView.setAdapter(mAdapter);
             }
         });
-
-        /*firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                postList.add(document.toObject(ForumPost.class));
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-
-                        mAdapter = new PostAdapter(PostActivity.this, postList);
-                        recyclerView.setAdapter(mAdapter);
-                    }
-                });*/
     }
 
     public void getReplies() {
@@ -204,6 +169,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         mAdapter = new PostAdapter(PostActivity.this, postList);
                         recyclerView.setAdapter(mAdapter);
+
+                        pbPost.setVisibility(View.INVISIBLE);
 
                     }
                 });
