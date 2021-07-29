@@ -16,6 +16,7 @@
             android:id="@+id/tvSurveyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:text="First Nation Survey"
             android:textSize="32dp"
@@ -51,35 +52,30 @@
             app:layout_constraintVertical_bias="0.0">
 
             <RadioButton
-                android:id="@+id/rbQuestion1StronglyAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Agree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion1Agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Agree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion1Neutral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Neutral" />
 
             <RadioButton
-                android:id="@+id/rbQuestion1Disagree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Disagree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion1StronglyDisagree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -114,35 +110,30 @@
             app:layout_constraintVertical_bias="0.0">
 
             <RadioButton
-                android:id="@+id/rbQuestion2StronglyAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Agree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion2Agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Agree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion2Neutral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Neutral" />
 
             <RadioButton
-                android:id="@+id/rbQuestion2Disagree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Disagree" />
 
             <RadioButton
-                android:id="@+id/rbQuestion2StronglyDisagree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -175,7 +166,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tietQuestionThree"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="79dp"
                 android:hint="Your Response" />
         </com.google.android.material.textfield.TextInputLayout>
 
