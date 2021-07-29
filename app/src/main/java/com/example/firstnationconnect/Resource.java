@@ -49,9 +49,9 @@ public class Resource {
         return belongingResources;
     }
 
-    public static ArrayList<Resource> getPrenatalHealthResources() {
-        ArrayList<Resource> prenatalHealthResources = new ArrayList<>();
-        return prenatalHealthResources;
+    public static ArrayList<Resource> getPerinatalHealthResources() {
+        ArrayList<Resource> perinatalHealthResources = new ArrayList<>();
+        return perinatalHealthResources;
     }
 
     public static ArrayList<Resource> getBullyingResources() {

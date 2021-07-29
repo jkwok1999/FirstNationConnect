@@ -50,8 +50,8 @@ public class ResourceTopicActivity extends AppCompatActivity {
             case "Belonging":
                 resourceList = Resource.getBelongingResources();
                 break;
-            case "Prenatal Health":
-                resourceList = Resource.getPrenatalHealthResources();
+            case "Perinatal Health":
+                resourceList = Resource.getPerinatalHealthResources();
                 break;
             case "Bullying":
                 resourceList = Resource.getBullyingResources();
