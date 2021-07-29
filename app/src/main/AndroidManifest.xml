@@ -14,10 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
+        <activity
+            android:name=".SurveyActivity"
+            android:parentActivityName=".HomeActivity"/>
         <activity android:name=".TosActivity"
             android:theme="@style/Theme.AppCompat.PopupTheme"
             ></activity>
-
         <activity
             android:name=".CreditsActivity"
             android:parentActivityName=".HomeActivity"/>
