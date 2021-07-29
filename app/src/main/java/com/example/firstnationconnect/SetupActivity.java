@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +44,8 @@ public class SetupActivity extends AppCompatActivity {
 
     private EditText registerFirstName, registerLastName, registerUsername, registerAge;
     private Button createSetup;
+    private RadioGroup rgSetupGender;
+    private RadioButton radioButtonGender;
     private ProgressBar registerProgressBar2;
     //    private CheckBox registerCheckBox;
     private CircleImageView setupImage;
@@ -64,6 +68,7 @@ public class SetupActivity extends AppCompatActivity {
         registerLastName = findViewById(R.id.registerLastName);
         registerUsername = findViewById(R.id.registerUsername);
         registerAge = findViewById(R.id.registerAge);
+        rgSetupGender = findViewById(R.id.rgSetupGender);
 //        registerCheckBox = findViewById(R.id.registerCheckBox);
         registerProgressBar2 = findViewById(R.id.registerProgressBar2);
 
@@ -94,6 +99,11 @@ public class SetupActivity extends AppCompatActivity {
 //                    loginValid = false;
                     lastName = null;
                 }
+                if(rgSetupGender.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(SetupActivity.this, "Please enter preferred gender",
+                            Toast.LENGTH_SHORT).show();
+                    loginValid = false;
+                }
                 if (registerUsername.getText().toString().trim().isEmpty()) {
                     registerUsername.setError("Username is required!");
                     loginValid = false;
@@ -119,6 +129,10 @@ public class SetupActivity extends AppCompatActivity {
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
 
+                    int radioIdGender = rgSetupGender.getCheckedRadioButtonId();
+                    radioButtonGender = findViewById(radioIdGender);
+                    String gender = radioButtonGender.getText().toString();
+
 //                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
 //                    image_path.putFile(mainImageURI)
 //                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -126,7 +140,7 @@ public class SetupActivity extends AppCompatActivity {
 //                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 //                                    if (task.isSuccessful()) {
 
-                    User user = new User(firstName, lastName, email, username, age);
+                    User user = new User(firstName, lastName, email, username, age, gender);
                     // Sign in success, update UI with the signed-in user's information
 
                     firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)

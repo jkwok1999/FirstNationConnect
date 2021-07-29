@@ -207,6 +207,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
+        <RadioGroup
+            android:id="@+id/rgEditGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editAge">
+
+            <RadioButton
+                android:id="@+id/rbEditMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/rbEditFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/rbEditOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/rbEditPreferNotToSay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prefer not to say"
+                android:textColor="@color/black" />
+
+        </RadioGroup>
+
         <Button
             android:id="@+id/btEditChanges"
             android:layout_width="0dp"
@@ -234,7 +271,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editAge" />
+            app:layout_constraintTop_toBottomOf="@+id/rgEditGender" />
 
 
         <TextView

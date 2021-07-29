@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,13 +40,15 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private EditText editFirstName, editLastName, editAge;
     private Button btEditChanges;
+    private RadioGroup rgEditGender;
+    private RadioButton radioButtonEditGender;
+    private RadioButton rbEditMale, rbEditFemale, rbEditOther, rbEditPreferNotToSay;
     private CircleImageView profileImageEdit;
     private ProgressBar editProgressBar;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
     private StorageReference storageReference;
-
 
 
     @Override
@@ -56,6 +60,11 @@ public class ProfileEditActivity extends AppCompatActivity {
         editLastName = findViewById(R.id.editLastName);
         editAge = findViewById(R.id.editAge);
         btEditChanges = findViewById(R.id.btEditChanges);
+        rgEditGender = findViewById(R.id.rgEditGender);
+        rbEditMale = findViewById(R.id.rbEditMale);
+        rbEditFemale = findViewById(R.id.rbEditFemale);
+        rbEditOther = findViewById(R.id.rbEditOther);
+        rbEditPreferNotToSay = findViewById(R.id.rbEditPreferNotToSay);
         editProgressBar = findViewById(R.id.editProgressBar);
 
         profileImageEdit = findViewById(R.id.profileImageEdit);
@@ -74,6 +83,20 @@ public class ProfileEditActivity extends AppCompatActivity {
                 editFirstName.setText(user.getFirstName());
                 editLastName.setText(user.getLastName());
                 editAge.setText(String.valueOf(user.getAge()));
+                switch (user.getGender()) {
+                    case "Male":
+                        rbEditMale.setChecked(true);
+                        break;
+                    case "Female":
+                        rbEditFemale.setChecked(true);
+                        break;
+                    case "Other":
+                        rbEditOther.setChecked(true);
+                        break;
+                    case "Prefer not to say":
+                        rbEditPreferNotToSay.setChecked(true);
+                        break;
+                }
             }
         });
 
@@ -104,7 +127,10 @@ public class ProfileEditActivity extends AppCompatActivity {
                 editProgressBar.setVisibility(View.VISIBLE);
                 String email = mAuth.getCurrentUser().getEmail();
                 String username = mAuth.getCurrentUser().getDisplayName();
-                User editUser = new User(firstName, lastName, email, username, age);
+                int radioIdGender = rgEditGender.getCheckedRadioButtonId();
+                radioButtonEditGender = findViewById(radioIdGender);
+                String gender = radioButtonEditGender.getText().toString();
+                User editUser = new User(firstName, lastName, email, username, age, gender);
                 DocumentReference docRef = firestoreDB.collection("Users")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 docRef.set(editUser).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -122,13 +148,13 @@ public class ProfileEditActivity extends AppCompatActivity {
                             finish();
                             Intent editFinishProfileIntent = new Intent(ProfileEditActivity.this, ProfileActivity.class);
                             startActivity(editFinishProfileIntent);
+                        }
                     }
-                }
-            });
+                });
             }
         });
 
-        if(profileImageEdit != null) {
+        if (profileImageEdit != null) {
             profileImageEdit.setImageURI(currentUser.getPhotoUrl());
         }
 
