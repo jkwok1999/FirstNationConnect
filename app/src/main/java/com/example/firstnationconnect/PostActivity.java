@@ -84,8 +84,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
                     User user = documentSnapshot.toObject(User.class);
                     String username = user.getUsername();
+                    String profileImage = user.getProfilePic();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate);
+                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 

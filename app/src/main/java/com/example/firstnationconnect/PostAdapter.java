@@ -1,5 +1,6 @@
 package com.example.firstnationconnect;
 
+import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> { //implements View.OnClickListener {
     private PostActivity mParentActivity;
@@ -24,11 +27,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public TextView postContent, postUser;
+        public CircleImageView postImage;
 
         public PostViewHolder(View v) {
             super(v);
             postContent = v.findViewById(R.id.tvResourceName);
             postUser = v.findViewById(R.id.postUser);
+            postImage = v.findViewById(R.id.postProfileImage);
 
             v.setOnCreateContextMenuListener(this);
         }
@@ -40,8 +45,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             //MenuInflater inflater = getMenuInflater();
             //inflater.inflate(R.menu.post_menu, menu);
 
-            menu.add(this.getAdapterPosition(),1,1,"Edit Post");
-            menu.add(this.getAdapterPosition(),2,2,"Delete Post");
+            menu.add(this.getAdapterPosition(), 1, 1, "Edit Post");
+            menu.add(this.getAdapterPosition(), 2, 2, "Delete Post");
         }
     }
 
@@ -60,6 +65,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
         holder.itemView.setTag(post);
+
+        if (post.getImage() != null) {
+            Uri postImageUri = Uri.parse(post.getImage());
+            holder.postImage.setImageURI(postImageUri);
+        }
     }
 
     @Override

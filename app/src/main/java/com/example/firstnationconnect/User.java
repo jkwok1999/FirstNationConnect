@@ -1,20 +1,22 @@
 package com.example.firstnationconnect;
 
 public class User {
-    private String firstName, lastName, email, username, gender;
+    private String firstName, lastName, email, username, gender, profilePic;
     private int age;
 
     public User() {
 
     }
 
-    public User(String firstName, String lastName, String email, String username, int age, String gender){
+
+    public User(String firstName, String lastName, String email, String username, int age, String gender, String profilePic){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.age = age;
         this.gender = gender;
+        this.profilePic = profilePic;
     }
 
     public String getFirstName() {
@@ -63,5 +65,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }

@@ -127,10 +127,15 @@ public class ProfileEditActivity extends AppCompatActivity {
                 editProgressBar.setVisibility(View.VISIBLE);
                 String email = mAuth.getCurrentUser().getEmail();
                 String username = mAuth.getCurrentUser().getDisplayName();
+                String profileImage = null;
+                if(mAuth.getCurrentUser().getPhotoUrl() != null) {
+                    profileImage = mAuth.getCurrentUser().getPhotoUrl().toString();
+                }
+
                 int radioIdGender = rgEditGender.getCheckedRadioButtonId();
                 radioButtonEditGender = findViewById(radioIdGender);
                 String gender = radioButtonEditGender.getText().toString();
-                User editUser = new User(firstName, lastName, email, username, age, gender);
+                User editUser = new User(firstName, lastName, email, username, age, gender, profileImage);
                 DocumentReference docRef = firestoreDB.collection("Users")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 docRef.set(editUser).addOnCompleteListener(new OnCompleteListener<Void>() {

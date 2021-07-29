@@ -9,16 +9,17 @@ public class ForumPost extends Topic {
     private String postContent;
     private String postUser;
     private Date postDate;
-    //private String image;
+    private String image;
 
 
-    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate) {
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image) {
         super(topicName);
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
         this.postUser = postUser;
         this.postDate = postDate;
+        this.image = image;
     }
 
     public ForumPost() {
@@ -63,5 +64,13 @@ public class ForumPost extends Topic {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

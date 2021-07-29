@@ -128,7 +128,13 @@ public class SetupActivity extends AppCompatActivity {
                     registerProgressBar2.setVisibility(View.VISIBLE);
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
+                    String imageString = null;
 
+                    if(mainImageURI != null) {
+                        imageString = mainImageURI.toString();
+                    } else {
+                        imageString = null;
+                    }
                     int radioIdGender = rgSetupGender.getCheckedRadioButtonId();
                     radioButtonGender = findViewById(radioIdGender);
                     String gender = radioButtonGender.getText().toString();
@@ -140,7 +146,7 @@ public class SetupActivity extends AppCompatActivity {
 //                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 //                                    if (task.isSuccessful()) {
 
-                    User user = new User(firstName, lastName, email, username, age, gender);
+                    User user = new User(firstName, lastName, email, username, age, gender, imageString);
                     // Sign in success, update UI with the signed-in user's information
 
                     firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
@@ -254,7 +260,7 @@ public class SetupActivity extends AppCompatActivity {
                                 .setPhotoUri(mainImageURI)
                                 .build();
                         user.updateProfile(profileImageUpdates);
-                        Toast.makeText(SetupActivity.this, "Image Uploaded", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SetupActivity.this, "Profile picture successfully uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
