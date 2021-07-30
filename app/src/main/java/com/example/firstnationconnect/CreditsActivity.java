@@ -15,6 +15,6 @@ public class CreditsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_credits);
 
         tvCreditsContent = findViewById(R.id.tvCreditsContent);
-        tvCreditsContent.setText("Add credits here");
+        //tvCreditsContent.setText("Add credits here");
     }
 }

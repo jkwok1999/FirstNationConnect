@@ -4,31 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/colourgradient_home"
     tools:context=".CreditsActivity">
 
     <TextView
         android:id="@+id/tvCreditsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Credits"
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/allerta"
+        android:text="Acknowledgement"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCreditsContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Credits"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="First Nation Connect would like to acknowledge Aboriginal and Torres Strait Islander people as the traditional custodians of the land. "
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCreditsTitle" />
+
+    <TextView
+        android:id="@+id/tvCreditsContent2"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="We gather here in our First Nation Connect mobile application to continue to share our knowledge of teaching and learning."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsContent" />
+
+    <TextView
+        android:id="@+id/tvCreditsContent3"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="We pay our respects to the Elders of the past, present and future and acknowledge their connections to the land."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsContent2" />
+
+    <ImageView
+        android:src="@drawable/fnclogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCreditsContent3"
+        app:layout_constraintBottom_toTopOf="@id/copyright2"/>
+
+    <TextView
+        android:id="@+id/copyright2"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:gravity="center"
+        android:text="FirstNationConnect 2021 ©"
+        android:textAlignment="center"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#000000"
+        android:textSize="13sp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

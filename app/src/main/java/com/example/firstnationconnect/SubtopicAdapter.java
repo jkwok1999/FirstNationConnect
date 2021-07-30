@@ -2,12 +2,19 @@ package com.example.firstnationconnect;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,12 +51,13 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
 
     public class SubtopicViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView postName, postUser;
+        public TextView postName, postUser, tvLastReply;
 
         public SubtopicViewHolder(View v) {
             super(v);
             postName = v.findViewById(R.id.tvResourceName);
             postUser = v.findViewById(R.id.tvResourceLink);
+            tvLastReply = v.findViewById(R.id.tvLastReply);
         }
     }
 
@@ -67,6 +75,25 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
         String postDate = dateFormat.format(post.getPostDate());
 
         holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
+
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+        if (post.getLastReply() != null) {
+            DocumentReference docRef = firestoreDB.collection("Forum/" + post.getTopicName() + "/Subtopic/" + post.getPostID() + "/Replies").document(post.getLastReply());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    ForumPost lastReply = documentSnapshot.toObject(ForumPost.class);
+
+                    String lastReplyDate = dateFormat.format(lastReply.getPostDate());
+
+                    holder.tvLastReply.setText("Last reply by " + lastReply.getPostUser() + " on " + lastReplyDate);
+                }
+            });
+        } else {
+            holder.tvLastReply.setText("No replies yet");
+        }
+
+
         holder.itemView.setTag(post);
         holder.itemView.setOnClickListener(this);
     }
@@ -75,6 +102,5 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
     public int getItemCount() {
         return mPosts.size();
     }
-
 
 }

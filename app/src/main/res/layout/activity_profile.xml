@@ -51,6 +51,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:text=""
+            android:fontFamily="@font/montserrat"
             android:layout_marginTop="155dp"
             android:layout_alignParentTop="true"
             app:layout_constraintTop_toBottomOf="@+id/profileImage"
@@ -84,6 +85,7 @@
             android:layout_marginBottom="10dp"
             android:background="#00000000"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat"
             android:text="First Name"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
@@ -95,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="#00000000"
+            android:fontFamily="@font/montserrat"
             android:drawableLeft="@drawable/ic_human"
             android:drawablePadding="10dp"
             android:textColor="#000000"
@@ -115,6 +118,7 @@
             android:background="#00000000"
             android:drawablePadding="10dp"
             android:text="Last Name"
+            android:fontFamily="@font/montserrat"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp"/>
@@ -125,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="#00000000"
+            android:fontFamily="@font/montserrat"
             android:drawableLeft="@drawable/ic_human"
             android:drawablePadding="10dp"
             android:textColor="#000000"
@@ -138,6 +143,7 @@
             android:background="#00000000"
             android:drawablePadding="10dp"
             android:text="Age"
+            android:fontFamily="@font/montserrat"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp" />
@@ -149,6 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="#00000000"
+            android:fontFamily="@font/montserrat"
             android:drawableLeft="@drawable/ic_human"
             android:drawablePadding="10dp"
             android:textColor="#000000"
@@ -162,6 +169,7 @@
             android:background="#00000000"
             android:drawablePadding="10dp"
             android:text="Email"
+            android:fontFamily="@font/montserrat"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp" />
@@ -172,6 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="#00000000"
+            android:fontFamily="@font/montserrat"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="10dp"
             android:textColor="#000000"
@@ -189,16 +198,14 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/round_bg"
             android:text="Edit Profile"
+            android:fontFamily="@font/fredoka_one"
             android:textColor="@color/colorRed"
-            android:textStyle="bold"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerAge" />
 
-
     </LinearLayout>
-
 
 </LinearLayout>
