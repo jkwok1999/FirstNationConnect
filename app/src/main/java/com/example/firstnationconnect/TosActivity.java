@@ -45,6 +45,7 @@ public class TosActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        startActivity(new Intent(TosActivity.this, HomeActivity.class));
         finish();
     }
 }

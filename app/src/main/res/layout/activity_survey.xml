@@ -178,10 +178,22 @@
             android:background="@drawable/round_bg"
 
             android:text="Submit Survey"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilQuestionThree" />
+
+        <Button
+            android:id="@+id/btViewResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_bg"
+
+            android:text="View Results"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btSubmitSurvey" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

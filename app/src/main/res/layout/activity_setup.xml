@@ -136,11 +136,11 @@
             android:id="@+id/rgSetupGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerAge">
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <RadioButton
                 android:id="@+id/rbMale"
@@ -148,18 +148,21 @@
                 android:layout_height="wrap_content"
                 android:text="Male"
                 android:textColor="@color/black" />
+
             <RadioButton
                 android:id="@+id/rbFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Female"
                 android:textColor="@color/black" />
+
             <RadioButton
                 android:id="@+id/rbOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Other"
                 android:textColor="@color/black" />
+
             <RadioButton
                 android:id="@+id/rbPreferNotToSay"
                 android:layout_width="wrap_content"
@@ -192,13 +195,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#00000000"
+            android:drawablePadding="10dp"
+            android:text="Gender: "
+            android:textColor="#686666"
+            android:textColorHint="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registerAge" />
+
+
         <Button
             android:id="@+id/createSetup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="115dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/round_bg"
@@ -209,7 +232,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerAge" />
+            app:layout_constraintTop_toBottomOf="@+id/rgSetupGender" />
 
         <ProgressBar
             android:id="@+id/registerProgressBar2"

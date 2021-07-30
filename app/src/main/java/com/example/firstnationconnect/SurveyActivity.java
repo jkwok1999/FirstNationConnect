@@ -22,10 +22,10 @@ import java.util.UUID;
 public class SurveyActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestoreDB;
-    private Button btSubmitSurvey;
+    private Button btSubmitSurvey, btViewResults;
     private RadioGroup rgQuestionOne, rgQuestionTwo;
-    private TextView tvQuestionOne;
-    private RadioButton radioButton1;
+    private TextView tvQuestionOne, tvQuestionTwo;
+    private RadioButton radioButton1, radioButton2;
     private TextInputEditText tietQuestionThree;
 
     @Override
@@ -36,30 +36,45 @@ public class SurveyActivity extends AppCompatActivity {
         firestoreDB = FirebaseFirestore.getInstance();
 
         tvQuestionOne = findViewById(R.id.tvQuestionOne);
+        tvQuestionTwo = findViewById(R.id.tvQuestionTwo);
         rgQuestionOne = findViewById(R.id.rgQuestionOne);
         rgQuestionTwo = findViewById(R.id.rgQuestionTwo);
 
         tietQuestionThree = findViewById(R.id.tietQuestionThree);
+
+        btViewResults = findViewById(R.id.btViewResults);
 
         btSubmitSurvey = findViewById(R.id.btSubmitSurvey);
         btSubmitSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tvQuestionOne.setTextColor(getResources().getColor(R.color.black));
+                tvQuestionTwo.setTextColor(getResources().getColor(R.color.black));
                 boolean surveyValid = true;
 
 
-                if(rgQuestionOne.getCheckedRadioButtonId() == -1){
+                if (rgQuestionOne.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(SurveyActivity.this, "Please enter all required survey fields",
                             Toast.LENGTH_SHORT).show();
                     tvQuestionOne.setTextColor(getResources().getColor(R.color.colorRed));
                     surveyValid = false;
-                } else {
+                }
+                if (rgQuestionTwo.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(SurveyActivity.this, "Please enter all required survey fields",
+                            Toast.LENGTH_SHORT).show();
+                    tvQuestionTwo.setTextColor(getResources().getColor(R.color.colorRed));
+                    surveyValid = false;
+                }
+                if (surveyValid) {
+
                     int radioId1 = rgQuestionOne.getCheckedRadioButtonId();
+                    int radioId2 = rgQuestionTwo.getCheckedRadioButtonId();
 
                     radioButton1 = findViewById(radioId1);
+                    radioButton2 = findViewById(radioId2);
 
                     String question1Response = radioButton1.getText().toString();
+                    String question2Response = radioButton2.getText().toString();
 
                     DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -69,10 +84,10 @@ public class SurveyActivity extends AppCompatActivity {
                             String username = user.getUsername();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                            Survey surveyResults = new Survey(username, userId, question1Response);
+                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response);
                             //add more question attributes other than 1
 
-                            firestoreDB.collection("Survey").document("Survey - " + FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
+                            firestoreDB.collection("Survey").document("Survey " + FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
                             Toast.makeText(SurveyActivity.this, "Survey Complete",
                                     Toast.LENGTH_SHORT).show();
                             finish();
@@ -82,5 +97,4 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
     }
-
 }
