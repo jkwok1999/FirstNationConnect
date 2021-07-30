@@ -1,5 +1,6 @@
 package com.example.firstnationconnect;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,9 @@ public class TosActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tos);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         //Tutorial: https://www.youtube.com/watch?v=fn5OlqQuOCk
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -34,13 +38,13 @@ public class TosActivity extends AppCompatActivity implements View.OnClickListen
 
         tvTermsContent.setText(
                 "This is a citizen science project aimed to collect data for Red Cross Australia to assist in research and further support programs aimed to First Nations People" +
-                "\n\n By using this application, you are permitting Red Cross Australia to use your data (including information from posts you submit, date/time, geolocational data)"
+                "\n\nBy using this application, you are permitting Red Cross Australia to use your data (including information from posts you submit, date/time, geolocational data)"
         );
     }
 
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(TosActivity.this, HomeActivity.class));
+        finish();
     }
 }
