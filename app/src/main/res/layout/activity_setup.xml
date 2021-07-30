@@ -38,12 +38,12 @@
             android:layout_marginTop="26dp"
             android:gravity="center"
             android:text="Account Setup"
+            android:fontFamily="@font/allerta"
             android:textAlignment="center"
             android:textColor="@color/colorRed"
             android:textColorHighlight="#E4D6D6"
             android:textColorLink="#FDFDFD"
             android:textSize="25sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +73,7 @@
             android:drawableStart="@drawable/ic_human"
             android:drawableLeft="@drawable/ic_human"
             android:drawablePadding="16dp"
+            android:fontFamily="@font/montserrat"
             android:ems="10"
             android:hint="Enter First Name (Optional)"
             android:inputType="textCapSentences"
@@ -103,6 +104,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textColorHint="#808080"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +126,7 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="Enter Username"
+            android:fontFamily="@font/montserrat"
             android:inputType="textCapSentences"
             android:padding="16dp"
             android:textColor="#000000"
@@ -147,24 +150,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Male"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/black" />
             <RadioButton
                 android:id="@+id/rbFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Female"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/black" />
             <RadioButton
                 android:id="@+id/rbOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Other"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/black" />
             <RadioButton
                 android:id="@+id/rbPreferNotToSay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prefer not to say"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/black" />
 
         </RadioGroup>
@@ -188,6 +195,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textColorHint="#808080"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
@@ -203,8 +211,8 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/round_bg"
             android:text="Register"
+            android:fontFamily="@font/fredoka_one"
             android:textColor="@color/colorRed"
-            android:textStyle="bold"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
