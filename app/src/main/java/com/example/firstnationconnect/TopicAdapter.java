@@ -3,6 +3,7 @@ package com.example.firstnationconnect;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> implements View.OnClickListener {
@@ -48,7 +54,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     public class TopicViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView topicName, tvNumPost;
+        public TextView topicName, tvNumPost, tvLastPost;
         public ImageView topicImage;
         public ProgressBar pbTopic;
 
@@ -56,6 +62,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             super(v);
             topicName = v.findViewById(R.id.tvResourceName);
             tvNumPost = v.findViewById(R.id.tvNumPost);
+            tvLastPost = v.findViewById(R.id.tvLastPost);
             topicImage = v.findViewById(R.id.ivForumPic);
             pbTopic = v.findViewById(R.id.pbTopic);
         }
@@ -96,6 +103,22 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     }
                 });
 
+        if (topic.getLastPost() != null) {
+            DocumentReference docRef = firestoreDB.collection("Forum/" + topic.getTopicName() + "/Subtopic").document(topic.getLastPost());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    ForumPost lastPost = documentSnapshot.toObject(ForumPost.class);
+
+                    DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
+                    String postDate = dateFormat.format(lastPost.getPostDate());
+
+                    holder.tvLastPost.setText("Last post by " + lastPost.getPostUser() + " on " + postDate);
+                }
+            });
+        } else {
+            holder.tvLastPost.setText("");
+        }
 
         holder.itemView.setTag(topic);
         holder.itemView.setOnClickListener(this);

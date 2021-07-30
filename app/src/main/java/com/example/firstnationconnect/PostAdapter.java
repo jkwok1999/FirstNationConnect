@@ -63,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
         String postDate = dateFormat.format(post.getPostDate());
 
-        holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
+        holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
         holder.itemView.setTag(post);
 
         if (post.getImage() != null) {
@@ -83,5 +83,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     public void editPost(int position) {
 
+    }
+
+    public void setDataset(List<ForumPost> posts) {
+        mPosts = posts;
+        notifyDataSetChanged();
     }
 }

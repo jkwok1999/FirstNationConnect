@@ -2,28 +2,39 @@ package com.example.firstnationconnect;
 
 import java.util.Date;
 
-public class ForumPost extends Topic {
+public class ForumPost {
 
+    private String topicName;
     private String postID;
     private String postName;
     private String postContent;
     private String postUser;
     private Date postDate;
     private String image;
+    private String lastReply;
 
 
-    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image) {
-        super(topicName);
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image, String lastReply) {
+        this.topicName = topicName;
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
         this.postUser = postUser;
         this.postDate = postDate;
         this.image = image;
+        this.lastReply = lastReply;
     }
 
     public ForumPost() {
 
+    }
+
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
     }
 
     public String getPostID() {
@@ -72,5 +83,13 @@ public class ForumPost extends Topic {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getLastReply() {
+        return lastReply;
+    }
+
+    public void setLastReply(String lastReply) {
+        this.lastReply = lastReply;
     }
 }

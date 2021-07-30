@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Topic {
     private String topicName;
-    //private List topicList;
+    private String lastPost;
 
-    public Topic(String topicName) {
+
+    public Topic(String topicName, String lastPost) {
         this.topicName = topicName;
+        this.lastPost = lastPost;
     }
 
     public Topic() {
@@ -23,13 +25,13 @@ public class Topic {
         this.topicName = topicName;
     }
 
-    /*public List getTopicList() {
-        topicList = new ArrayList<>();
+    public String getLastPost() {
+        return lastPost;
+    }
 
-        topicList.add();
-
-
-    }*/
+    public void setLastPost(String lastPost) {
+        this.lastPost = lastPost;
+    }
 }
 
 
