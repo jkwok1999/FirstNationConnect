@@ -25,10 +25,6 @@ public class SurveyActivity extends AppCompatActivity {
     private Button btSubmitSurvey;
     private RadioGroup rgQuestionOne, rgQuestionTwo;
     private TextView tvQuestionOne;
-    //    private RadioButton rbQuestion1StronglyAgree, rbQuestion1Agree, rbQuestion1Neutral,
-//            rbQuestion1Disagree, rbQuestion1StronglyDisagree;
-//    private RadioButton rbQuestion2StronglyAgree, rbQuestion2Agree, rbQuestion2Neutral,
-//            rbQuestion2Disagree, rbQuestion2StronglyDisagree;
     private RadioButton radioButton1;
     private TextInputEditText tietQuestionThree;
 
@@ -42,19 +38,6 @@ public class SurveyActivity extends AppCompatActivity {
         tvQuestionOne = findViewById(R.id.tvQuestionOne);
         rgQuestionOne = findViewById(R.id.rgQuestionOne);
         rgQuestionTwo = findViewById(R.id.rgQuestionTwo);
-
-//        rbQuestion1StronglyAgree = findViewById(R.id.rbQuestion1StronglyAgree);
-//        rbQuestion1Agree = findViewById(R.id.rbQuestion1Agree);
-//        rbQuestion1Neutral = findViewById(R.id.rbQuestion1Neutral);
-//        rbQuestion1Disagree = findViewById(R.id.rbQuestion1Disagree);
-//        rbQuestion1StronglyDisagree = findViewById(R.id.rbQuestion1StronglyDisagree);
-//
-//        rbQuestion2StronglyAgree = findViewById(R.id.rbQuestion2StronglyAgree);
-//        rbQuestion2Agree = findViewById(R.id.rbQuestion2Agree);
-//        rbQuestion2Neutral = findViewById(R.id.rbQuestion2Neutral);
-//        rbQuestion2Disagree = findViewById(R.id.rbQuestion2Disagree);
-//        rbQuestion2StronglyDisagree = findViewById(R.id.rbQuestion2StronglyDisagree);
-
 
         tietQuestionThree = findViewById(R.id.tietQuestionThree);
 
