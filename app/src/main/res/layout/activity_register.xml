@@ -38,6 +38,7 @@
             android:layout_marginTop="120dp"
             android:gravity="center"
             android:text="Create New Account"
+            android:fontFamily="@font/allerta"
             android:textAlignment="center"
             android:textColor="@color/colorRed"
             android:textColorHighlight="#E4D6D6"
@@ -63,6 +64,7 @@
             android:drawableStart="@drawable/ic_email"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="16dp"
+            android:fontFamily="@font/montserrat"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -87,6 +89,7 @@
             android:drawableStart="@drawable/ic_lock"
             android:drawableLeft="@drawable/ic_lock"
             android:drawablePadding="16dp"
+            android:fontFamily="@font/montserrat"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
@@ -116,6 +119,7 @@
             android:padding="16dp"
             android:textColor="#000000"
             android:textColorHint="#808080"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newPassword" />
@@ -132,7 +136,7 @@
             android:background="@drawable/round_bg"
             android:text="Register"
             android:textColor="@color/colorRed"
-            android:textStyle="bold"
+            android:fontFamily="@font/fredoka_one"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -147,6 +151,7 @@
             android:gravity="center"
             android:text="I agree to the Terms and Conditions"
             android:textColor="#000000"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintBottom_toTopOf="@+id/createAccount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -163,23 +168,6 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newPasswordConfirm" />
-
-
-        <TextView
-            android:id="@+id/copyright2"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="FirstNationConnect 2021 ©"
-            android:textAlignment="center"
-            android:textColor="#515151"
-            android:textSize="13sp"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createAccount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -235,6 +235,7 @@
             android:textAlignment="center"
             android:textColor="#515151"
             android:textSize="13sp"
+            android:fontFamily="@font/montserrat"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -27,6 +27,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Discussion Forums"
+        android:fontFamily="@font/allerta"
         android:textColor="#000000"
         android:textSize="27sp"
         android:textStyle="bold"
@@ -42,6 +43,7 @@
         android:gravity="center"
         android:paddingBottom="3dp"
         android:text="Select a forum to view more details"
+        android:fontFamily="@font/montserrat"
         android:textAlignment="gravity"
         android:textColor="#000000"
         android:textSize="13sp"
@@ -49,6 +51,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/fnclogo"
+        app:layout_constraintLeft_toRightOf="@id/tvTitle"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forumRecyclerView"
@@ -60,5 +71,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDetails"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/copyright2"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:gravity="center"
+        android:text="FirstNationConnect 2021 ©"
+        android:textAlignment="center"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#000000"
+        android:textSize="13sp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

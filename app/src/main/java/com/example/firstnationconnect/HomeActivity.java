@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        welcomeName.setText("Welcome Back, " + user.getDisplayName() + "!");
+        welcomeName.setText("Welcome back, " + user.getDisplayName() + "!");
 //        loggedInEmail.setText(user.getEmail());
 //        loggedInUsername.setText(user.getDisplayName());
 

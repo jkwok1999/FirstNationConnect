@@ -31,6 +31,7 @@
         android:textColor="#000000"
         android:textSize="27sp"
         android:textStyle="bold"
+        android:fontFamily="@font/allerta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,12 +55,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Write your reply"
+        android:fontFamily="@font/montserrat"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/copyright2"
         app:layout_constraintEnd_toStartOf="@+id/postReplyButton"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -69,8 +71,26 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:backgroundTint="@color/FNCyellow"
         android:text="Post"
+        android:fontFamily="@font/fredoka_one"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/replyEditText" />
+
+    <TextView
+        android:id="@+id/copyright2"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:gravity="center"
+        android:text="FirstNationConnect 2021 ©"
+        android:textAlignment="center"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#000000"
+        android:textSize="13sp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
