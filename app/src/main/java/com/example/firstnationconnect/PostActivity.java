@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +48,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private EditText replyText;
     private ProgressBar pbPost;
 
-    private RecyclerView.Adapter mAdapter;
+    private PostAdapter mAdapter;
     //private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
 
@@ -86,9 +87,25 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     String username = user.getUsername();
                     String profileImage = user.getProfilePic();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage);
+                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+
+                    DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
+                    subtopicRef
+                            .update("lastReply", stringID)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                }
+                            });
 
                     Toast.makeText(PostActivity.this, "Post was successfully added",
                             Toast.LENGTH_SHORT).show();
@@ -168,8 +185,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                        mAdapter = new PostAdapter(PostActivity.this, postList);
-                        recyclerView.setAdapter(mAdapter);
+
+                        if (mAdapter == null) {
+                            mAdapter = new PostAdapter(PostActivity.this, postList);
+                            recyclerView.setAdapter(mAdapter);
+                        } else {
+                            mAdapter.setDataset(postList);
+                        }
 
                         pbPost.setVisibility(View.INVISIBLE);
 

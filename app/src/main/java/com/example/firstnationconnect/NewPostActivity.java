@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +33,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private String topic;
 
     private FirebaseFirestore firestoreDB;
+
+    private String TAG = "NewPostActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +122,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             long milliseconds = System.currentTimeMillis();
             Date postDate = new java.util.Date(milliseconds);
 
-            //Timestamp
-
             UUID newID = UUID.randomUUID();
             String stringID = newID.toString();
 
@@ -132,9 +135,25 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                     String username = user.getUsername();
                     String profileImage = user.getProfilePic();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage);
+                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null);
 
                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+
+                    DocumentReference topicRef = firestoreDB.collection("Forum").document(topic);
+                    topicRef
+                            .update("lastPost", stringID)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                }
+                            });
 
                     Toast.makeText(NewPostActivity.this, "Post was successfully added",
                             Toast.LENGTH_SHORT).show();
