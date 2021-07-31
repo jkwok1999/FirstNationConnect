@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vincent/StudioProjects/FirstNationConnect/app/src/main/res/drawable/colourgradient_home.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/Vincent/StudioProjects/FirstNationConnect/app/src/main/res/drawable/round_bg_pop_button.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/Vincent/StudioProjects/FirstNationConnect/app/src/main/res/layout/activity_credits.xml" value="0.26145833333333335" />
         <entry key="..\:/Users/Vincent/StudioProjects/FirstNationConnect/app/src/main/res/layout/activity_forum.xml" value="0.26145833333333335" />
         <entry key="..\:/Users/Vincent/StudioProjects/FirstNationConnect/app/src/main/res/layout/activity_home.xml" value="0.26145833333333335" />
