@@ -2,6 +2,8 @@ package com.example.firstnationconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -43,9 +45,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SetupActivity extends AppCompatActivity {
 
     private EditText registerFirstName, registerLastName, registerUsername, registerAge;
+    private EditText registerFNDTribe;
     private Button createSetup;
-    private RadioGroup rgSetupGender;
-    private RadioButton radioButtonGender;
+    private RadioGroup rgSetupGender, rgFndSetup;
+    private RadioButton radioButtonGender, radioButtonTribe, rbFndSetupYes, rbFndSetupNo, rbFndSetupPNTS;
     private ProgressBar registerProgressBar2;
     //    private CheckBox registerCheckBox;
     private CircleImageView setupImage;
@@ -69,12 +72,21 @@ public class SetupActivity extends AppCompatActivity {
         registerUsername = findViewById(R.id.registerUsername);
         registerAge = findViewById(R.id.registerAge);
         rgSetupGender = findViewById(R.id.rgSetupGender);
+        rgFndSetup = findViewById(R.id.rgFndSetup);
+
+        rbFndSetupYes = findViewById(R.id.rbFndSetupYes);
+        rbFndSetupNo = findViewById(R.id.rbFndSetupNo);
+        rbFndSetupPNTS = findViewById(R.id.rbFndSetupPNTS);
+
+        registerFNDTribe = findViewById(R.id.registerFNDTribe);
+
 //        registerCheckBox = findViewById(R.id.registerCheckBox);
         registerProgressBar2 = findViewById(R.id.registerProgressBar2);
 
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firestoreDB = FirebaseFirestore.getInstance();
+
 
         createSetup = findViewById(R.id.createSetup);
         createSetup.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +95,7 @@ public class SetupActivity extends AppCompatActivity {
                 String firstName = registerFirstName.getText().toString().trim();
                 String lastName = registerLastName.getText().toString().trim();
                 String username = registerUsername.getText().toString().trim();
+                String etTribe = registerFNDTribe.getText().toString().trim();
                 boolean loginValid = true;
 
                 if (registerAge.getText().toString().trim().isEmpty()) {
@@ -99,11 +112,28 @@ public class SetupActivity extends AppCompatActivity {
 //                    loginValid = false;
                     lastName = null;
                 }
-                if(rgSetupGender.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(SetupActivity.this, "Please enter preferred gender",
+                if (rgSetupGender.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(SetupActivity.this, "Please enter all fields",
                             Toast.LENGTH_SHORT).show();
                     loginValid = false;
                 }
+                if (rgFndSetup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(SetupActivity.this, "Please enter all fields",
+                            Toast.LENGTH_SHORT).show();
+                    loginValid = false;
+                }
+
+//                if (rbFndSetupYes.isChecked()) {
+//                    registerFNDTribe.setVisibility(View.VISIBLE);
+//                }
+                if (etTribe.isEmpty() && registerFNDTribe.getVisibility() == View.VISIBLE) {
+                    registerFNDTribe.setError("Please enter tribe name");
+                    loginValid = false;
+                }
+//                if (rbFndSetupNo.isChecked() || rbFndSetupPNTS.isChecked()) {
+//                    registerFNDTribe.setVisibility(View.GONE);
+//                }
+
                 if (registerUsername.getText().toString().trim().isEmpty()) {
                     registerUsername.setError("Username is required!");
                     loginValid = false;
@@ -129,8 +159,9 @@ public class SetupActivity extends AppCompatActivity {
                     String user_id = firebaseAuth.getCurrentUser().getUid();
                     String email = firebaseAuth.getCurrentUser().getEmail();
                     String imageString = null;
+                    String tribe = registerFNDTribe.getText().toString().trim();
 
-                    if(mainImageURI != null) {
+                    if (mainImageURI != null) {
                         imageString = mainImageURI.toString();
                     } else {
                         imageString = null;
@@ -139,14 +170,16 @@ public class SetupActivity extends AppCompatActivity {
                     radioButtonGender = findViewById(radioIdGender);
                     String gender = radioButtonGender.getText().toString();
 
-//                    StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
-//                    image_path.putFile(mainImageURI)
-//                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                                    if (task.isSuccessful()) {
+                    if (rbFndSetupNo.isChecked() || rbFndSetupPNTS.isChecked()) {
+                        int radioIdTribe = rgFndSetup.getCheckedRadioButtonId();
+                        radioButtonTribe = findViewById(radioIdTribe);
+                        tribe = radioButtonTribe.getText().toString();
+                    } else if (rbFndSetupYes.isChecked()){
+                        tribe = etTribe;
+                    }
 
-                    User user = new User(firstName, lastName, email, username, age, gender, imageString);
+
+                    User user = new User(firstName, lastName, email, username, age, gender, imageString, tribe);
                     // Sign in success, update UI with the signed-in user's information
 
                     firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(user)
@@ -237,6 +270,16 @@ public class SetupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void FndYes(View view) {
+        if (rbFndSetupNo.isChecked() || rbFndSetupPNTS.isChecked()) {
+            registerFNDTribe.setVisibility(View.GONE);
+        }
+        if (rbFndSetupYes.isChecked()) {
+            registerFNDTribe.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

@@ -43,8 +43,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
 
     private CircleImageView profileImage;
-    private TextView profileFirstName, profileLastName, profileEmail, profileAge, profileUsername;
-    private TextView tvFirstNameEdit, tvLastNameEdit, tvAgeEdit, tvEmailEdit;
+    private TextView profileFirstName, profileEmail, profileAge, profileUsername, profileDescent;
+    private TextView tvFirstNameEdit, tvAgeEdit, tvEmailEdit, tvDescentEdit2;
     private Button btEditProfile;
     private ProgressBar progressBarEdit;
 
@@ -58,17 +58,17 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         profileFirstName = findViewById(R.id.profileFirstName);
-        profileLastName = findViewById(R.id.profileLastName);
         profileEmail = findViewById(R.id.profileEmail);
         profileAge = findViewById(R.id.profileAge);
         profileUsername = findViewById(R.id.profileUsername);
         profileImage = findViewById(R.id.profileImage);
         progressBarEdit = findViewById(R.id.progressBarEdit);
+        profileDescent = findViewById(R.id.profileDescent);
 
         tvFirstNameEdit = findViewById(R.id.tvFirstNameEdit);
-        tvLastNameEdit = findViewById(R.id.tvLastNameEdit);
         tvAgeEdit = findViewById(R.id.tvAgeEdit);
         tvEmailEdit = findViewById(R.id.tvEmailEdit);
+        tvDescentEdit2 = findViewById(R.id.tvDescentEdit2);
 
         btEditProfile = findViewById(R.id.btEditProfile);
         btEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -82,16 +82,16 @@ public class ProfileActivity extends AppCompatActivity {
         progressBarEdit.setVisibility(View.VISIBLE);
         profileImage.setVisibility(View.GONE);
         profileFirstName.setVisibility(View.GONE);
-        profileLastName.setVisibility(View.GONE);
         profileEmail.setVisibility(View.GONE);
         profileAge.setVisibility(View.GONE);
         tvFirstNameEdit.setVisibility(View.GONE);
-        tvLastNameEdit.setVisibility(View.GONE);
         tvAgeEdit.setVisibility(View.GONE);
         tvEmailEdit.setVisibility(View.GONE);
         btEditProfile.setVisibility(View.GONE);
+        profileDescent.setVisibility(View.GONE);
+        tvDescentEdit2.setVisibility(View.GONE);
 
-                mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         firestoreDB = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -105,21 +105,22 @@ public class ProfileActivity extends AppCompatActivity {
                 progressBarEdit.setVisibility(View.GONE);
                 profileImage.setVisibility(View.VISIBLE);
                 profileFirstName.setVisibility(View.VISIBLE);
-                profileLastName.setVisibility(View.VISIBLE);
                 profileEmail.setVisibility(View.VISIBLE);
                 profileAge.setVisibility(View.VISIBLE);
                 tvFirstNameEdit.setVisibility(View.VISIBLE);
-                tvLastNameEdit.setVisibility(View.VISIBLE);
                 tvAgeEdit.setVisibility(View.VISIBLE);
                 tvEmailEdit.setVisibility(View.VISIBLE);
                 btEditProfile.setVisibility(View.VISIBLE);
+                profileDescent.setVisibility(View.VISIBLE);
+                tvDescentEdit2.setVisibility(View.VISIBLE);
 
-                profileLastName.setText(user.getLastName());
-                profileFirstName.setText(user.getFirstName());
+                profileFirstName.setText(user.getFirstName() + " " + user.getLastName());
                 profileEmail.setText(user.getEmail());
                 profileAge.setText(String.valueOf(user.getAge()));
                 profileImage.setImageURI(currentUser.getPhotoUrl());
                 profileUsername.setText(user.getUsername());
+                profileDescent.setText(user.getFirstNationDescent());
+
             }
         });
     }

@@ -39,9 +39,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileEditActivity extends AppCompatActivity {
 
     private EditText editFirstName, editLastName, editAge;
+    private EditText editFNDTribe;
     private Button btEditChanges;
-    private RadioGroup rgEditGender;
-    private RadioButton radioButtonEditGender;
+    private RadioGroup rgEditGender, rgFndEdit;
+    private RadioButton radioButtonEditGender, radioButtonEditTribe, rbFndEditYes, rbFndEditNo, rbFndEditPNTS;
     private RadioButton rbEditMale, rbEditFemale, rbEditOther, rbEditPreferNotToSay;
     private CircleImageView profileImageEdit;
     private ProgressBar editProgressBar;
@@ -66,6 +67,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         rbEditOther = findViewById(R.id.rbEditOther);
         rbEditPreferNotToSay = findViewById(R.id.rbEditPreferNotToSay);
         editProgressBar = findViewById(R.id.editProgressBar);
+
+        rgFndEdit = findViewById(R.id.rgFndEdit);
+        rbFndEditYes = findViewById(R.id.rbFndEditYes);
+        rbFndEditNo = findViewById(R.id.rbFndEditNo);
+        rbFndEditPNTS = findViewById(R.id.rbFndEditPNTS);
+
+        editFNDTribe = findViewById(R.id.editFNDTribe);
+
 
         profileImageEdit = findViewById(R.id.profileImageEdit);
 
@@ -97,65 +106,109 @@ public class ProfileEditActivity extends AppCompatActivity {
                         rbEditPreferNotToSay.setChecked(true);
                         break;
                 }
+                switch (user.getFirstNationDescent()) {
+                    case "No":
+                        rbFndEditNo.setChecked(true);
+                        break;
+                    case "Prefer not to say":
+                        rbFndEditPNTS.setChecked(true);
+                        break;
+                    default:
+                        rbFndEditYes.setChecked(true);
+                        editFNDTribe.setText(user.getFirstNationDescent());
+                        editFNDTribe.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         btEditChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = editFirstName.getText().toString().trim();
-                String lastName = editLastName.getText().toString().trim();
+                try {
+                    String firstName = editFirstName.getText().toString().trim();
+                    String lastName = editLastName.getText().toString().trim();
+                    String etTribe = editFNDTribe.getText().toString().trim();
+                    boolean editProfile = true;
 
-                if (firstName.isEmpty()) {
-                    firstName = null;
-                }
-                if (lastName.isEmpty()) {
-                    lastName = null;
-                }
-
-                if (editAge.getText().toString().trim().isEmpty()) {
-                    editAge.setError("Age is required!");
-                }
-
-                int age = Integer.parseInt(editAge.getEditableText().toString());
-                if (age < 16) {
-                    editAge.setError("User must be 16 years or older!");
-                }
-                if (age > 110) {
-                    editAge.setError("Please enter valid age!");
-                }
-                editProgressBar.setVisibility(View.VISIBLE);
-                String email = mAuth.getCurrentUser().getEmail();
-                String username = mAuth.getCurrentUser().getDisplayName();
-                String profileImage = null;
-                if(mAuth.getCurrentUser().getPhotoUrl() != null) {
-                    profileImage = mAuth.getCurrentUser().getPhotoUrl().toString();
-                }
-
-                int radioIdGender = rgEditGender.getCheckedRadioButtonId();
-                radioButtonEditGender = findViewById(radioIdGender);
-                String gender = radioButtonEditGender.getText().toString();
-                User editUser = new User(firstName, lastName, email, username, age, gender, profileImage);
-                DocumentReference docRef = firestoreDB.collection("Users")
-                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                docRef.set(editUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(username)
-                                    .build();
-                            user.updateProfile(profileUpdates);
-                            Toast.makeText(ProfileEditActivity.this, "Profile Settings Saved",
-                                    Toast.LENGTH_LONG).show();
-                            editProgressBar.setVisibility(View.INVISIBLE);
-                            finish();
-                            Intent editFinishProfileIntent = new Intent(ProfileEditActivity.this, ProfileActivity.class);
-                            startActivity(editFinishProfileIntent);
-                        }
+                    if (firstName.isEmpty()) {
+                        firstName = null;
                     }
-                });
+                    if (lastName.isEmpty()) {
+                        lastName = null;
+                    }
+
+                    if (editAge.getText().toString().trim().isEmpty()) {
+                        editAge.setError("Age is required!");
+                        editProfile = false;
+                    }
+                    if (rgFndEdit.getCheckedRadioButtonId() == -1) {
+                        Toast.makeText(ProfileEditActivity.this, "Please enter required fields",
+                                Toast.LENGTH_SHORT).show();
+                        editProfile = false;
+                    }
+                    if (etTribe.isEmpty() && editFNDTribe.getVisibility() == View.VISIBLE) {
+                        editFNDTribe.setError("Please enter tribe name");
+                        editProfile = false;
+                    }
+
+                    int age = Integer.parseInt(editAge.getEditableText().toString());
+                    if (age < 16) {
+                        editAge.setError("User must be 16 years or older!");
+                        editProfile = false;
+                    }
+                    if (age > 110) {
+                        editAge.setError("Please enter valid age!");
+                        editProfile = false;
+                    }
+                    if(editProfile == true) {
+                        editProgressBar.setVisibility(View.VISIBLE);
+                        String email = mAuth.getCurrentUser().getEmail();
+                        String username = mAuth.getCurrentUser().getDisplayName();
+                        String profileImage = null;
+                        String tribe = null;
+                        if(mAuth.getCurrentUser().getPhotoUrl() != null) {
+                            profileImage = mAuth.getCurrentUser().getPhotoUrl().toString();
+                        }
+
+                        if (rbFndEditNo.isChecked() || rbFndEditPNTS.isChecked()) {
+                            int radioIdTribe = rgFndEdit.getCheckedRadioButtonId();
+                            radioButtonEditTribe = findViewById(radioIdTribe);
+                            tribe = radioButtonEditTribe.getText().toString();
+                        } else if (rbFndEditYes.isChecked()){
+                            tribe = etTribe;
+                        }
+
+                        int radioIdGender = rgEditGender.getCheckedRadioButtonId();
+                        radioButtonEditGender = findViewById(radioIdGender);
+                        String gender = radioButtonEditGender.getText().toString();
+
+                        User editUser = new User(firstName, lastName, email, username, age, gender, profileImage, tribe);
+                        DocumentReference docRef = firestoreDB.collection("Users")
+                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        docRef.set(editUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(username)
+                                            .build();
+                                    user.updateProfile(profileUpdates);
+                                    Toast.makeText(ProfileEditActivity.this, "Profile Settings Saved",
+                                            Toast.LENGTH_LONG).show();
+                                    editProgressBar.setVisibility(View.INVISIBLE);
+                                    finish();
+                                    Intent editFinishProfileIntent = new Intent(ProfileEditActivity.this, ProfileActivity.class);
+                                    startActivity(editFinishProfileIntent);
+                                }
+                            }
+                        });
+                    }
+                } catch(NumberFormatException e) {
+                    Toast.makeText(ProfileEditActivity.this, "Please enter required fields",
+                            Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -188,6 +241,17 @@ public class ProfileEditActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    public void FndEditYes(View view) {
+        if (rbFndEditNo.isChecked() || rbFndEditPNTS.isChecked()) {
+            editFNDTribe.setVisibility(View.GONE);
+        }
+        if (rbFndEditYes.isChecked()) {
+            editFNDTribe.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

@@ -28,17 +28,17 @@
             android:id="@+id/profileImage"
             android:layout_width="wrap_content"
             android:layout_height="135dp"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/default_profile"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="0dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/default_profile"
             app:layout_constraintBottom_toBottomOf="@+id/bruh"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <TextView
@@ -86,7 +86,7 @@
             android:background="#00000000"
             android:drawablePadding="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="First Name"
+            android:text="Name"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp" />
@@ -109,31 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tvLastNameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="#00000000"
-            android:drawablePadding="10dp"
-            android:text="Last Name"
-            android:fontFamily="@font/montserrat"
-            android:textColor="#686666"
-            android:textColorHint="#FFFFFF"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/profileLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="#00000000"
-            android:fontFamily="@font/montserrat"
-            android:drawableLeft="@drawable/ic_human"
-            android:drawablePadding="10dp"
-            android:textColor="#000000"
-            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvAgeEdit"
@@ -186,6 +161,31 @@
             android:textColor="#000000"
             android:textSize="18sp" />
 
+
+        <TextView
+            android:id="@+id/tvDescentEdit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="First Nation Descent"
+            android:textColor="#686666"
+            android:textColorHint="#FFFFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/profileDescent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:drawableLeft="@drawable/ic_human"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btEditProfile"

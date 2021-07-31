@@ -54,6 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="135dp"
             android:layout_marginBottom="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="0dp"
             android:src="@drawable/default_profile"
             app:layout_constraintBottom_toBottomOf="@+id/wave3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,6 +209,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerUsername" />
 
+        <EditText
+            android:id="@+id/registerFNDTribe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/ic_human"
+            android:drawableLeft="@drawable/ic_human"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:visibility="gone"
+            android:fontFamily="@font/montserrat"
+            android:hint="Enter Tribe Name"
+            android:inputType="textCapSentences"
+            android:padding="16dp"
+            android:textColor="#000000"
+            android:textColorHint="#808080"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgFndSetup" />
+
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
@@ -236,13 +267,55 @@
             android:background="#00000000"
             android:drawablePadding="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="Gender: "
+            android:text="Are you of First Nations Descent?"
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rgSetupGender" />
+
+
+        <RadioGroup
+            android:id="@+id/rgFndSetup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fndTV">
+
+            <RadioButton
+                android:id="@+id/rbFndSetupYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="Yes"
+                android:onClick="FndYes"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbFndSetupNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="No"
+                android:onClick="FndYes"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rbFndSetupPNTS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="Prefer not to say"
+                android:onClick="FndYes"
+                android:textColor="@color/black" />
+
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/createSetup"
@@ -250,18 +323,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/round_bg"
-            android:text="Register"
             android:fontFamily="@font/fredoka_one"
+            android:text="Register"
             android:textColor="@color/colorRed"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgSetupGender" />
+            app:layout_constraintTop_toBottomOf="@+id/registerFNDTribe" />
 
         <ProgressBar
             android:id="@+id/registerProgressBar2"
@@ -273,7 +346,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgSetupGender" />
+            app:layout_constraintTop_toBottomOf="@+id/registerFNDTribe" />
 
 
         <TextView
