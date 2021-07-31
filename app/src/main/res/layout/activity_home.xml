@@ -23,10 +23,10 @@
 
                 <TextView
                     android:id="@+id/txDashboard"
-                    android:layout_width="233dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="My Dashboard"
                     android:fontFamily="@font/montserrat"
+                    android:text="My Dashboard"
                     android:textColor="#000000"
                     android:textSize="32sp" />
 
@@ -35,8 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txDashboard"
-                    android:text="Welcome!"
                     android:fontFamily="@font/montserrat"
+                    android:text="Welcome!"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 

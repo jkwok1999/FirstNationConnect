@@ -23,9 +23,9 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:text="Topic Title"
+        android:fontFamily="@font/allerta"
         android:textColor="#000000"
         android:textSize="27sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
