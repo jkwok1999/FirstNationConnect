@@ -218,10 +218,31 @@
             android:textColor="#686666"
             android:textColorHint="#FFFFFF"
             android:textSize="20sp"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerAge" />
 
+
+        <TextView
+            android:id="@+id/fndTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#00000000"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Gender: "
+            android:textColor="#686666"
+            android:textColorHint="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgSetupGender" />
 
         <Button
             android:id="@+id/createSetup"

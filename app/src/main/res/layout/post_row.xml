@@ -67,6 +67,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="By USERNAME at TIME"
                 android:fontFamily="@font/montserrat"
+                android:textColor="#000000"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tvResourceName"
