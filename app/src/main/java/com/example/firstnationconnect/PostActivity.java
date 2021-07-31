@@ -2,11 +2,15 @@ package com.example.firstnationconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -20,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,6 +36,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -49,7 +56,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar pbPost;
 
     private PostAdapter mAdapter;
-    //private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
 
     private List<ForumPost> postList;
@@ -58,6 +64,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private String topic;
     private String mainPostName;
     private String mainPostID;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     public void onClick(View v) {
@@ -87,32 +95,59 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     String username = user.getUsername();
                     String profileImage = user.getProfilePic();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null);
+                    if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                    firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+                        fusedLocationClient.getLastLocation()
+                                .addOnSuccessListener(PostActivity.this, new OnSuccessListener<Location>() {
+                                    @Override
+                                    public void onSuccess(Location location) {
+                                        // Got last known location. In some rare situations this can be null.
+                                        if (location != null) {
+                                            // Logic to handle location object
 
-                    DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
-                    subtopicRef
-                            .update("lastReply", stringID)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@android.support.annotation.NonNull Exception e) {
-                                    Log.w(TAG, "Error updating document", e);
-                                }
-                            });
+                                            GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                    Toast.makeText(PostActivity.this, "Post was successfully added",
-                            Toast.LENGTH_SHORT).show();
+                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation);
 
-                    replyText.setText(null);
+                                            firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
-                    updateUi();
+                                        }
+                                        else {
+                                            //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+
+                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null);
+
+                                            firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+
+                                        }
+
+                                        DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
+                                        subtopicRef
+                                                .update("lastReply", stringID)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                                        Log.w(TAG, "Error updating document", e);
+                                                    }
+                                                });
+
+                                        Toast.makeText(PostActivity.this, "Post was successfully added",
+                                                Toast.LENGTH_SHORT).show();
+
+                                        replyText.setText(null);
+
+                                        updateUi();
+                                    }
+                                });
+                    } else {
+                        ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                    }
                 }
             });
         }
@@ -146,6 +181,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         firestoreDB = FirebaseFirestore.getInstance();
 
         postList = new ArrayList<>();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         updateUi();
 
