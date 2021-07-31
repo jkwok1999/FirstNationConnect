@@ -70,10 +70,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:backgroundTint="@color/FNCyellow"
-        android:text="Post"
+        android:background="@drawable/round_bg_pop_button"
         android:fontFamily="@font/fredoka_one"
+        android:text="Post"
         android:textColor="@color/black"
+        app:backgroundTint="#ffc371"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/replyEditText" />
 

@@ -41,7 +41,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/fnclogo"
         app:layout_constraintLeft_toRightOf="@id/tvPostTitle"
         app:layout_constraintRight_toRightOf="parent"
