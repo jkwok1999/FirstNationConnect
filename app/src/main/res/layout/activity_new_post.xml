@@ -22,19 +22,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <TextView
+        android:id="@+id/tvPostTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/allerta"
+        android:text="Create your post"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/newPostName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/fnclogo"
+        app:layout_constraintLeft_toRightOf="@id/tvPostTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/newPostName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Give your post a name"
         android:fontFamily="@font/montserrat"
+        android:hint="Give your post a name"
         android:inputType="text"
         android:maxLength="100"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPostTitle"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -44,16 +71,19 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/submitPost"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPostName">
+        app:layout_constraintTop_toBottomOf="@+id/newPostName"
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/newPostContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
             android:ems="10"
+            android:fontFamily="@font/montserrat"
             android:gravity="start|top"
+            android:textColor="@color/black"
             android:hint="Add your post"
             android:inputType="textMultiLine" />
     </ScrollView>
