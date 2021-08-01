@@ -114,7 +114,12 @@ public class ProfileActivity extends AppCompatActivity {
                 profileDescent.setVisibility(View.VISIBLE);
                 tvDescentEdit2.setVisibility(View.VISIBLE);
 
-                profileFirstName.setText(user.getFirstName() + " " + user.getLastName());
+                if (user.getFirstName() == null || user.getLastName() == null) {
+                    profileFirstName.setText("");
+                } else {
+                    profileFirstName.setText(user.getFirstName() + " " + user.getLastName());
+                }
+
                 profileEmail.setText(user.getEmail());
                 profileAge.setText(String.valueOf(user.getAge()));
                 profileImage.setImageURI(currentUser.getPhotoUrl());

@@ -6,12 +6,15 @@ public class Survey {
     private String userID;
     private String surveyResponseOne;
     private String surveyResponseTwo;
+    private String thoughts;
 
-    public Survey(String surveyUser, String userID, String surveyResponseOne, String surveyResponseTwo) {
+
+    public Survey(String surveyUser, String userID, String surveyResponseOne, String surveyResponseTwo, String thoughts) {
         this.surveyUser = surveyUser;
         this.userID = userID;
         this.surveyResponseOne = surveyResponseOne;
         this.surveyResponseTwo = surveyResponseTwo;
+        this.thoughts = thoughts;
     }
 
     public Survey() {
@@ -49,6 +52,14 @@ public class Survey {
 
     public void setSurveyResponseTwo(String surveyResponseTwo) {
         this.surveyResponseOne = surveyResponseOne;
+    }
+
+    public String getThoughts() {
+        return thoughts;
+    }
+
+    public void setThoughts(String thoughts) {
+        this.thoughts = thoughts;
     }
 
 }

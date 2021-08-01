@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(MainActivity.this, "Login Successful",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, TosActivity.class);
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 startActivity(intent);
                                 loginProgressBar.setVisibility(View.INVISIBLE);
                             } else {
@@ -120,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "Login Failed. Please Try Again",
                                         Toast.LENGTH_SHORT).show();
-                                updateUI(null);
                                 loginProgressBar.setVisibility(View.INVISIBLE);
                             }
                         }
@@ -149,11 +149,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // FirebaseUser.getIdToken() instead.
             String uid = user.getUid();
         }
-    }
-
-    //private void reload() { }
-
-    private void updateUI(FirebaseUser currentUser) {
-
     }
 }

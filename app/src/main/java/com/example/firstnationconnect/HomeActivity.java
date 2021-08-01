@@ -1,5 +1,6 @@
 package com.example.firstnationconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -10,9 +11,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +29,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "HomeActivity";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestoreDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = mAuth.getCurrentUser();
+        firestoreDB = FirebaseFirestore.getInstance();
 
         welcomeName.setText("Welcome back, " + user.getDisplayName() + "!");
 //        loggedInEmail.setText(user.getEmail());
@@ -74,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
             case R.id.cvSurvey:
-                startActivity(new Intent(HomeActivity.this, SurveyActivity.class));
+                startActivity(new Intent(HomeActivity.this, SurveyResultActivity.class));
                 break;
             case R.id.cvCredits:
                 startActivity(new Intent(HomeActivity.this, CreditsActivity.class));
@@ -82,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void getCurrentUser () {
+    public void getCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Name, email address, and profile photo Url

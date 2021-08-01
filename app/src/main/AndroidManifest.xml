@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -15,17 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
         <activity
+            android:name=".SurveyResultActivity"
+            android:exported="true"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".SurveyActivity"
-            android:parentActivityName=".HomeActivity"/>
-        <activity android:name=".TosActivity"
-            android:theme="@style/Theme.AppCompat.PopupTheme"
-            ></activity>
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".TosActivity"
+            android:theme="@style/Theme.AppCompat.PopupTheme" />
         <activity
             android:name=".CreditsActivity"
-            android:parentActivityName=".HomeActivity"/>
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ResourceTopicActivity"
-            android:parentActivityName=".ResourcesActivity"/>
+            android:parentActivityName=".ResourcesActivity" />
         <activity
             android:name=".ProfileEditActivity"
             android:parentActivityName=".ProfileActivity" />
@@ -64,6 +69,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
+
+
 
 </manifest>
