@@ -147,6 +147,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                 });
                     } else {
                         ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                        Toast.makeText(PostActivity.this, "Please allow location access and try again",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -236,13 +238,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    /*@Override
+    @Override
     public void onBackPressed(){
         //NavUtils.navigateUpFromSameTask(this);
         Intent intent = new Intent(PostActivity.this, SubforumActivity.class);
         intent.putExtra("TopicName", topic);
         startActivity(intent);
-    }*/
+    }
 
     //Makes up button pass an intent
     @Override

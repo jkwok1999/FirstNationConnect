@@ -145,6 +145,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                                 });
                     } else {
                         ActivityCompat.requestPermissions(NewPostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                        Toast.makeText(NewPostActivity.this, "Please allow location access and try again",
+                                Toast.LENGTH_SHORT).show();
                     }
 
                 }
