@@ -375,7 +375,7 @@
             android:ems="10"
             android:visibility="gone"
             android:fontFamily="@font/montserrat"
-            android:hint="Enter Tribe Name"
+            android:hint="Enter Culture Group Name"
             android:inputType="textCapSentences"
             android:padding="16dp"
             android:textColor="#000000"

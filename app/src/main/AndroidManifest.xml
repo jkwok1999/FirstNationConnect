@@ -16,17 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstNationConnect">
         <activity
+            android:name=".SurveyResultActivity"
+            android:exported="true"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".SurveyActivity"
-            android:parentActivityName=".HomeActivity"/>
-        <activity android:name=".TosActivity"
-            android:theme="@style/Theme.AppCompat.PopupTheme"
-            ></activity>
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".TosActivity"
+            android:theme="@style/Theme.AppCompat.PopupTheme" />
         <activity
             android:name=".CreditsActivity"
-            android:parentActivityName=".HomeActivity"/>
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ResourceTopicActivity"
-            android:parentActivityName=".ResourcesActivity"/>
+            android:parentActivityName=".ResourcesActivity" />
         <activity
             android:name=".ProfileEditActivity"
             android:parentActivityName=".ProfileActivity" />

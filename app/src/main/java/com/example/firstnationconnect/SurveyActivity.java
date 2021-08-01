@@ -1,8 +1,13 @@
 package com.example.firstnationconnect;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -10,9 +15,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,6 +35,8 @@ public class SurveyActivity extends AppCompatActivity {
     private TextView tvQuestionOne, tvQuestionTwo;
     private RadioButton radioButton1, radioButton2;
     private TextInputEditText tietQuestionThree;
+    private String thoughts = null;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +50,60 @@ public class SurveyActivity extends AppCompatActivity {
         rgQuestionOne = findViewById(R.id.rgQuestionOne);
         rgQuestionTwo = findViewById(R.id.rgQuestionTwo);
 
+        mAuth = FirebaseAuth.getInstance();
+
         tietQuestionThree = findViewById(R.id.tietQuestionThree);
 
         btViewResults = findViewById(R.id.btViewResults);
+        btViewResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference docRef = firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        mAuth = FirebaseAuth.getInstance();
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Survey survey = documentSnapshot.toObject(Survey.class);
+                                        if (user.getUid().equals(survey.getUserID())) {
+                                            startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "Document does not exist!");
+                                    Toast.makeText(SurveyActivity.this, "Please complete Survey",
+                                            Toast.LENGTH_SHORT).show();
+
+                            }
+                        } else {
+                            Log.d(TAG, "Failed with: ", task.getException());
+                        }
+                    }
+
+                });
+//                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        mAuth = FirebaseAuth.getInstance();
+//                        FirebaseUser user = mAuth.getCurrentUser();
+//                        Survey survey = documentSnapshot.toObject(Survey.class);
+//                        if (user.getUid().equals(survey.getUserID())) {
+//                            startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
+//                        } else if (survey.getUserID() == null){
+//                            Toast.makeText(SurveyActivity.this, "Please complete Survey",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+            }
+        });
 
         btSubmitSurvey = findViewById(R.id.btSubmitSurvey);
         btSubmitSurvey.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +134,8 @@ public class SurveyActivity extends AppCompatActivity {
                     radioButton1 = findViewById(radioId1);
                     radioButton2 = findViewById(radioId2);
 
+                    thoughts = tietQuestionThree.getText().toString();
+
                     String question1Response = radioButton1.getText().toString();
                     String question2Response = radioButton2.getText().toString();
 
@@ -84,13 +147,14 @@ public class SurveyActivity extends AppCompatActivity {
                             String username = user.getUsername();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response);
+                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts);
                             //add more question attributes other than 1
 
-                            firestoreDB.collection("Survey").document("Survey " + FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
+                            firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
                             Toast.makeText(SurveyActivity.this, "Survey Complete",
                                     Toast.LENGTH_SHORT).show();
                             finish();
+                            startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
                         }
                     });
                 }
