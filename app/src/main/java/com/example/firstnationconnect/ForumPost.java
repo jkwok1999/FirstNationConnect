@@ -14,21 +14,28 @@ public class ForumPost {
     private String postContent;
     private String postUser;
     private Date postDate;
-    private String image;
+    private String userImage;
     private String lastReply;
     private GeoPoint postLocation;
+    private String postType;
+    private String postImage;
+    private String postVideo;
 
 
-    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image, String lastReply, GeoPoint postLocation) {
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser,
+                     Date postDate, String userImage, String lastReply, GeoPoint postLocation, String postType, String postImage, String postVideo) {
         this.topicName = topicName;
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
         this.postUser = postUser;
         this.postDate = postDate;
-        this.image = image;
+        this.userImage = userImage;
         this.lastReply = lastReply;
         this.postLocation = postLocation;
+        this.postType = postType;
+        this.postImage = postImage;
+        this.postVideo = postVideo;
     }
 
     public ForumPost() {
@@ -83,12 +90,12 @@ public class ForumPost {
         this.postDate = postDate;
     }
 
-    public String getImage() {
-        return image;
+    public String getUserImage() {
+        return userImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public String getLastReply() {
@@ -105,5 +112,29 @@ public class ForumPost {
 
     public void setPostLocation(GeoPoint postLocation) {
         this.postLocation = postLocation;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public void setPostType(String postType) {
+        this.postType = postType;
+    }
+
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
+
+    public String getPostVideo() {
+        return postVideo;
+    }
+
+    public void setPostVideo(String postVideo) {
+        this.postVideo = postVideo;
     }
 }
