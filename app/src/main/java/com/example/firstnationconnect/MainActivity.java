@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(MainActivity.this, "Login Successful",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, TosActivity.class);
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 startActivity(intent);
                                 loginProgressBar.setVisibility(View.INVISIBLE);
                             } else {

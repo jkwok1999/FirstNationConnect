@@ -62,9 +62,22 @@
         android:fontFamily="@font/fredoka_one"
         android:text="I Accept These Terms"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btDeclineTerms"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/copyright2" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btDeclineTerms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_bg_pop_button"
+        android:fontFamily="@font/fredoka_one"
+        android:text="I Decline These Terms"
+        android:textColor="@color/colorRed"
+        app:layout_constraintBottom_toTopOf="@id/copyright2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/copyright2"
