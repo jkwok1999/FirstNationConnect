@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/colourgradient_home"
+    android:background="@drawable/blackbordergradient"
     tools:context=".TosActivity">
 
     <TextView
@@ -29,6 +29,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginRight="6dp"
         android:src="@drawable/fnclogo"
         app:layout_constraintLeft_toRightOf="@id/tvTermsTitle"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,29 +56,34 @@
 
     <Button
         android:id="@+id/btAcceptTerms"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/round_bg_pop_button"
         android:fontFamily="@font/fredoka_one"
-        android:text="I Accept These Terms"
+        android:text="Accept"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/btDeclineTerms"
+        app:layout_constraintBottom_toTopOf="@+id/copyright2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/btDeclineTerms" />
 
     <Button
         android:id="@+id/btDeclineTerms"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/round_bg_pop_button"
         android:fontFamily="@font/fredoka_one"
-        android:text="I Decline These Terms"
+        android:text="Decline"
         android:textColor="@color/colorRed"
-        app:layout_constraintBottom_toTopOf="@id/copyright2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/copyright2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTermsContent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/copyright2"
@@ -88,6 +94,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/montserrat"
         android:textColor="#000000"
+        android:layout_marginBottom="11dp"
         android:textSize="13sp"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
