@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +25,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "HomeActivity";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestoreDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = mAuth.getCurrentUser();
+        firestoreDB = FirebaseFirestore.getInstance();
 
         welcomeName.setText("Welcome back, " + user.getDisplayName() + "!");
 //        loggedInEmail.setText(user.getEmail());
@@ -74,7 +80,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
             case R.id.cvSurvey:
-                startActivity(new Intent(HomeActivity.this, SurveyActivity.class));
+                DocumentReference docRef = firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        mAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Survey survey = documentSnapshot.toObject(Survey.class);
+                        if (user.getUid().equals(survey.getUserID())) {
+                            startActivity(new Intent(HomeActivity.this, SurveyResultActivity.class));
+                        } else {
+                            startActivity(new Intent(HomeActivity.this, SurveyActivity.class));
+                        }
+                    }
+                });
                 break;
             case R.id.cvCredits:
                 startActivity(new Intent(HomeActivity.this, CreditsActivity.class));
@@ -82,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void getCurrentUser () {
+    public void getCurrentUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Name, email address, and profile photo Url
