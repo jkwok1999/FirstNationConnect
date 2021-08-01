@@ -1,8 +1,14 @@
 package com.example.firstnationconnect;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -11,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -19,9 +27,12 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class NewPostActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +46,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseFirestore firestoreDB;
 
     private String TAG = "NewPostActivity";
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,62 +65,9 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         submitPost.setOnClickListener(this);
 
         firestoreDB = FirebaseFirestore.getInstance();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
-
-/*    @Override
-    public void onClick(View view) {
-
-        if (inputText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(NewPostActivity.this, "Please ensure post is not empty",
-                    Toast.LENGTH_SHORT).show();
-        }
-        else {
-            String name = postName.getText().toString();
-            String content = inputText.getText().toString();
-            Date postDate = null;
-
-            User currentUser = getCurrentUser();
-            String username = currentUser.getUsername();
-
-            UUID newID = UUID.randomUUID();
-            String stringID = newID.toString();
-
-            ForumPost newPost = new ForumPost(stringID, name, content, username, postDate);
-
-            firestoreDB.collection("Forum").document(stringID).set(newPost);
-
-            Toast.makeText(NewPostActivity.this, "Post was successfully added",
-                    Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    public User getCurrentUser() {
-
-        final User[] user = new User[1];
-
-        System.out.println(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        System.out.println(docRef);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                System.out.println("Hi");
-                user[0] = documentSnapshot.toObject(User.class);
-                System.out.println(user[0]);
-
-            }
-        });
-
-        //Code has issues: Need some way to return User AFTER it has been retrieved.
-        System.out.println("Something");
-        System.out.println(user[0].getEmail());
-
-        return user[0];
-    }*/
 
     @Override
     public void onClick(View view) {
@@ -135,32 +95,60 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                     String username = user.getUsername();
                     String profileImage = user.getProfilePic();
 
-                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null);
+                    if (ActivityCompat.checkSelfPermission(NewPostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                    firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+                        fusedLocationClient.getLastLocation()
+                                .addOnSuccessListener(NewPostActivity.this, new OnSuccessListener<Location>() {
+                                    @Override
+                                    public void onSuccess(Location location) {
+                                        // Got last known location. In some rare situations this can be null.
+                                        if (location != null) {
+                                            // Logic to handle location object
 
-                    DocumentReference topicRef = firestoreDB.collection("Forum").document(topic);
-                    topicRef
-                            .update("lastPost", stringID)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error updating document", e);
-                                }
-                            });
+                                            GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                    Toast.makeText(NewPostActivity.this, "Post was successfully added",
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(NewPostActivity.this, SubforumActivity.class);
-                    intent.putExtra("TopicName", topic);
-                    startActivity(intent);
-                    finish();
+                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation);
+
+                                            firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+
+                                        }
+                                        else {
+                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null);
+
+                                            firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+
+                                        }
+
+                                        DocumentReference topicRef = firestoreDB.collection("Forum").document(topic);
+                                        topicRef
+                                                .update("lastPost", stringID)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error updating document", e);
+                                                    }
+                                                });
+
+                                        Toast.makeText(NewPostActivity.this, "Post was successfully added",
+                                                Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(NewPostActivity.this, SubforumActivity.class);
+                                        intent.putExtra("TopicName", topic);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                    } else {
+                        ActivityCompat.requestPermissions(NewPostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                        Toast.makeText(NewPostActivity.this, "Please allow location access and try again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
         }
