@@ -25,7 +25,7 @@ public class PostSelectActivity extends AppCompatActivity implements View.OnClic
 
         btRegularPost = findViewById(R.id.btRegularPost);
         btRegularPost.setOnClickListener(this);
-        btImagePost = findViewById(R.id.btAcceptTerms);
+        btImagePost = findViewById(R.id.btImagePost);
         btImagePost.setOnClickListener(this);
         btVideoPost = findViewById(R.id.btVideoPost);
         btVideoPost.setOnClickListener(this);
@@ -39,7 +39,7 @@ public class PostSelectActivity extends AppCompatActivity implements View.OnClic
                 regularIntent.putExtra("TopicName", topic);
                 startActivity(regularIntent);
                 break;
-            case R.id.btAcceptTerms:
+            case R.id.btImagePost:
                 Intent imageIntent = new Intent(PostSelectActivity.this, NewImagePostActivity.class);
                 imageIntent.putExtra("TopicName", topic);
                 startActivity(imageIntent);
