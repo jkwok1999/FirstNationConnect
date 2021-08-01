@@ -2,7 +2,6 @@ package com.example.firstnationconnect;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,8 +53,8 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
 
         public SubtopicViewHolder(View v) {
             super(v);
-            postName = v.findViewById(R.id.tvResourceName);
-            postUser = v.findViewById(R.id.tvResourceLink);
+            postName = v.findViewById(R.id.tvSubtopicName);
+            postUser = v.findViewById(R.id.tvSubtopicUser);
             tvLastReply = v.findViewById(R.id.tvLastReply);
         }
     }

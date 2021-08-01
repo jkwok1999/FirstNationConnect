@@ -25,8 +25,24 @@
             android:background="#FFFFFF">
 
 
+            <ImageView
+                android:id="@+id/ivPostImage"
+                android:layout_width="0dp"
+                android:layout_height="256dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
             <TextView
-                android:id="@+id/tvPostContent"
+                android:id="@+id/tvPostImageContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -43,7 +59,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/postProfileImage"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/postProfileImage"
@@ -52,12 +68,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:src="@drawable/default_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.985"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
+                app:layout_constraintVertical_bias="0" />
 
             <TextView
                 android:id="@+id/postUser"
@@ -67,15 +84,15 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:fontFamily="@font/montserrat"
                 android:text="By USERNAME at TIME"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvPostContent"
+                app:layout_constraintEnd_toEndOf="@+id/tvPostImageContent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPostContent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPostImageContent"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
