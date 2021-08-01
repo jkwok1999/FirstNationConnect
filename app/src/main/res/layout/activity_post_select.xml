@@ -8,7 +8,7 @@
     tools:context=".TosActivity">
 
     <Button
-        android:id="@+id/btAcceptTerms"
+        android:id="@+id/btImagePost"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_bg_pop_button"
@@ -32,9 +32,9 @@
         android:text="Video post"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/btAcceptTerms"
-        app:layout_constraintStart_toStartOf="@+id/btAcceptTerms"
-        app:layout_constraintTop_toBottomOf="@+id/btAcceptTerms" />
+        app:layout_constraintEnd_toEndOf="@+id/btImagePost"
+        app:layout_constraintStart_toStartOf="@+id/btImagePost"
+        app:layout_constraintTop_toBottomOf="@+id/btImagePost" />
 
     <Button
         android:id="@+id/btRegularPost"
@@ -46,7 +46,7 @@
         android:text="Regular post"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btAcceptTerms"
+        app:layout_constraintBottom_toTopOf="@+id/btImagePost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent" />
