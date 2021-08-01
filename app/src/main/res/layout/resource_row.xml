@@ -36,21 +36,36 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/montserrat"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/ivWebsite"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tvResourceLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
                 android:text="Link: [LINK]"
                 android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
+                android:textSize="12sp"
+                android:layout_marginRight="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvResourceName"
                 app:layout_constraintTop_toBottomOf="@+id/tvResourceName" />
+
+            <ImageView
+                android:id="@+id/ivWebsite"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
