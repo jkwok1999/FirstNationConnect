@@ -2,10 +2,12 @@ package com.example.firstnationconnect;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,11 +38,13 @@ public class ResourceTopicAdapter extends RecyclerView.Adapter<ResourceTopicAdap
     public class ResourceTopicViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvResourceName, tvResourceLink;
+        private ImageView ivWebsite;
 
         public ResourceTopicViewHolder(View v) {
             super(v);
             tvResourceName = v.findViewById(R.id.tvResourceName);
             tvResourceLink = v.findViewById(R.id.tvResourceLink);
+            ivWebsite = v.findViewById(R.id.ivWebsite);
         }
     }
 
@@ -54,6 +58,7 @@ public class ResourceTopicAdapter extends RecyclerView.Adapter<ResourceTopicAdap
         Resource resource = mResources.get(position);
         holder.tvResourceName.setText(resource.getTitle());
         holder.tvResourceLink.setText("Link: " + resource.getLink());
+        holder.ivWebsite.setImageResource(resource.getResourcePic());
 
         holder.itemView.setTag(resource);
         holder.itemView.setOnClickListener(this);
