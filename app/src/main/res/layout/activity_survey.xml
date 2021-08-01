@@ -25,6 +25,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/fnclogo"
+            app:layout_constraintLeft_toRightOf="@id/tvSurveyTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tvQuestionOne"
             android:layout_width="wrap_content"
@@ -33,6 +42,7 @@
             android:gravity="center"
             android:text="Do you feel like mental health is a prevalent issue within the Aboriginal Community?"
             android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
@@ -56,31 +66,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Strongly Agree" />
+                android:text="Strongly Agree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Agree" />
+                android:text="Agree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Neutral" />
+                android:text="Neutral"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Disagree" />
+                android:text="Disagree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Strongly Disagree" />
+                android:text="Strongly Disagree"
+                android:fontFamily="@font/montserrat"/>
 
         </RadioGroup>
 
@@ -92,6 +107,7 @@
             android:gravity="center"
             android:text="Do you feel like mental health has interferred on your life and wellbeing?"
             android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -115,42 +131,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Strongly Agree" />
+                android:text="Strongly Agree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Agree" />
+                android:text="Agree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Neutral" />
+                android:text="Neutral"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Disagree" />
+                android:text="Disagree"
+                android:fontFamily="@font/montserrat"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Strongly Disagree" />
+                android:text="Strongly Disagree"
+                android:fontFamily="@font/montserrat"/>
 
         </RadioGroup>
 
         <TextView
             android:id="@+id/tvQuestionThree"
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Any further thoughts on this issue? (Optional)"
             android:textColor="@color/black"
             android:textSize="24dp"
+            android:fontFamily="@font/montserrat"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,16 +191,19 @@
                 android:id="@+id/tietQuestionThree"
                 android:layout_width="match_parent"
                 android:layout_height="79dp"
-                android:hint="Your Response" />
+                android:hint="Your Response"
+                android:fontFamily="@font/montserrat"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btSubmitSurvey"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/round_bg"
-
+            android:background="@drawable/round_bg_pop_button"
+            android:fontFamily="@font/fredoka_one"
+            android:textColor="@color/black"
+            app:backgroundTint="#ffc371"
             android:text="Submit Survey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -186,13 +211,15 @@
 
         <Button
             android:id="@+id/btViewResults"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-
-            android:background="@drawable/round_bg"
+            android:background="@drawable/round_bg_pop_button"
+            android:fontFamily="@font/fredoka_one"
             android:text="View Results"
+            android:textColor="@color/black"
+            app:backgroundTint="#ffc371"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
