@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ResourceTopicAdapter extends RecyclerView.Adapter<ResourceTopicAdapter.ResourceTopicViewHolder> implements View.OnClickListener {

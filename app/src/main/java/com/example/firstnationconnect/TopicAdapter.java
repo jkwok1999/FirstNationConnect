@@ -3,7 +3,6 @@ package com.example.firstnationconnect;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -60,7 +58,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         public TopicViewHolder(View v) {
             super(v);
-            topicName = v.findViewById(R.id.tvResourceName);
+            topicName = v.findViewById(R.id.tvTopicName);
             tvNumPost = v.findViewById(R.id.tvNumPost);
             tvLastPost = v.findViewById(R.id.tvLastPost);
             topicImage = v.findViewById(R.id.ivForumPic);

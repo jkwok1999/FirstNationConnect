@@ -15,7 +15,7 @@
         android:background="@color/colorPrimary">
 
         <ImageView
-            android:id="@+id/bruh"
+            android:id="@+id/ivProfileLogo"
             android:layout_width="70dp"
             android:layout_height="63dp"
             android:layout_alignParentTop="true"
@@ -36,7 +36,7 @@
             android:layout_marginRight="0dp"
             android:layout_marginBottom="25dp"
             android:src="@drawable/default_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/bruh"
+            app:layout_constraintBottom_toBottomOf="@+id/ivProfileLogo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

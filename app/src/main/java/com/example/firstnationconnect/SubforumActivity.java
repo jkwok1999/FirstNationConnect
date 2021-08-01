@@ -40,7 +40,7 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, NewPostActivity.class);
+        Intent intent = new Intent(this, PostSelectActivity.class);
         intent.putExtra("TopicName", topic);
         startActivity(intent);
     }
@@ -56,7 +56,7 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
         }
 
         recyclerView = findViewById(R.id.forumRecyclerView);
-        topicTitle = findViewById(R.id.topicTitle);
+        topicTitle = findViewById(R.id.tvSubforumTitle);
         pbSubforum = findViewById(R.id.pbSubforum);
         newPostButton = findViewById(R.id.newPostFAB);
         newPostButton.setOnClickListener(this);

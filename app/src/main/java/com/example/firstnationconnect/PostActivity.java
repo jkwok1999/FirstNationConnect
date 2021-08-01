@@ -107,7 +107,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
                                             GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation);
+                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
 
                                             firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -115,7 +115,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                         else {
                                             //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
 
-                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null);
+                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
 
                                             firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -259,7 +259,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return true;
-
     }
 
     @Override

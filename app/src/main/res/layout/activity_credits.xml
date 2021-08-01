@@ -67,13 +67,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCreditsContent2" />
 
     <ImageView
-        android:src="@drawable/fnclogo"
+        android:id="@+id/ivCreditsLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/fnclogo"
+        app:layout_constraintBottom_toTopOf="@id/copyright2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCreditsContent3"
-        app:layout_constraintBottom_toTopOf="@id/copyright2"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCreditsContent3" />
 
     <TextView
         android:id="@+id/copyright2"

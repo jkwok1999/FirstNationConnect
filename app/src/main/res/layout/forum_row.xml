@@ -38,7 +38,7 @@
 
 
             <TextView
-                android:id="@+id/tvResourceName"
+                android:id="@+id/tvTopicName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -68,9 +68,9 @@
                 android:textColor="#808080"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="@+id/tvResourceName"
-                app:layout_constraintStart_toStartOf="@+id/tvResourceName"
-                app:layout_constraintTop_toBottomOf="@+id/tvResourceName" />
+                app:layout_constraintEnd_toEndOf="@+id/tvTopicName"
+                app:layout_constraintStart_toStartOf="@+id/tvTopicName"
+                app:layout_constraintTop_toBottomOf="@+id/tvTopicName" />
 
             <TextView
                 android:id="@+id/tvNumPost"

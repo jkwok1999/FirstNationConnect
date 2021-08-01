@@ -52,9 +52,10 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <ImageView
+        android:id="@+id/ivForumLogo"
         android:layout_width="50dp"
-        android:layout_height="50dp"
 
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/fnclogo"
         app:layout_constraintLeft_toRightOf="@id/tvTitle"
