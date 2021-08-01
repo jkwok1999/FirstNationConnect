@@ -1,5 +1,6 @@
 package com.example.firstnationconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -10,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -80,20 +84,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
             case R.id.cvSurvey:
-                DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        mAuth = FirebaseAuth.getInstance();
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Survey survey = documentSnapshot.toObject(Survey.class);
-                        if (user.getUid().equals(survey.getUserID())) {
-                            startActivity(new Intent(HomeActivity.this, SurveyResultActivity.class));
-                        } else {
-                            startActivity(new Intent(HomeActivity.this, SurveyActivity.class));
-                        }
-                    }
-                });
+                startActivity(new Intent(HomeActivity.this, SurveyResultActivity.class));
                 break;
             case R.id.cvCredits:
                 startActivity(new Intent(HomeActivity.this, CreditsActivity.class));
