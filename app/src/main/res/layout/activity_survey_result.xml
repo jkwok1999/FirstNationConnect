@@ -14,15 +14,25 @@
 
         <TextView
             android:id="@+id/tvSurveyResponseTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/allerta"
             android:text="Your First Nation Survey Response"
-            android:textSize="22dp"
+            android:textSize="25dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/fnclogo"
+            app:layout_constraintLeft_toRightOf="@id/tvSurveyResponseTitle"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -35,6 +45,7 @@
             android:text="Do you feel like mental health is a prevalent issue within the Aboriginal Community?"
             android:textColor="@color/black"
             android:textSize="24dp"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSurveyResponseTitle" />
@@ -48,6 +59,7 @@
             android:text=""
             android:textColor="@color/black"
             android:textSize="16dp"
+            android:fontFamily="@font/montserrat"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +75,7 @@
             android:text="Do you feel like mental health has interferred on your life and wellbeing?"
             android:textColor="@color/black"
             android:textSize="24dp"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionOneResponseText" />
@@ -75,6 +88,7 @@
             android:gravity="center"
             android:textStyle="italic"
             android:text=""
+            android:fontFamily="@font/montserrat"
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,12 +97,13 @@
 
         <TextView
             android:id="@+id/tvQuestionResponseThree"
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Any further thoughts on this issue? (Optional)"
             android:textColor="@color/black"
             android:textSize="24dp"
+            android:fontFamily="@font/montserrat"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +119,7 @@
             android:textColor="@color/black"
             android:textStyle="italic"
             android:textSize="16dp"
+            android:fontFamily="@font/montserrat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionResponseThree" />
@@ -113,7 +129,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/round_bg"
+            android:background="@drawable/round_bg_pop_button"
+            android:fontFamily="@font/fredoka_one"
+            android:textColor="@color/black"
+            app:backgroundTint="#ffc371"
             android:text="Complete Survey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

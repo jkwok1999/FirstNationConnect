@@ -42,7 +42,6 @@ public class TosActivity extends AppCompatActivity {
         btAcceptTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TosActivity.this, HomeActivity.class));
                 finish();
             }
         });
