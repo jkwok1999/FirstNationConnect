@@ -51,7 +51,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     private RecyclerView recyclerView;
     private Button replyButton;
-    private TextView postTitle;
+    private TextView postTitle, tvReplyMore;
     private EditText replyText;
     private ProgressBar pbPost;
 
@@ -70,88 +70,104 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        if (replyText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(PostActivity.this, "Please ensure reply is not empty",
-                    Toast.LENGTH_SHORT).show();
-        } else {
+        switch (v.getId()) {
+            case (R.id.tvReplyMore):
+                Intent intent = new Intent(PostActivity.this, ReplySelectActivity.class);
+                intent.putExtra("TopicName",topic);
+                intent.putExtra("PostName",mainPostName);
+                intent.putExtra("PostID",mainPostID);
 
-            pbPost.setVisibility(View.VISIBLE);
-
-            String replyContent = replyText.getText().toString();
-
-            long milliseconds = System.currentTimeMillis();
-            Date postDate = new java.util.Date(milliseconds);
-
-            UUID newID = UUID.randomUUID();
-            String stringID = newID.toString();
-
-            //Potentially put this in a new method, have a List variable outside which stores the user?
-            DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                    User user = documentSnapshot.toObject(User.class);
-                    String username = user.getUsername();
-                    String profileImage = user.getProfilePic();
-
-                    if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                        fusedLocationClient.getLastLocation()
-                                .addOnSuccessListener(PostActivity.this, new OnSuccessListener<Location>() {
-                                    @Override
-                                    public void onSuccess(Location location) {
-                                        // Got last known location. In some rare situations this can be null.
-                                        if (location != null) {
-                                            // Logic to handle location object
-
-                                            GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-
-                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
-
-                                            firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
-
-                                        }
-                                        else {
-                                            //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
-
-                                            ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
-
-                                            firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
-
-                                        }
-
-                                        DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
-                                        subtopicRef
-                                                .update("lastReply", stringID)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@android.support.annotation.NonNull Exception e) {
-                                                        Log.w(TAG, "Error updating document", e);
-                                                    }
-                                                });
-
-                                        Toast.makeText(PostActivity.this, "Post was successfully added",
-                                                Toast.LENGTH_SHORT).show();
-
-                                        replyText.setText(null);
-
-                                        updateUi();
-                                    }
-                                });
-                    } else {
-                        ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
-                        Toast.makeText(PostActivity.this, "Please allow location access and try again",
-                                Toast.LENGTH_SHORT).show();
-                    }
+                if (!replyText.getText().toString().isEmpty()) {
+                    intent.putExtra("Reply",replyText.getText().toString());
                 }
-            });
+                startActivity(intent);
+                break;
+
+            case (R.id.postReplyButton):
+                if (replyText.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(PostActivity.this, "Please ensure reply is not empty",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+
+                    pbPost.setVisibility(View.VISIBLE);
+
+                    String replyContent = replyText.getText().toString();
+
+                    long milliseconds = System.currentTimeMillis();
+                    Date postDate = new java.util.Date(milliseconds);
+
+                    UUID newID = UUID.randomUUID();
+                    String stringID = newID.toString();
+
+                    //Potentially put this in a new method, have a List variable outside which stores the user?
+                    DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                            User user = documentSnapshot.toObject(User.class);
+                            String username = user.getUsername();
+                            String profileImage = user.getProfilePic();
+
+                            if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                                fusedLocationClient.getLastLocation()
+                                        .addOnSuccessListener(PostActivity.this, new OnSuccessListener<Location>() {
+                                            @Override
+                                            public void onSuccess(Location location) {
+                                                // Got last known location. In some rare situations this can be null.
+                                                if (location != null) {
+                                                    // Logic to handle location object
+
+                                                    GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+
+                                                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
+
+                                                    firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+
+                                                }
+                                                else {
+                                                    //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+
+                                                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
+
+                                                    firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+
+                                                }
+
+                                                DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
+                                                subtopicRef
+                                                        .update("lastReply", stringID)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                                                Log.w(TAG, "Error updating document", e);
+                                                            }
+                                                        });
+
+                                                Toast.makeText(PostActivity.this, "Post was successfully added",
+                                                        Toast.LENGTH_SHORT).show();
+
+                                                replyText.setText(null);
+
+                                                updateUi();
+                                            }
+                                        });
+                            } else {
+                                ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                                Toast.makeText(PostActivity.this, "Please allow location access and try again",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                break;
         }
     }
 
@@ -171,6 +187,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         postTitle = findViewById(R.id.postTitle);
         replyText = findViewById(R.id.replyEditText);
         pbPost = findViewById(R.id.pbPost);
+        tvReplyMore = findViewById(R.id.tvReplyMore);
+        tvReplyMore.setOnClickListener(this);
         replyButton = findViewById(R.id.postReplyButton);
         replyButton.setOnClickListener(this);
 
@@ -185,6 +203,10 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         postList = new ArrayList<>();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if(intent.getStringExtra("Reply") != null) {
+            replyText.setText(intent.getStringExtra("Reply"));
+        }
 
         updateUi();
 

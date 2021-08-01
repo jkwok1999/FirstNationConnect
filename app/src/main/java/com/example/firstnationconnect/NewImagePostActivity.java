@@ -116,7 +116,7 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                 break;
             case (R.id.submitPost):
 
-                if (inputText.getText().toString().trim().isEmpty() || postName.getText().toString().trim().isEmpty() || mainImageURI == null) {
+                if (inputText.getText().toString().trim().isEmpty() || postName.getText().toString().trim().isEmpty()) {
                     Toast.makeText(NewImagePostActivity.this, "Please ensure post is not empty",
                             Toast.LENGTH_SHORT).show();
                 } else if (mainImageURI == null) {
