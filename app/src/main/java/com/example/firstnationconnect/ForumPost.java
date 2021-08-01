@@ -1,5 +1,9 @@
 package com.example.firstnationconnect;
 
+import android.location.Location;
+
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.Date;
 
 public class ForumPost {
@@ -12,9 +16,10 @@ public class ForumPost {
     private Date postDate;
     private String image;
     private String lastReply;
+    private GeoPoint postLocation;
 
 
-    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image, String lastReply) {
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser, Date postDate, String image, String lastReply, GeoPoint postLocation) {
         this.topicName = topicName;
         this.postID = postID;
         this.postName = postName;
@@ -23,6 +28,7 @@ public class ForumPost {
         this.postDate = postDate;
         this.image = image;
         this.lastReply = lastReply;
+        this.postLocation = postLocation;
     }
 
     public ForumPost() {
@@ -91,5 +97,13 @@ public class ForumPost {
 
     public void setLastReply(String lastReply) {
         this.lastReply = lastReply;
+    }
+
+    public GeoPoint getPostLocation() {
+        return postLocation;
+    }
+
+    public void setPostLocation(GeoPoint postLocation) {
+        this.postLocation = postLocation;
     }
 }

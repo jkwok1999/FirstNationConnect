@@ -94,11 +94,11 @@ public class SubforumActivity extends AppCompatActivity implements View.OnClickL
                 });
     }
 
-    /*@Override
+    @Override
     public void onBackPressed(){
         //NavUtils.navigateUpFromSameTask(this);
         Intent intent = new Intent(SubforumActivity.this, ForumActivity.class);
         intent.putExtra("TopicName", topic);
         startActivity(intent);
-    }*/
+    }
 }
