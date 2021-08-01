@@ -30,32 +30,45 @@ public class Resource {
     public static ArrayList<Resource> getSuicidePreventionResources() {
         ArrayList<Resource> suicidePreventionResources = new ArrayList<>();
         suicidePreventionResources.add(new Resource("Lifeline Australia","https://www.lifeline.org.au/"));
+        suicidePreventionResources.add(new Resource("Beyond Blue","https://www.beyondblue.org.au/the-facts/suicide-prevention"));
+        suicidePreventionResources.add(new Resource("Suicide Callback Service","https://www.suicidecallbackservice.org.au/"));
+        suicidePreventionResources.add(new Resource("Suicide Prevention Australia","https://www.suicidepreventionaust.org/"));
         return suicidePreventionResources;
     }
 
     public static ArrayList<Resource> getDepressionResources() {
         ArrayList<Resource> depressionResources = new ArrayList<>();
-        depressionResources.add(new Resource("Beyond Blue", "https://www.beyondblue.org.au/"));
+        depressionResources.add(new Resource("Healthline", "https://www.healthline.com/health/depression"));
+        depressionResources.add(new Resource("Beyond Blue", "https://www.beyondblue.org.au/the-facts/depression/treatments-for-depression"));
         return depressionResources;
     }
 
     public static ArrayList<Resource> getAnxietyResources() {
         ArrayList<Resource> anxietyResources = new ArrayList<>();
+        anxietyResources.add(new Resource("Better Health", "https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/anxiety-treatment-options"));
+        anxietyResources.add(new Resource("Beyond Blue", "https://www.beyondblue.org.au/the-facts/anxiety/treatments-for-anxiety"));
         return anxietyResources;
     }
 
     public static ArrayList<Resource> getBelongingResources() {
         ArrayList<Resource> belongingResources = new ArrayList<>();
+        belongingResources.add(new Resource("Beyond Blue", "https://www.beyondblue.org.au/who-does-it-affect/aboriginal-and-torres-strait-islander-people/risk-factors"));
+        belongingResources.add(new Resource("Australians Together", "https://australianstogether.org.au/discover/indigenous-culture/the-importance-of-land/"));
         return belongingResources;
     }
 
     public static ArrayList<Resource> getPerinatalHealthResources() {
         ArrayList<Resource> perinatalHealthResources = new ArrayList<>();
+        perinatalHealthResources.add(new Resource("Beyond Blue", "https://healthyfamilies.beyondblue.org.au/pregnancy-and-new-parents"));
+        perinatalHealthResources.add(new Resource("Women's & Newborn Health", "https://www.wslhd.health.nsw.gov.au/WNH/Support-services/Perinatal-Mental-Health"));
+        perinatalHealthResources.add(new Resource("Panda", "https://www.panda.org.au/info-support/whos-who-in-perinatal-mental-health"));
         return perinatalHealthResources;
     }
 
     public static ArrayList<Resource> getBullyingResources() {
         ArrayList<Resource> bullyingResources = new ArrayList<>();
+        bullyingResources.add(new Resource("Beyond Blue", "https://healthyfamilies.beyondblue.org.au/age-13/raising-resilient-young-people/bullying-and-cyberbullying"));
+        bullyingResources.add(new Resource("Australian Human Rights Commission", "https://humanrights.gov.au/our-work/commission-general/what-bullying-violence-harassment-and-bullying-fact-sheet"));
         return bullyingResources;
     }
 }

@@ -174,7 +174,7 @@ public class SetupActivity extends AppCompatActivity {
                         int radioIdTribe = rgFndSetup.getCheckedRadioButtonId();
                         radioButtonTribe = findViewById(radioIdTribe);
                         tribe = radioButtonTribe.getText().toString();
-                    } else if (rbFndSetupYes.isChecked()){
+                    } else if (rbFndSetupYes.isChecked()) {
                         tribe = etTribe;
                     }
 
