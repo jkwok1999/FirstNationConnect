@@ -59,6 +59,11 @@
         android:gravity="start|top"
         android:hint="Write your reply"
         android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/tvReplyMore"
         app:layout_constraintEnd_toStartOf="@+id/postReplyButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -74,6 +79,7 @@
         android:text="Post"
         android:textColor="@color/black"
         app:backgroundTint="#ffc371"
+        app:layout_constraintBottom_toBottomOf="@+id/tvReplyMore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/replyEditText" />
 
@@ -96,11 +102,13 @@
         android:id="@+id/tvReplyMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/montserrat"
         android:text="ADD AN IMAGE OR VIDEO"
         android:textColor="@color/purple_500"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/copyright2"
         app:layout_constraintStart_toStartOf="@+id/replyEditText" />

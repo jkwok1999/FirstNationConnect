@@ -22,6 +22,7 @@
         <activity
             android:name=".ReplySelectActivity"
             android:parentActivityName=".PostActivity"
+            android:theme="@style/Theme.AppCompat.PopupTheme"
             android:exported="true" />
         <activity
             android:name=".PostSelectActivity"

@@ -98,52 +98,51 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
                     if (ActivityCompat.checkSelfPermission(NewPostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                        fusedLocationClient.getLastLocation()
-                                .addOnSuccessListener(NewPostActivity.this, new OnSuccessListener<Location>() {
-                                    @Override
-                                    public void onSuccess(Location location) {
-                                        // Got last known location. In some rare situations this can be null.
-                                        if (location != null) {
-                                            // Logic to handle location object
+                        fusedLocationClient.getLastLocation().addOnSuccessListener(NewPostActivity.this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    // Logic to handle location object
 
-                                            GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                                    GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Regular", null, null);
+                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Regular", null, null);
 
-                                            firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+                                    firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
-                                        }
-                                        else {
-                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Regular", null, null);
+                                }
+                                else {
+                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Regular", null, null);
 
-                                            firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
+                                    firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
-                                        }
+                                }
 
-                                        DocumentReference topicRef = firestoreDB.collection("Forum").document(topic);
-                                        topicRef
-                                                .update("lastPost", stringID)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error updating document", e);
-                                                    }
-                                                });
+                                DocumentReference topicRef = firestoreDB.collection("Forum").document(topic);
+                                topicRef
+                                        .update("lastPost", stringID)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
 
-                                        Toast.makeText(NewPostActivity.this, "Post was successfully added",
-                                                Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(NewPostActivity.this, SubforumActivity.class);
-                                        intent.putExtra("TopicName", topic);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
+                                Toast.makeText(NewPostActivity.this, "Post was successfully added",
+                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(NewPostActivity.this, SubforumActivity.class);
+                                intent.putExtra("TopicName", topic);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
                     } else {
                         ActivityCompat.requestPermissions(NewPostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
                         Toast.makeText(NewPostActivity.this, "Please allow location access and try again",

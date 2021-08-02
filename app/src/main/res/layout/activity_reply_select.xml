@@ -9,29 +9,29 @@
 
     <Button
         android:id="@+id/btVideoReply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/round_bg_pop_button"
         android:fontFamily="@font/fredoka_one"
         android:text="Add video"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btBackToPost"
+        app:layout_constraintStart_toStartOf="@+id/btBackToPost"
         app:layout_constraintTop_toBottomOf="@+id/btImageReply" />
 
     <Button
         android:id="@+id/btImageReply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/round_bg_pop_button"
         android:fontFamily="@font/fredoka_one"
         android:text="add image"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/btVideoReply"
         app:layout_constraintEnd_toEndOf="@+id/btVideoReply"
         app:layout_constraintStart_toStartOf="@+id/btVideoReply"
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/btBackToPost"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/round_bg_pop_button"

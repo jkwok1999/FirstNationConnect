@@ -1,5 +1,8 @@
 package com.example.firstnationconnect;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -57,10 +60,12 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
 
     private FirebaseFirestore firestoreDB;
     private StorageReference storageReference;
+    private String imageFileName;
 
     private String TAG = "NewPostActivity";
 
     private FusedLocationProviderClient fusedLocationClient;
+    private static final int IMAGE_PICK_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +86,8 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
             tvReplyNewContent.setText(reply);
         }
 
-        tvReplyPostName = findViewById(R.id.tvReplyPostName);
-        tvReplyPostName.setText(mainPostName);
+        tvReplyPostName = findViewById(R.id.tvImageReplyPostName);
+        tvReplyPostName.setText("Replying to '" + mainPostName + "'");
 
         ivNewReplyImage = findViewById(R.id.ivNewReplyImage);
         ivNewReplyImage.setOnClickListener(this);
@@ -114,16 +119,23 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                         }, 1);
                     } else {
-                        CropImage.activity()
+                        /*CropImage.activity()
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1, 1)
-                                .start(NewImageReplyActivity.this);
+                                .setAspectRatio(2, 1)
+                                .start(NewImageReplyActivity.this);*/
+                        /*Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, IMAGE_PICK_CODE);*/
+
+                        mGetContent.launch("image/*");
+
                     }
                 } else {
-                    CropImage.activity()
+                    /*CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
-                            .start(NewImageReplyActivity.this);
+                            .setAspectRatio(2, 1)
+                            .start(NewImageReplyActivity.this);*/
+                    mGetContent.launch("image/*");
                 }
 
                 break;
@@ -155,7 +167,7 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                             User user = documentSnapshot.toObject(User.class);
                             String username = user.getUsername();
                             String profileImage = user.getProfilePic();
-                            String postImageString = mainImageURI.toString();
+                            //String postImageString = mainImageURI.toString();
 
                             if (ActivityCompat.checkSelfPermission(NewImageReplyActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -169,14 +181,14 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
 
                                                 GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Image", postImageString, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
                                             } else {
                                                 //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Image", postImageString, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -220,30 +232,81 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the returned Uri
+                    System.out.println("Checkpoint");
+                    mainImageURI = uri;
+                    ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    ivNewReplyImage.setImageURI(mainImageURI);
 
-    @Override
+                    imageFileName = stringID + ".jpg";
+                    StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+                    image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        *//*if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mainImageURI = result.getUri();
+                ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 ivNewReplyImage.setImageURI(mainImageURI);
 
-                String imageFileName = stringID + ".jpg";
+                imageFileName = stringID + ".jpg";
                 StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+                        *//**//*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                downloadUrl = uri.toString();
+                                Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                            }
+                        });*//**//*
+
                         Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+        }*//*
+
+        if (requestCode == IMAGE_PICK_CODE && requestCode == RESULT_OK) {
+            System.out.println("Checkpoint");
+            mainImageURI = data.getData();
+            ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            ivNewReplyImage.setImageURI(mainImageURI);
+
+            imageFileName = stringID + ".jpg";
+            StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+            image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                    Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+
+                    finish();
+                }
+            });
         }
-    }
+    }*/
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

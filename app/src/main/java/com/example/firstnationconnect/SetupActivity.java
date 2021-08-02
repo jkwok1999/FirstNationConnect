@@ -59,6 +59,8 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseFirestore firestoreDB;
     private StorageReference storageReference;
 
+    private String imageFileName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,11 +163,10 @@ public class SetupActivity extends AppCompatActivity {
                     String imageString = null;
                     String tribe = registerFNDTribe.getText().toString().trim();
 
-                    if (mainImageURI != null) {
-                        imageString = mainImageURI.toString();
-                    } else {
-                        imageString = null;
+                    if (imageFileName != null) {
+                        imageString = imageFileName;
                     }
+
                     int radioIdGender = rgSetupGender.getCheckedRadioButtonId();
                     radioButtonGender = findViewById(radioIdGender);
                     String gender = radioButtonGender.getText().toString();
@@ -293,17 +294,33 @@ public class SetupActivity extends AppCompatActivity {
                 setupImage.setImageURI(mainImageURI);
                 String user_id = firebaseAuth.getCurrentUser().getUid();
 
-                String imageFileName = user_id + ".jpg";
+                imageFileName = user_id + ".jpg";
                 StorageReference image_path = storageReference.child("profile_images").child(imageFileName);
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        /*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                downloadUrl = uri.toString();
+
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(uri)
+                                        .build();
+                                user.updateProfile(profileImageUpdates);
+
+                                Toast.makeText(SetupActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                            }
+                        });*/
+
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
                                 .setPhotoUri(mainImageURI)
                                 .build();
                         user.updateProfile(profileImageUpdates);
-                        Toast.makeText(SetupActivity.this, "Profile picture successfully uploaded", Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(SetupActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

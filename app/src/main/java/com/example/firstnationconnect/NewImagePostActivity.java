@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -51,6 +54,7 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
 
     private String stringID;
     private String topic;
+    private String imageFileName;
 
     private FirebaseFirestore firestoreDB;
     private StorageReference storageReference;
@@ -101,16 +105,18 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                         }, 1);
                     } else {
-                        CropImage.activity()
+                        /*CropImage.activity()
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1, 1)
-                                .start(NewImagePostActivity.this);
+                                .setAspectRatio(2, 1)
+                                .start(NewImagePostActivity.this);*/
+                        mGetContent.launch("image/*");
                     }
                 } else {
-                    CropImage.activity()
+                    /*CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
-                            .start(NewImagePostActivity.this);
+                            .setAspectRatio(2, 1)
+                            .start(NewImagePostActivity.this);*/
+                    mGetContent.launch("image/*");
                 }
 
                 break;
@@ -138,7 +144,7 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                             User user = documentSnapshot.toObject(User.class);
                             String username = user.getUsername();
                             String profileImage = user.getProfilePic();
-                            String postImageString = mainImageURI.toString();
+                            //String postImageString = mainImageURI.toString();
 
                             if (ActivityCompat.checkSelfPermission(NewImagePostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -152,12 +158,12 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
 
                                                     GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Image", postImageString, null);
+                                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Image", imageFileName, null);
 
                                                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
                                                 } else {
-                                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Image", postImageString, null);
+                                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Image", imageFileName, null);
 
                                                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
@@ -201,7 +207,29 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @Override
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the returned Uri
+                    System.out.println("Checkpoint");
+                    mainImageURI = uri;
+                    ivNewPostImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    ivNewPostImage.setImageURI(mainImageURI);
+
+                    imageFileName = stringID + ".jpg";
+                    StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+                    image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -209,21 +237,36 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mainImageURI = result.getUri();
+
+                ivNewPostImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 ivNewPostImage.setImageURI(mainImageURI);
 
-                String imageFileName = stringID + ".jpg";
+                imageFileName = stringID + ".jpg";
+
+                //Potentially move this to the submitPost onClick
                 StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
                         Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+
+                        *//*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                downloadUrl = uri.toString();
+                                Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                            }
+                        });*//*
+
+                        Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

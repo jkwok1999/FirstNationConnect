@@ -109,65 +109,67 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                             String username = user.getUsername();
                             String profileImage = user.getProfilePic();
 
+                            System.out.println(profileImage);
+
                             if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                                 fusedLocationClient.getLastLocation()
-                                        .addOnSuccessListener(PostActivity.this, new OnSuccessListener<Location>() {
-                                            @Override
-                                            public void onSuccess(Location location) {
-                                                // Got last known location. In some rare situations this can be null.
-                                                if (location != null) {
-                                                    // Logic to handle location object
+                                    .addOnSuccessListener(PostActivity.this, new OnSuccessListener<Location>() {
+                                        @Override
+                                        public void onSuccess(Location location) {
+                                            // Got last known location. In some rare situations this can be null.
+                                            if (location != null) {
+                                                // Logic to handle location object
 
-                                                    GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                                                GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
 
-                                                    firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+                                                firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
-                                                }
-                                                else {
-                                                    //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
-
-                                                    ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
-
-                                                    firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
-
-                                                }
-
-                                                DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
-                                                subtopicRef
-                                                        .update("lastReply", stringID)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@android.support.annotation.NonNull Exception e) {
-                                                                Log.w(TAG, "Error updating document", e);
-                                                            }
-                                                        });
-
-                                                Toast.makeText(PostActivity.this, "Post was successfully added",
-                                                        Toast.LENGTH_SHORT).show();
-
-                                                replyText.setText(null);
-
-                                                updateUi();
                                             }
-                                        });
-                            } else {
-                                ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
-                                Toast.makeText(PostActivity.this, "Please allow location access and try again",
-                                        Toast.LENGTH_SHORT).show();
-                            }
+                                            else {
+                                                //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
+
+                                                firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
+
+                                            }
+
+                                            DocumentReference subtopicRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
+                                            subtopicRef
+                                                    .update("lastReply", stringID)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                                            Log.w(TAG, "Error updating document", e);
+                                                        }
+                                                    });
+
+                                            Toast.makeText(PostActivity.this, "Post was successfully added",
+                                                    Toast.LENGTH_SHORT).show();
+
+                                            replyText.setText(null);
+
+                                            updateUi();
+                                        }
+                                    });
+                        } else {
+                            ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                            Toast.makeText(PostActivity.this, "Please allow location access and try again",
+                                    Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
-                break;
+                    }
+                });
+            }
+            break;
         }
     }
 
@@ -214,21 +216,28 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     public void updateUi() {
 
-        if (!postList.isEmpty()) {
-            postList.clear();
+        try {
+
+            if (!postList.isEmpty()) {
+                postList.clear();
+            }
+
+            DocumentReference docRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    ForumPost mainPost = documentSnapshot.toObject(ForumPost.class);
+                    postList.add(mainPost);
+                    postTitle.setText("'" + mainPost.getPostName() + "'");
+
+                    getReplies();
+                }
+            });
+        } catch (IndexOutOfBoundsException e) {
+            Log.e("TAG", "RecyclerView Exception");
         }
 
-        DocumentReference docRef = firestoreDB.collection("Forum/" + topic + "/Subtopic").document(mainPostID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                ForumPost mainPost = documentSnapshot.toObject(ForumPost.class);
-                postList.add(mainPost);
-                postTitle.setText("'" + mainPost.getPostName() + "'");
 
-                getReplies();
-            }
-        });
     }
 
     public void getReplies() {

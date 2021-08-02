@@ -6,8 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,6 +26,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private PostActivity mParentActivity;
     private List<ForumPost> mPosts;
+
+    private StorageReference storageReference;
 
     private final int REGULAR = 0, IMAGE = 1 , VIDEO = 2;
 
@@ -91,16 +101,11 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //Adapted from: https://stackoverflow.com/questions/45883415/how-to-load-different-layouts-in-a-recycler-view-with-single-adapter
     @Override
     public int getItemViewType(int position) {
-        System.out.println("Checkpoint 1");
-        System.out.println(mPosts.get(position).getPostType());
         if (mPosts.get(position).getPostType().equals("Regular")) {
-            System.out.println("REGULAR");
             return REGULAR;
         } else if (mPosts.get(position).getPostType().equals("Image")) {
-            System.out.println("IMAGE");
             return IMAGE;
         } else if (mPosts.get(position).getPostType().equals("Video")) {
-            System.out.println("VIDEO");
             return VIDEO;
         } else {
             return -1;
@@ -181,8 +186,19 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.itemView.setTag(post);
 
         if (post.getUserImage() != null) {
-            Uri postImageUri = Uri.parse(post.getUserImage());
-            holder.postUserImage.setImageURI(postImageUri);
+            /*Uri postImageUri = Uri.parse(post.getUserImage());
+            Picasso.get().load(postImageUri).into(holder.postUserImage);*/
+
+            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                    .child("profile_images")
+                    .child(post.getUserImage());
+            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.postUserImage);
+                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+                }
+            });
         }
     }
 
@@ -197,14 +213,39 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
         holder.itemView.setTag(post);
 
+
         if (post.getUserImage() != null) {
-            Uri postImageUri = Uri.parse(post.getUserImage());
-            holder.postUserImage.setImageURI(postImageUri);
+
+            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                    .child("profile_images")
+                    .child(post.getUserImage());
+            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.postUserImage);
+                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+                }
+            });
         }
 
         if (post.getPostImage() != null) {
+
+            /*System.out.println("Post url: " + post.getPostImage());
+
             Uri postImageUri = Uri.parse(post.getPostImage());
-            holder.postImage.setImageURI(postImageUri);
+            Picasso.get().load(postImageUri).into(holder.postImage);*/
+
+            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                    .child("forum_post_images")
+                    .child(post.getPostImage());
+            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.postImage);
+                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+                }
+            });
+
         }
     }
 
@@ -220,8 +261,16 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.itemView.setTag(post);
 
         if (post.getUserImage() != null) {
-            Uri postImageUri = Uri.parse(post.getUserImage());
-            holder.postUserImage.setImageURI(postImageUri);
+            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                    .child("profile_images")
+                    .child(post.getUserImage());
+            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.postUserImage);
+                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+                }
+            });
         }
     }
 }
