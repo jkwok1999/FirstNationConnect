@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -102,16 +105,18 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                         }, 1);
                     } else {
-                        CropImage.activity()
+                        /*CropImage.activity()
                                 .setGuidelines(CropImageView.Guidelines.ON)
                                 .setAspectRatio(2, 1)
-                                .start(NewImagePostActivity.this);
+                                .start(NewImagePostActivity.this);*/
+                        mGetContent.launch("image/*");
                     }
                 } else {
-                    CropImage.activity()
+                    /*CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
                             .setAspectRatio(2, 1)
-                            .start(NewImagePostActivity.this);
+                            .start(NewImagePostActivity.this);*/
+                    mGetContent.launch("image/*");
                 }
 
                 break;
@@ -202,7 +207,29 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @Override
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the returned Uri
+                    System.out.println("Checkpoint");
+                    mainImageURI = uri;
+                    ivNewPostImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    ivNewPostImage.setImageURI(mainImageURI);
+
+                    imageFileName = stringID + ".jpg";
+                    StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+                    image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -223,13 +250,13 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                     public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
                         Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
 
-                        /*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        *//*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
                                 downloadUrl = uri.toString();
                                 Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                             }
-                        });*/
+                        });*//*
 
                         Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
@@ -239,7 +266,7 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                 Exception error = result.getError();
             }
         }
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

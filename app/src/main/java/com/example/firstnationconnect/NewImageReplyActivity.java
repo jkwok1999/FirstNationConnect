@@ -1,5 +1,8 @@
 package com.example.firstnationconnect;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -62,6 +65,7 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
     private String TAG = "NewPostActivity";
 
     private FusedLocationProviderClient fusedLocationClient;
+    private static final int IMAGE_PICK_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,16 +119,23 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                         }, 1);
                     } else {
-                        CropImage.activity()
+                        /*CropImage.activity()
                                 .setGuidelines(CropImageView.Guidelines.ON)
                                 .setAspectRatio(2, 1)
-                                .start(NewImageReplyActivity.this);
+                                .start(NewImageReplyActivity.this);*/
+                        /*Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, IMAGE_PICK_CODE);*/
+
+                        mGetContent.launch("image/*");
+
                     }
                 } else {
-                    CropImage.activity()
+                    /*CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
                             .setAspectRatio(2, 1)
-                            .start(NewImageReplyActivity.this);
+                            .start(NewImageReplyActivity.this);*/
+                    mGetContent.launch("image/*");
                 }
 
                 break;
@@ -221,12 +232,33 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    // Handle the returned Uri
+                    System.out.println("Checkpoint");
+                    mainImageURI = uri;
+                    ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    ivNewReplyImage.setImageURI(mainImageURI);
 
-    @Override
+                    imageFileName = stringID + ".jpg";
+                    StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+                    image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        *//*if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mainImageURI = result.getUri();
@@ -238,14 +270,14 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
-                        /*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        *//**//*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 
                             @Override
                             public void onSuccess(Uri uri) {
                                 downloadUrl = uri.toString();
                                 Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                             }
-                        });*/
+                        });*//**//*
 
                         Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
@@ -253,8 +285,28 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+        }*//*
+
+        if (requestCode == IMAGE_PICK_CODE && requestCode == RESULT_OK) {
+            System.out.println("Checkpoint");
+            mainImageURI = data.getData();
+            ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            ivNewReplyImage.setImageURI(mainImageURI);
+
+            imageFileName = stringID + ".jpg";
+            StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+            image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                    Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+
+                    finish();
+                }
+            });
         }
-    }
+    }*/
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
