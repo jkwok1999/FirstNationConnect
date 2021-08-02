@@ -116,7 +116,8 @@ public class ProfileActivity extends AppCompatActivity {
                 tvDescentEdit2.setVisibility(View.VISIBLE);
 
                 if (user.getFirstName() == null || user.getLastName() == null) {
-                    profileFirstName.setText("");
+                    profileFirstName.setText("Full name not provided");
+                    profileFirstName.setTypeface(profileFirstName.getTypeface(), Typeface.ITALIC);
                 } else {
                     profileFirstName.setText(user.getFirstName() + " " + user.getLastName());
                 }

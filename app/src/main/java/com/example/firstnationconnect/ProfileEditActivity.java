@@ -135,6 +135,10 @@ public class ProfileEditActivity extends AppCompatActivity {
                     }
                 }
 
+                if (user.getProfilePic() != null) {
+                    imageFileName = user.getProfilePic();
+                }
+
             }
         });
 
