@@ -93,8 +93,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                     User user = documentSnapshot.toObject(User.class);
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String username = user.getUsername();
-                    String profileImage = user.getProfilePic();
 
                     if (ActivityCompat.checkSelfPermission(NewPostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -107,13 +107,13 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
                                     GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Regular", null, null);
+                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, userID, postDate, username, null, postLocation, "Regular", null, null);
 
                                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
                                 }
                                 else {
-                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Regular", null, null);
+                                    ForumPost newPost = new ForumPost(stringID, topic, name, content, userID, postDate, username, null, null, "Regular", null, null);
 
                                     firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 

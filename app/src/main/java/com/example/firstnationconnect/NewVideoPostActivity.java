@@ -86,8 +86,8 @@ public class NewVideoPostActivity extends AppCompatActivity implements View.OnCl
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                     User user = documentSnapshot.toObject(User.class);
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String username = user.getUsername();
-                    String profileImage = user.getProfilePic();
 
                     if (ActivityCompat.checkSelfPermission(NewVideoPostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -101,13 +101,13 @@ public class NewVideoPostActivity extends AppCompatActivity implements View.OnCl
 
                                             GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, postLocation, "Video", null, null);
+                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, userID, postDate, username, null, postLocation, "Video", null, null);
 
                                             firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 
                                         }
                                         else {
-                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, username, postDate, profileImage, null, null, "Video", null, null);
+                                            ForumPost newPost = new ForumPost(stringID, topic, name, content, userID, postDate, username, null, null, "Video", null, null);
 
                                             firestoreDB.collection("Forum/" + topic + "/Subtopic").document(stringID).set(newPost);
 

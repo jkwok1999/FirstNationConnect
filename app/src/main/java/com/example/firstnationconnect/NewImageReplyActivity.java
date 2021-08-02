@@ -165,8 +165,8 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                             User user = documentSnapshot.toObject(User.class);
+                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             String username = user.getUsername();
-                            String profileImage = user.getProfilePic();
                             //String postImageString = mainImageURI.toString();
 
                             if (ActivityCompat.checkSelfPermission(NewImageReplyActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -181,14 +181,14 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
 
                                                 GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Image", imageFileName, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, userID, postDate, username, null, postLocation, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
                                             } else {
                                                 //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Image", imageFileName, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, userID, postDate, username, null, null, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 

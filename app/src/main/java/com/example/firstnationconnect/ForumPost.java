@@ -12,9 +12,9 @@ public class ForumPost {
     private String postID;
     private String postName;
     private String postContent;
-    private String postUser;
+    private String postUserID;
     private Date postDate;
-    private String userImage;
+    private String postUsername;
     private String lastReply;
     private GeoPoint postLocation;
     private String postType;
@@ -22,15 +22,15 @@ public class ForumPost {
     private String postVideo;
 
 
-    public ForumPost(String postID, String topicName, String postName, String postContent, String postUser,
-                     Date postDate, String userImage, String lastReply, GeoPoint postLocation, String postType, String postImage, String postVideo) {
+    public ForumPost(String postID, String topicName, String postName, String postContent, String postUserID,
+                     Date postDate, String postUsername, String lastReply, GeoPoint postLocation, String postType, String postImage, String postVideo) {
         this.topicName = topicName;
         this.postID = postID;
         this.postName = postName;
         this.postContent = postContent;
-        this.postUser = postUser;
+        this.postUserID = postUserID;
         this.postDate = postDate;
-        this.userImage = userImage;
+        this.postUsername = postUsername;
         this.lastReply = lastReply;
         this.postLocation = postLocation;
         this.postType = postType;
@@ -74,12 +74,12 @@ public class ForumPost {
         this.postContent = postContent;
     }
 
-    public String getPostUser() {
-        return postUser;
+    public String getPostUserID() {
+        return postUserID;
     }
 
-    public void setPostUser(String postUser) {
-        this.postUser = postUser;
+    public void setPostUserID(String postUser) {
+        this.postUserID = postUser;
     }
 
     public Date getPostDate() {
@@ -90,12 +90,12 @@ public class ForumPost {
         this.postDate = postDate;
     }
 
-    public String getUserImage() {
-        return userImage;
+    public String getPostUsername() {
+        return postUsername;
     }
 
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public void setPostUsername(String userImage) {
+        this.postUsername = userImage;
     }
 
     public String getLastReply() {

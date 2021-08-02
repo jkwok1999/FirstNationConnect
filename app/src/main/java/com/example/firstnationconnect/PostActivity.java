@@ -107,9 +107,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
                             User user = documentSnapshot.toObject(User.class);
                             String username = user.getUsername();
-                            String profileImage = user.getProfilePic();
-
-                            System.out.println(profileImage);
+                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                             if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -123,7 +121,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
                                                 GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Regular", null, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, userID, postDate, username, null, postLocation, "Regular", null, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -131,7 +129,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                             else {
                                                 //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Regular", null, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, userID, postDate, username, null, null, "Regular", null, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 

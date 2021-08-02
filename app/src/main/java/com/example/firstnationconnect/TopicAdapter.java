@@ -111,7 +111,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
                     String postDate = dateFormat.format(lastPost.getPostDate());
 
-                    holder.tvLastPost.setText("Last post by " + lastPost.getPostUser() + " on " + postDate);
+                    holder.tvLastPost.setText("Last post by " + lastPost.getPostUsername() + " on " + postDate);
                 }
             });
         } else {

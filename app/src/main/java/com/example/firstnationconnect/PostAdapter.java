@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -182,24 +185,32 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
         String postDate = dateFormat.format(post.getPostDate());
 
-        holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
         holder.itemView.setTag(post);
 
-        if (post.getUserImage() != null) {
-            /*Uri postImageUri = Uri.parse(post.getUserImage());
-            Picasso.get().load(postImageUri).into(holder.postUserImage);*/
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
 
-            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
-                    .child("profile_images")
-                    .child(post.getUserImage());
-            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).into(holder.postUserImage);
-                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+        DocumentReference docRef = firestoreDB.collection("Users").document(post.getPostUserID());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                User postUser = documentSnapshot.toObject(User.class);
+                holder.postUser.setText("By " + post.getPostUsername() + " on " + postDate);
+
+                if (postUser.getProfilePic() != null) {
+                    StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                            .child("profile_images")
+                            .child(postUser.getProfilePic());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(holder.postUserImage);
+                            //holder.pbTopic.setVisibility(View.INVISIBLE);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
     }
 
     private void configureImagePostViewHolder(ImagePostViewHolder holder, int position) {
@@ -210,23 +221,33 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
         String postDate = dateFormat.format(post.getPostDate());
 
-        holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
+        //holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
         holder.itemView.setTag(post);
 
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
 
-        if (post.getUserImage() != null) {
+        DocumentReference docRef = firestoreDB.collection("Users").document(post.getPostUserID());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
-                    .child("profile_images")
-                    .child(post.getUserImage());
-            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).into(holder.postUserImage);
-                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+                User postUser = documentSnapshot.toObject(User.class);
+                holder.postUser.setText("By " + post.getPostUsername() + " on " + postDate);
+
+                if (postUser.getProfilePic() != null) {
+                    StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                            .child("profile_images")
+                            .child(postUser.getProfilePic());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(holder.postUserImage);
+                            //holder.pbTopic.setVisibility(View.INVISIBLE);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
 
         if (post.getPostImage() != null) {
 
@@ -257,20 +278,31 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
         String postDate = dateFormat.format(post.getPostDate());
 
-        holder.postUser.setText("By " + post.getPostUser() + " on " + postDate);
         holder.itemView.setTag(post);
 
-        if (post.getUserImage() != null) {
-            StorageReference imageRef = FirebaseStorage.getInstance().getReference()
-                    .child("profile_images")
-                    .child(post.getUserImage());
-            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).into(holder.postUserImage);
-                    //holder.pbTopic.setVisibility(View.INVISIBLE);
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = firestoreDB.collection("Users").document(post.getPostUserID());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                User postUser = documentSnapshot.toObject(User.class);
+                holder.postUser.setText("By " + post.getPostUsername() + " on " + postDate);
+
+                if (postUser.getProfilePic() != null) {
+                    StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                            .child("profile_images")
+                            .child(postUser.getProfilePic());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(holder.postUserImage);
+                            //holder.pbTopic.setVisibility(View.INVISIBLE);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
     }
 }

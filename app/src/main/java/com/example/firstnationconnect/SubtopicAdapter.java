@@ -72,7 +72,7 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
         DateFormat dateFormat = new SimpleDateFormat("hh:mm aa dd-MM-yyyy");
         String postDate = dateFormat.format(post.getPostDate());
 
-        holder.postUser.setText("By " + post.getPostUser() + " at " + postDate);
+        holder.postUser.setText("By " + post.getPostUsername() + " at " + postDate);
 
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         if (post.getLastReply() != null) {
@@ -84,7 +84,7 @@ public class SubtopicAdapter extends RecyclerView.Adapter<SubtopicAdapter.Subtop
 
                     String lastReplyDate = dateFormat.format(lastReply.getPostDate());
 
-                    holder.tvLastReply.setText("Last reply by " + lastReply.getPostUser() + " on " + lastReplyDate);
+                    holder.tvLastReply.setText("Last reply by " + lastReply.getPostUsername() + " on " + lastReplyDate);
                 }
             });
         } else {
