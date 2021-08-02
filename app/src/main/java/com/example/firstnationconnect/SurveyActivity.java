@@ -4,8 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +19,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class SurveyActivity extends AppCompatActivity {
@@ -37,6 +45,7 @@ public class SurveyActivity extends AppCompatActivity {
     private TextInputEditText tietQuestionThree;
     private String thoughts = null;
     private FirebaseAuth mAuth;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,7 @@ public class SurveyActivity extends AppCompatActivity {
         rgQuestionTwo = findViewById(R.id.rgQuestionTwo);
 
         mAuth = FirebaseAuth.getInstance();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         tietQuestionThree = findViewById(R.id.tietQuestionThree);
 
@@ -139,6 +149,9 @@ public class SurveyActivity extends AppCompatActivity {
                     String question1Response = radioButton1.getText().toString();
                     String question2Response = radioButton2.getText().toString();
 
+                    long milliseconds = System.currentTimeMillis();
+                    Date postDate = new java.util.Date(milliseconds);
+
                     DocumentReference docRef = firestoreDB.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -147,14 +160,39 @@ public class SurveyActivity extends AppCompatActivity {
                             String username = user.getUsername();
                             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts);
-                            //add more question attributes other than 1
+                            if (ActivityCompat.checkSelfPermission(SurveyActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                            firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
-                            Toast.makeText(SurveyActivity.this, "Survey Complete",
-                                    Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
+                                fusedLocationClient.getLastLocation().addOnSuccessListener(SurveyActivity.this, new OnSuccessListener<Location>() {
+                                    @Override
+                                    public void onSuccess(Location location) {
+                                        // Got last known location. In some rare situations this can be null.
+                                        if (location != null) {
+                                            // Logic to handle location object
+
+                                            GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+
+                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, postLocation);
+                                            //add more question attributes other than 1
+
+                                            firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
+
+
+                                        } else {
+
+                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, null);
+                                            //add more question attributes other than 1
+
+                                            firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
+
+                                        }
+
+                                        Toast.makeText(SurveyActivity.this, "Survey Complete",
+                                                Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
+                                    }
+                                });
+                            }
                         }
                     });
                 }
