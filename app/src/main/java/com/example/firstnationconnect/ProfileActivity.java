@@ -35,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -122,7 +123,22 @@ public class ProfileActivity extends AppCompatActivity {
 
                 profileEmail.setText(user.getEmail());
                 profileAge.setText(String.valueOf(user.getAge()));
-                profileImage.setImageURI(currentUser.getPhotoUrl());
+                //Picasso.get().load(currentUser.getPhotoUrl()).into(profileImage);
+                /*profileImage.setImageURI(currentUser.getPhotoUrl());
+                System.out.println(currentUser.getPhotoUrl());*/
+
+                if (currentUser.getPhotoUrl() != null) {
+                    StorageReference imageRef = FirebaseStorage.getInstance().getReference()
+                            .child("profile_images")
+                            .child(user.getProfilePic());
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(profileImage);
+                        }
+                    });
+                }
+
                 profileUsername.setText(user.getUsername());
                 profileDescent.setText(user.getFirstNationDescent());
 

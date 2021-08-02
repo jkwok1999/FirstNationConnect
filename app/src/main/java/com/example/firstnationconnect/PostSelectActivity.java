@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class PostSelectActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -45,9 +46,11 @@ public class PostSelectActivity extends AppCompatActivity implements View.OnClic
                 startActivity(imageIntent);
                 break;
             case R.id.btVideoPost:
-                Intent videoIntent = new Intent(PostSelectActivity.this, NewVideoPostActivity.class);
+                /*Intent videoIntent = new Intent(PostSelectActivity.this, NewVideoPostActivity.class);
                 videoIntent.putExtra("TopicName", topic);
-                startActivity(videoIntent);
+                startActivity(videoIntent);*/
+                Toast.makeText(PostSelectActivity.this, "Functionality will be added in the future",
+                        Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -57,10 +60,7 @@ public class PostSelectActivity extends AppCompatActivity implements View.OnClic
 
         switch (item.getItemId()){
             case android.R.id.home:
-                //System.out.println("Button clicked");
-                Intent intent = new Intent(PostSelectActivity.this, SubforumActivity.class);
-                intent.putExtra("TopicName", topic);
-                startActivity(intent);
+                finish();
                 break;
         }
         return true;

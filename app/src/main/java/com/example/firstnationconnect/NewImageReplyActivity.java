@@ -57,6 +57,7 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
 
     private FirebaseFirestore firestoreDB;
     private StorageReference storageReference;
+    private String imageFileName;
 
     private String TAG = "NewPostActivity";
 
@@ -81,8 +82,8 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
             tvReplyNewContent.setText(reply);
         }
 
-        tvReplyPostName = findViewById(R.id.tvReplyPostName);
-        tvReplyPostName.setText(mainPostName);
+        tvReplyPostName = findViewById(R.id.tvImageReplyPostName);
+        tvReplyPostName.setText("Replying to '" + mainPostName + "'");
 
         ivNewReplyImage = findViewById(R.id.ivNewReplyImage);
         ivNewReplyImage.setOnClickListener(this);
@@ -116,13 +117,13 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                     } else {
                         CropImage.activity()
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setAspectRatio(1, 1)
+                                .setAspectRatio(2, 1)
                                 .start(NewImageReplyActivity.this);
                     }
                 } else {
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
+                            .setAspectRatio(2, 1)
                             .start(NewImageReplyActivity.this);
                 }
 
@@ -155,7 +156,7 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                             User user = documentSnapshot.toObject(User.class);
                             String username = user.getUsername();
                             String profileImage = user.getProfilePic();
-                            String postImageString = mainImageURI.toString();
+                            //String postImageString = mainImageURI.toString();
 
                             if (ActivityCompat.checkSelfPermission(NewImageReplyActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -169,14 +170,14 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
 
                                                 GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Image", postImageString, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, postLocation, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
                                             } else {
                                                 //ActivityCompat.requestPermissions(PostActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
 
-                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Image", postImageString, null);
+                                                ForumPost newPost = new ForumPost(stringID, topic, mainPostName, replyContent, username, postDate, profileImage, null, null, "Image", imageFileName, null);
 
                                                 firestoreDB.collection("Forum/" + topic + "/Subtopic/" + mainPostID + "/Replies").document(stringID).set(newPost);
 
@@ -229,13 +230,23 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mainImageURI = result.getUri();
+                ivNewReplyImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 ivNewReplyImage.setImageURI(mainImageURI);
 
-                String imageFileName = stringID + ".jpg";
+                imageFileName = stringID + ".jpg";
                 StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+                        /*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                downloadUrl = uri.toString();
+                                Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                            }
+                        });*/
+
                         Toast.makeText(NewImageReplyActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
                     }
                 });

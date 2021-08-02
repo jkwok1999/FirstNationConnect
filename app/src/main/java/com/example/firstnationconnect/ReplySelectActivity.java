@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ReplySelectActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -41,15 +42,7 @@ public class ReplySelectActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btBackToPost:
-                Intent regularIntent = new Intent(ReplySelectActivity.this, PostActivity.class);
-                regularIntent.putExtra("TopicName",topic);
-                regularIntent.putExtra("PostName",mainPostName);
-                regularIntent.putExtra("PostID",mainPostID);
-
-                if (reply != null) {
-                    regularIntent.putExtra("Reply",reply);
-                }
-                startActivity(regularIntent);
+                finish();
                 break;
             case R.id.btImageReply:
                 Intent imageIntent = new Intent(ReplySelectActivity.this, NewImageReplyActivity.class);
@@ -62,8 +55,8 @@ public class ReplySelectActivity extends AppCompatActivity implements View.OnCli
                 }
                 startActivity(imageIntent);
                 break;
-            /*case R.id.btVideoReply:
-                Intent videoIntent = new Intent(ReplySelectActivity.this, NewVideoReplyActivity.class);
+            case R.id.btVideoReply:
+                /*Intent videoIntent = new Intent(ReplySelectActivity.this, NewVideoReplyActivity.class);
                 videoIntent.putExtra("TopicName",topic);
                 videoIntent.putExtra("PostName",mainPostName);
                 videoIntent.putExtra("PostID",mainPostID);
@@ -71,8 +64,10 @@ public class ReplySelectActivity extends AppCompatActivity implements View.OnCli
                 if (reply != null) {
                     videoIntent.putExtra("Reply",reply);
                 }
-                startActivity(videoIntent);
-                break;*/
+                startActivity(videoIntent);*/
+                Toast.makeText(ReplySelectActivity.this, "Functionality will be added in the future",
+                        Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -81,16 +76,7 @@ public class ReplySelectActivity extends AppCompatActivity implements View.OnCli
 
         switch (item.getItemId()){
             case android.R.id.home:
-                //System.out.println("Button clicked");
-                Intent intent = new Intent(ReplySelectActivity.this, PostActivity.class);
-                intent.putExtra("TopicName",topic);
-                intent.putExtra("PostName",mainPostName);
-                intent.putExtra("PostID",mainPostID);
-
-                if (reply != null) {
-                    intent.putExtra("Reply",reply);
-                }
-                startActivity(intent);
+                finish();
                 break;
         }
         return true;
