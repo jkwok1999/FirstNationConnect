@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:gravity="center"
-            android:text="Do you feel like mental health is a prevalent issue within the Aboriginal Community?"
+            android:text="Question 1: Do you feel like mental health is a prevalent issue within the Aboriginal Community?"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
             android:textSize="24dp"
@@ -57,7 +57,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionOne"
             app:layout_constraintVertical_bias="0.0">
@@ -65,42 +65,42 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
                 android:text="Strongly Agree"
-                android:fontFamily="@font/montserrat"
-                android:buttonTint="@color/black" />
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
                 android:text="Agree"
-                android:fontFamily="@font/montserrat"
-                android:buttonTint="@color/black"/>
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
                 android:text="Neutral"
-                android:fontFamily="@font/montserrat"
-                android:buttonTint="@color/black"/>
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
                 android:text="Disagree"
-                android:fontFamily="@font/montserrat"
-                android:buttonTint="@color/black"/>
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Strongly Disagree"
+                android:buttonTint="@color/black"
                 android:fontFamily="@font/montserrat"
-                android:buttonTint="@color/black"/>
+                android:text="Strongly Disagree"
+                android:textColor="@color/black" />
 
         </RadioGroup>
 
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
-            android:text="Do you feel like mental health has interferred on your life and wellbeing?"
+            android:text="Question 2: Do you feel like mental health has interfered on your life and wellbeing?"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
             android:textSize="24dp"
@@ -120,6 +120,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rgQuestionOne" />
 
+        <TextView
+            android:id="@+id/tvQuestionThree2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:outlineSpotShadowColor="@color/black"
+            android:text="Question 3: Do you feel social determinants have impacted First Nations people's mental health?"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgQuestionTwo" />
+
         <RadioGroup
             android:id="@+id/rgQuestionTwo"
             android:layout_width="wrap_content"
@@ -128,9 +144,64 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionTwo"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:text="Strongly Agree"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:text="Agree"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:text="Neutral"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:text="Disagree"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/black"
+                android:fontFamily="@font/montserrat"
+                android:text="Strongly Disagree"
+                android:textColor="@color/black" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rgQuestionThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuestionThree2"
             app:layout_constraintVertical_bias="0.0">
 
             <RadioButton
@@ -187,7 +258,7 @@
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgQuestionTwo" />
+            app:layout_constraintTop_toBottomOf="@+id/rgQuestionThree" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilQuestionThree"

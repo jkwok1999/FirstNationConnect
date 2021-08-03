@@ -39,9 +39,9 @@ public class SurveyActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestoreDB;
     private Button btSubmitSurvey, btViewResults;
-    private RadioGroup rgQuestionOne, rgQuestionTwo;
-    private TextView tvQuestionOne, tvQuestionTwo;
-    private RadioButton radioButton1, radioButton2;
+    private RadioGroup rgQuestionOne, rgQuestionTwo, rgQuestionThree;
+    private TextView tvQuestionOne, tvQuestionTwo, tvQuestionThree2;
+    private RadioButton radioButton1, radioButton2, radioButton3;
     private TextInputEditText tietQuestionThree;
     private String thoughts = null;
     private FirebaseAuth mAuth;
@@ -56,8 +56,10 @@ public class SurveyActivity extends AppCompatActivity {
 
         tvQuestionOne = findViewById(R.id.tvQuestionOne);
         tvQuestionTwo = findViewById(R.id.tvQuestionTwo);
+        tvQuestionThree2 = findViewById(R.id.tvQuestionThree2);
         rgQuestionOne = findViewById(R.id.rgQuestionOne);
         rgQuestionTwo = findViewById(R.id.rgQuestionTwo);
+        rgQuestionThree = findViewById(R.id.rgQuestionThree);
 
         mAuth = FirebaseAuth.getInstance();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -121,6 +123,7 @@ public class SurveyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tvQuestionOne.setTextColor(getResources().getColor(R.color.black));
                 tvQuestionTwo.setTextColor(getResources().getColor(R.color.black));
+                tvQuestionThree2.setTextColor(getResources().getColor(R.color.black));
                 boolean surveyValid = true;
 
 
@@ -136,18 +139,27 @@ public class SurveyActivity extends AppCompatActivity {
                     tvQuestionTwo.setTextColor(getResources().getColor(R.color.colorRed));
                     surveyValid = false;
                 }
+                if(rgQuestionThree.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(SurveyActivity.this, "Please enter all required survey fields",
+                            Toast.LENGTH_SHORT).show();
+                    tvQuestionThree2.setTextColor(getResources().getColor(R.color.colorRed));
+                    surveyValid = false;
+                }
                 if (surveyValid) {
 
                     int radioId1 = rgQuestionOne.getCheckedRadioButtonId();
                     int radioId2 = rgQuestionTwo.getCheckedRadioButtonId();
+                    int radioId3 = rgQuestionThree.getCheckedRadioButtonId();
 
                     radioButton1 = findViewById(radioId1);
                     radioButton2 = findViewById(radioId2);
+                    radioButton3 = findViewById(radioId3);
 
                     thoughts = tietQuestionThree.getText().toString();
 
                     String question1Response = radioButton1.getText().toString();
                     String question2Response = radioButton2.getText().toString();
+                    String question3Response = radioButton3.getText().toString();
 
                     long milliseconds = System.currentTimeMillis();
                     Date postDate = new java.util.Date(milliseconds);
@@ -171,7 +183,7 @@ public class SurveyActivity extends AppCompatActivity {
 
                                             GeoPoint postLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, postLocation);
+                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, postLocation, question3Response);
                                             //add more question attributes other than 1
 
                                             firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);
@@ -179,7 +191,7 @@ public class SurveyActivity extends AppCompatActivity {
 
                                         } else {
 
-                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, null);
+                                            Survey surveyResults = new Survey(username, userId, question1Response, question2Response, thoughts, postDate, null, question3Response);
                                             //add more question attributes other than 1
 
                                             firestoreDB.collection("Survey").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(surveyResults);

@@ -25,7 +25,7 @@ public class SurveyResultActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestoreDB;
-    private TextView tvQuestionOneResponseText, tvQuestionTwoResponseText, tvQuestionThreeResponseText;
+    private TextView tvQuestionOneResponseText, tvQuestionTwoResponseText, tvQuestionThreeResponseText, tvQuestionThreeResponseText2;
     private Button btCompleteSurveyAgain;
 
     @Override
@@ -36,6 +36,7 @@ public class SurveyResultActivity extends AppCompatActivity {
         tvQuestionOneResponseText = findViewById(R.id.tvQuestionOneResponseText);
         tvQuestionTwoResponseText = findViewById(R.id.tvQuestionTwoResponseText);
         tvQuestionThreeResponseText = findViewById(R.id.tvQuestionThreeResponseText);
+        tvQuestionThreeResponseText2 = findViewById(R.id.tvQuestionThreeResponseText2);
 
         btCompleteSurveyAgain = findViewById(R.id.btCompleteSurveyAgain);
         btCompleteSurveyAgain.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +63,7 @@ public class SurveyResultActivity extends AppCompatActivity {
 
                                 tvQuestionOneResponseText.setText(surveyResponse.getSurveyResponseOne());
                                 tvQuestionTwoResponseText.setText(surveyResponse.getSurveyResponseOne());
+                                tvQuestionThreeResponseText2.setText(surveyResponse.getSurveyResponseThree());
                                 if (surveyResponse.getThoughts() != "") {
                                     tvQuestionThreeResponseText.setText(surveyResponse.getThoughts());
                                 } else {
@@ -73,6 +75,7 @@ public class SurveyResultActivity extends AppCompatActivity {
                         Log.d(TAG, "Document does not exist!");
                         tvQuestionOneResponseText.setText("Not Complete");
                         tvQuestionTwoResponseText.setText("Not Complete");
+                        tvQuestionThreeResponseText2.setText("Not Complete");
                         tvQuestionThreeResponseText.setText("Didn't provide a response");
                     }
                 } else {
