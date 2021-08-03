@@ -168,7 +168,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         editProfile = false;
                     }
                     if (etTribe.isEmpty() && editFNDTribe.getVisibility() == View.VISIBLE) {
-                        editFNDTribe.setError("Please enter tribe name");
+                        editFNDTribe.setError("Please enter name of your culture group");
                         editProfile = false;
                     }
 

@@ -67,35 +67,40 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Agree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Agree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Neutral"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Disagree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Disagree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
         </RadioGroup>
 
@@ -109,6 +114,7 @@
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
             android:textSize="24dp"
+            android:outlineSpotShadowColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,35 +138,40 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Agree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Agree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Neutral"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Disagree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Strongly Disagree"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"/>
 
         </RadioGroup>
 

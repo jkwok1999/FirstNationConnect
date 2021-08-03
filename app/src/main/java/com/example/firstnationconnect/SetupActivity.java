@@ -129,7 +129,7 @@ public class SetupActivity extends AppCompatActivity {
 //                    registerFNDTribe.setVisibility(View.VISIBLE);
 //                }
                 if (etTribe.isEmpty() && registerFNDTribe.getVisibility() == View.VISIBLE) {
-                    registerFNDTribe.setError("Please enter tribe name");
+                    registerFNDTribe.setError("Please enter name of your culture group");
                     loginValid = false;
                 }
 //                if (rbFndSetupNo.isChecked() || rbFndSetupPNTS.isChecked()) {
