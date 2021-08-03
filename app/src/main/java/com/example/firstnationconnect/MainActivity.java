@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,12 +27,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText loginEmail, loginPassword;
     private Button loginSignin;
     private TextView loginForgotPassword, loginRegister, invalidLogin;
-    private ProgressBar loginProgressBar;
+    private ProgressBar loginProgressBar, pbLogin;
 
     private static final String TAG = "MainActivity";
     private FirebaseAuth mAuth;
@@ -49,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginForgotPassword = findViewById(R.id.loginForgotPassword);
         loginForgotPassword.setOnClickListener(this);
         loginProgressBar = findViewById(R.id.loginProgressBar);
+        pbLogin = findViewById(R.id.pbLogin);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -72,9 +81,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            startActivity(new Intent (MainActivity.this, HomeActivity.class));
-            startActivity(new Intent (MainActivity.this, TosActivity.class));
-            finish();
+
+            pbLogin.setVisibility(View.VISIBLE);
+
+            FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+
+            DocumentReference docRef = firestoreDB.collection("Users")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    User user = documentSnapshot.toObject(User.class);
+                    if (user == null) {
+                        Toast.makeText(MainActivity.this, "Please set up your account",
+                                Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent (MainActivity.this, SetupActivity.class));
+                    } else {
+                        startActivity(new Intent (MainActivity.this, HomeActivity.class));
+                        startActivity(new Intent (MainActivity.this, TosActivity.class));
+                        finish();
+                    }
+
+                    pbLogin.setVisibility(View.INVISIBLE);
+                }
+            });
         }
     }
     //Potential Issue: If the user closes the app and then relaunches, they can skip the TOS step.
@@ -113,8 +143,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 //updateUI(user);
                                 Toast.makeText(MainActivity.this, "Login Successful",
                                         Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+
+                                FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+
+                                DocumentReference docRef = firestoreDB.collection("Users")
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        User user = documentSnapshot.toObject(User.class);
+                                        if (user == null) {
+/*                                            Toast.makeText(MainActivity.this, "Please set up your account",
+                                                    Toast.LENGTH_SHORT).show();*/
+                                            startActivity(new Intent (MainActivity.this, SetupActivity.class));
+                                        } else {
+                                            startActivity(new Intent (MainActivity.this, HomeActivity.class));
+                                            startActivity(new Intent (MainActivity.this, TosActivity.class));
+                                            finish();
+                                        }
+                                    }
+                                });
+
+                                /*startActivity(new Intent (MainActivity.this, HomeActivity.class));
                                 startActivity(new Intent (MainActivity.this, TosActivity.class));
+                                finish();*/
+
                                 loginProgressBar.setVisibility(View.INVISIBLE);
                             } else {
                                 // If sign in fails, display a message to the user.

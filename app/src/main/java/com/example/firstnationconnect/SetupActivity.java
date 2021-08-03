@@ -207,40 +207,6 @@ public class SetupActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-//                                    }
-//                            if (task.isSuccessful()) {
-//                                Uri download_uri = task.getResult().getStorage().getDownloadUrl().getResult();
-//                                Map<String, String> userMap = new HashMap<>();
-//                                userMap.put("firstName", firstName);
-//                                userMap.put("lastName", lastName);
-//                                userMap.put("username", username);
-//                                userMap.put("image", download_uri.toString());
-//                                userMap.put("age", String.valueOf(age));
-//
-//                                firestoreDB.collection("User").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Toast.makeText(SetupActivity.this, "User settings are updated.", Toast.LENGTH_LONG).show();
-//                                            Intent mainIntent = new Intent(SetupActivity.this, HomeActivity.class);
-//                                            startActivity(mainIntent);
-//                                            finish();
-//                                        } else {
-//                                            String error = task.getException().getMessage();
-//                                            Toast.makeText(SetupActivity.this, "Firestore Error: " + error, Toast.LENGTH_LONG).show();
-//                                        }
-//                                        registerProgressBar2.setVisibility(View.INVISIBLE);
-//                                    }
-//                                });
-//
-//                            } else {
-//                                String error = task.getException().getMessage();
-//                                Toast.makeText(SetupActivity.this, "Image Error: " + error, Toast.LENGTH_LONG).show();
-//                                registerProgressBar2.setVisibility(View.INVISIBLE);
-//                            }
-
-//                                }
-//                            });
                 }
             }
         });
@@ -299,20 +265,6 @@ public class SetupActivity extends AppCompatActivity {
                 image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        /*image_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                downloadUrl = uri.toString();
-
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
-                                UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
-                                        .setPhotoUri(uri)
-                                        .build();
-                                user.updateProfile(profileImageUpdates);
-
-                                Toast.makeText(SetupActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
-                            }
-                        });*/
 
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         UserProfileChangeRequest profileImageUpdates = new UserProfileChangeRequest.Builder()
@@ -327,5 +279,14 @@ public class SetupActivity extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        //NavUtils.navigateUpFromSameTask(this);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+        Intent intent = new Intent(SetupActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
