@@ -14,8 +14,10 @@ public class Survey {
     private Date surveyDate;
     private GeoPoint surveyLocation;
 
+    private String surveyResponseThree;
 
-    public Survey(String surveyUser, String userID, String surveyResponseOne, String surveyResponseTwo, String thoughts, Date surveyDate, GeoPoint surveyLocation) {
+
+    public Survey(String surveyUser, String userID, String surveyResponseOne, String surveyResponseTwo, String thoughts, Date surveyDate, GeoPoint surveyLocation, String surveyResponseThree) {
         this.surveyUser = surveyUser;
         this.userID = userID;
         this.surveyResponseOne = surveyResponseOne;
@@ -23,6 +25,7 @@ public class Survey {
         this.thoughts = thoughts;
         this.surveyDate = surveyDate;
         this.surveyLocation = surveyLocation;
+        this.surveyResponseThree = surveyResponseThree;
     }
 
     public Survey() {
@@ -84,5 +87,13 @@ public class Survey {
 
     public void setSurveyLocation(GeoPoint surveyLocation) {
         this.surveyLocation = surveyLocation;
+    }
+
+    public String getSurveyResponseThree() {
+        return surveyResponseThree;
+    }
+
+    public void setSurveyResponseThree(String surveyResponseThree) {
+        this.surveyResponseThree = surveyResponseThree;
     }
 }

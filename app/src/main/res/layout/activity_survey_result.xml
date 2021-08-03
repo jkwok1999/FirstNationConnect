@@ -81,6 +81,20 @@
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionOneResponseText" />
 
         <TextView
+            android:id="@+id/tvQuestionThreeResponse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="Do you feel social determinants have impacted First Nations people's mental health?"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuestionTwoResponseText" />
+
+        <TextView
             android:id="@+id/tvQuestionTwoResponseText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +121,7 @@
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuestionTwoResponseText" />
+            app:layout_constraintTop_toBottomOf="@+id/tvQuestionThreeResponseText2" />
 
         <TextView
             android:id="@+id/tvQuestionThreeResponseText"
@@ -123,6 +137,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionResponseThree" />
+
+        <TextView
+            android:id="@+id/tvQuestionThreeResponseText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity=""
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuestionThreeResponse" />
 
         <Button
             android:id="@+id/btCompleteSurveyAgain"
