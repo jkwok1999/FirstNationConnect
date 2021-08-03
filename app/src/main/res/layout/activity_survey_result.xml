@@ -13,6 +13,21 @@
         tools:context=".SurveyResultActivity">
 
         <TextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="FirstNationConnect 2021 ©"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/tvSurveyResponseTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -158,11 +173,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/round_bg_pop_button"
             android:fontFamily="@font/fredoka_one"
+            android:text="Complete Survey"
             android:textColor="@color/black"
             app:backgroundTint="#ffc371"
-            android:text="Complete Survey"
+            app:layout_constraintBottom_toTopOf="@+id/copyright"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvQuestionThreeResponseText" />
