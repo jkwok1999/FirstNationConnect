@@ -192,7 +192,12 @@ public class SurveyActivity extends AppCompatActivity {
                                         startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
                                     }
                                 });
+                            } else {
+                            ActivityCompat.requestPermissions(SurveyActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},44);
+                            Toast.makeText(SurveyActivity.this, "Please allow location access and try again",
+                                    Toast.LENGTH_SHORT).show();
                             }
+
                         }
                     });
                 }
