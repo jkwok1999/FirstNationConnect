@@ -212,20 +212,22 @@ public class NewImagePostActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onActivityResult(Uri uri) {
                     // Handle the returned Uri
-                    System.out.println("Checkpoint");
-                    mainImageURI = uri;
-                    ivNewPostImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    ivNewPostImage.setImageURI(mainImageURI);
+                    if (uri != null) {
+                        System.out.println("Checkpoint");
+                        mainImageURI = uri;
+                        ivNewPostImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        ivNewPostImage.setImageURI(mainImageURI);
 
-                    imageFileName = stringID + ".jpg";
-                    StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
-                    image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+                        imageFileName = stringID + ".jpg";
+                        StorageReference image_path = storageReference.child("forum_post_images").child(imageFileName);
+                        image_path.putFile(mainImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
 
-                            Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                                Toast.makeText(NewImagePostActivity.this, "Image successfully uploaded", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             });
 
