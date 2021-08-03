@@ -14,7 +14,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -205,7 +205,7 @@ public class NewImageReplyActivity extends AppCompatActivity implements View.OnC
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
-                                                        public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                                        public void onFailure(@NotNull Exception e) {
                                                             Log.w(TAG, "Error updating document", e);
                                                         }
                                                     });

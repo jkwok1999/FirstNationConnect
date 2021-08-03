@@ -146,7 +146,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
-                                                        public void onFailure(@android.support.annotation.NonNull Exception e) {
+                                                        public void onFailure(@NonNull Exception e) {
                                                             Log.w(TAG, "Error updating document", e);
                                                         }
                                                     });
