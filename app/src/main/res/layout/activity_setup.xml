@@ -157,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:text="Male"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -165,6 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="Female"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -173,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:text="Other"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -181,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:text="Prefer not to say"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
         </RadioGroup>
@@ -294,6 +298,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="Yes"
                 android:onClick="FndYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -303,6 +308,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="No"
                 android:onClick="FndYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -312,6 +318,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="Prefer not to say"
                 android:onClick="FndYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
 
