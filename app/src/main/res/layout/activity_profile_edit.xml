@@ -273,6 +273,7 @@
                 android:layout_height="wrap_content"
                 android:text="Male"
                 android:textColor="@color/black"
+                android:buttonTint="@color/black"
                 android:fontFamily="@font/montserrat"/>
             <RadioButton
                 android:id="@+id/rbEditFemale"
@@ -280,6 +281,7 @@
                 android:layout_height="wrap_content"
                 android:text="Female"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
             <RadioButton
                 android:id="@+id/rbEditOther"
@@ -287,6 +289,7 @@
                 android:layout_height="wrap_content"
                 android:text="Other"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
             <RadioButton
                 android:id="@+id/rbEditPreferNotToSay"
@@ -294,6 +297,7 @@
                 android:layout_height="wrap_content"
                 android:text="Prefer not to say"
                 android:fontFamily="@font/montserrat"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
         </RadioGroup>
@@ -334,6 +338,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="Yes"
                 android:onClick="FndEditYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -343,6 +348,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="No"
                 android:onClick="FndEditYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
@@ -352,6 +358,7 @@
                 android:fontFamily="@font/montserrat"
                 android:text="Prefer not to say"
                 android:onClick="FndEditYes"
+                android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
 
