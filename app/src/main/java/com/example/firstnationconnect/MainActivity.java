@@ -139,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
+
+                                pbLogin.setVisibility(View.VISIBLE);
+
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //updateUI(user);
                                 Toast.makeText(MainActivity.this, "Login Successful",
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             startActivity(new Intent (MainActivity.this, TosActivity.class));
                                             finish();
                                         }
+
+                                        pbLogin.setVisibility(View.VISIBLE);
                                     }
                                 });
 
